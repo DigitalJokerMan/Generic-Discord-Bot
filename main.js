@@ -109,7 +109,7 @@ client.on('message', msg => {
                       embed.fields = new Array();
                       embed.fields.push({
                           "name": "Included URL:",
-                          "value": (subreddit_json.url)[subreddit_json.url]
+                          "value": `(${subreddit_json.url})[${subreddit_json.url}]`
                       })
                   };
                   if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
