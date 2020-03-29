@@ -5,8 +5,6 @@ const client = new Discord.Client();
 const axios = require('axios');
 const prefix = "!";
 const date = Date.now();
-const {promisify} = require('util');
-const sleep = promisify(setTimeout);
 
 async function getTop(subreddit) {
     const response = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
