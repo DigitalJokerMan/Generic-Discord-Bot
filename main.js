@@ -36,7 +36,7 @@ client.on('message', msg => {
         content = msg.content.substring(1, msg.content.length);
         splitted = content.split(' ');
         console.log(content, splitted[0]);
-        switch (splitted[0]) {
+        switch (String(splitted[0])) {
           case 'topoftheday':
             if (splitted.length == 2) {
               subreddit_json = getTop(splitted[1]);
