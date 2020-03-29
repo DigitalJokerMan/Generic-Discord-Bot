@@ -43,7 +43,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    if (msg.author.bot || msg.author.id != client.user.id) noPerms(msg.channel);
+    if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(1, msg.content.length);
         var splitted = content.split(' ');
@@ -89,7 +89,7 @@ client.on('message', msg => {
                 break;
             }
           case 'reboot':
-            if(!msg.member.hasPermission(['ADMINISTRATOR']) || msg.author.id == 110137532972314624) return;
+            if(!msg.member.hasPermission(['ADMINISTRATOR']) || msg.author.id != 110137532972314624) noPerms(msg.channel);
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
               client.destroy();
