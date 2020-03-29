@@ -33,10 +33,10 @@ client.on('ready', () => {
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.content.startsWith(prefix)) {
-        content = msg.content.substring(1, msg.content.length);
-        splitted = content.split(' ');
-        console.log(content, splitted[0]);
-        switch (String(splitted[0])) {
+        var content = msg.content.substring(1, msg.content.length);
+        var splitted = content.split(' ');
+        var command = String(splitted[0]);
+        switch (command) {
           case 'topoftheday':
             if (splitted.length == 2) {
               subreddit_json = getTop(splitted[1]);
