@@ -7,7 +7,6 @@ const prefix = "!";
 const date = new Date();
 const {promisify} = require('util');
 const sleep = promisify(setTimeout);
-const port = process.env.PORT;
 
 async function getTop(subreddit) {
     const response = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
@@ -29,11 +28,7 @@ async function getUser(user) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
-})
-
-app.listen(port, () => {
-  console.log(`Binded to port: ${port}`)
-})
+});
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
