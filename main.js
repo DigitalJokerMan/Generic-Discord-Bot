@@ -41,7 +41,7 @@ client.on('message', msg => {
             if (splitted.length == 2) {
                 async function dostuff() {
                   subreddit_json = await getTop(splitted[1]);
-                  user_json = getUser(subreddit_json.author);
+                  user_json = await getUser(subreddit_json.author);
                   embed = {
                     "title": subreddit_json.title,
                     "url": `https://reddit.com${subreddit_json.permalink}`,
