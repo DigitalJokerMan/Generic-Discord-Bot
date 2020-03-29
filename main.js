@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
@@ -75,7 +77,7 @@ client.on('message', msg => {
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
               client.destroy();
-              client.login('NjkzNjQ2Mjc5NzIwNTY2ODU0.XoDTsA.D8MO19UjagEqMpgnVZzzMUp7ISQ').then(() => {
+              client.login(process.env.token).then(() => {
                 msg.delete();
                 msg.channel.send("Completed!").then(() => {
                   await sleep(2500);
@@ -89,4 +91,4 @@ client.on('message', msg => {
     };
 })`  `
 
-client.login('NjkzNjQ2Mjc5NzIwNTY2ODU0.XoDTsA.D8MO19UjagEqMpgnVZzzMUp7ISQ');
+client.login(process.env.token);
