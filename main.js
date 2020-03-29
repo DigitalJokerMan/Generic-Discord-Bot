@@ -18,7 +18,7 @@ async function getTop(subreddit) {
 }
 
 async function getUser(user) {
-    const response = await axios.get(`https://www.reddit.com/user/${name}/about.json`);
+    const response = await axios.get(`https://www.reddit.com/user/${user}/about.json`);
     if (response.length ==0) {
         return false;
     } else {
