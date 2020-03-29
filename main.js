@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
 const prefix = "!";
-const date = new Date();
+const date = Date.now();
 const {promisify} = require('util');
 const sleep = promisify(setTimeout);
 
@@ -57,7 +57,7 @@ client.on('message', msg => {
                   "url": `https://www.reddit.com/user/${subreddit.json}`,
                   "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
                 },
-                "timestamp": date.Now()
+                "timestamp": date
               };
               msg.channel.send({embed});
             } else {
@@ -68,7 +68,7 @@ client.on('message', msg => {
                 "footer": {
                   "text": "Hal8k - Discord Bot"
                 },
-                "timestamp": date.Now()
+                "timestamp": date
               };
               msg.channel.send({embed});
               break;
