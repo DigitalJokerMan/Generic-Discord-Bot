@@ -98,9 +98,9 @@ client.on('message', msg => {
                     },
                     "timestamp": date
                   };
-                  if (getUrl(subreddit_json.url) != 'error') {
+                  if (getUrl(subreddit_json.thumbnail) != 'error') {
                       embed.image = new Object();
-                      embed.image.url = subreddit_json.url;
+                      embed.image.url = subreddit_json.thumbnail;
                   };
                   if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
                     if (subreddit_json.selftext.length > 300) {
