@@ -87,9 +87,6 @@ client.on('message', msg => {
                     "title": subreddit_json.title,
                     "url": `https://reddit.com${subreddit_json.permalink}`,
                     "color": 16729344,
-                    "image": {
-                      "url": subreddit_json.url
-                    },
                     "footer": {
                       "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
                       "text": "redd.it"
@@ -100,6 +97,13 @@ client.on('message', msg => {
                       "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
                     },
                     "timestamp": date
+                  };
+                  if (!getUrl(subreddit_json.url) == 'error') {
+                      embed.image = new Object();
+                      embed.image.url = subreddit_json.url;
+                  };
+                  if (!subreddit_json.selftext == 'undefined') {
+                      embed.description = subreddit_json.selftext.substring(0, 150) + ` (Read More)[https://reddit.com${subreddit_json.permalink}]`
                   };
                   msg.channel.send({embed});
                 };
