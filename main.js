@@ -30,7 +30,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
 })
 
-client.on('message', async (msg) => {
+client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.content.startsWith(prefix)) {
         content = msg.content.substring(1, msg.content.length);
@@ -79,7 +79,7 @@ client.on('message', async (msg) => {
               client.destroy();
               client.login(process.env.token).then(() => {
                 msg.delete();
-                msg.channel.send("Completed!").then(() => {
+                msg.channel.send("Completed!").then(async () => {
                   await sleep(2500);
                   msg.delete();
                 });
