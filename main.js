@@ -87,6 +87,7 @@ client.on('message', msg => {
               });
             })
           default:
+            console.log('fuck');
             break;
         };
     };
