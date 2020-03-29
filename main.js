@@ -9,7 +9,7 @@ const date = Date.now();
 async function getUrl(url) {
     const r = await axios.get(url).catch(function (error) {
         if (error.response) {
-            console.log(url + error.response.status);
+            console.log("Requested URL: " + url + " | Status Code:" + error.response.status);
             return 'error';
         }
     })
@@ -81,7 +81,7 @@ client.on('message', msg => {
                   if (subreddit_json == 'error') {
                       webError(msg.channel);
                       return;
-                  }
+                  };
                   user_json = await getUser(subreddit_json.author);
                   embed = {
                     "title": subreddit_json.title,
