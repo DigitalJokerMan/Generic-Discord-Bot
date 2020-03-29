@@ -40,6 +40,7 @@ client.on('message', msg => {
           case 'topoftheday':
             if (splitted.length == 2) {
               subreddit_json = getTop(splitted[1]);
+              console.log(subreddit_json.author);
               user_json = getUser(subreddit_json.author);
               embed = {
                 "title": subreddit_json.title,
