@@ -102,7 +102,7 @@ client.on('message', msg => {
                       embed.image = new Object();
                       embed.image.url = subreddit_json.url;
                   } else if (getUrl(subreddit_json.url) != 'error') {
-                      if (getUrl(subreddit_json.thumbnail) != 'error') {
+                      if (getUrl(subreddit_json.thumbnail) != 'error' && subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
                           embed.thumbnail = new Object();
                           embed.thumbnail.url = subreddit_json.thumbnail
                       }
