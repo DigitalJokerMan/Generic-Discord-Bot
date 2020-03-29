@@ -106,11 +106,13 @@ client.on('message', msg => {
                           embed.thumbnail = new Object();
                           embed.thumbnail.url = subreddit_json.thumbnail
                       }
-                      embed.fields = new Array();
-                      embed.fields.push({
-                          "name": "Included URL:",
-                          "value": `(${subreddit_json.url})[${subreddit_json.url}]`
-                      })
+                      if (subreddit_json.url != `https://reddit.com${subreddit_json.permalink}`) {
+                          embed.fields = new Array();
+                          embed.fields.push({
+                              "name": "Included URL:",
+                              "value": subreddit_json.url
+                          });
+                      }
                   };
                   if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
                     if (subreddit_json.selftext.length > 300) {
