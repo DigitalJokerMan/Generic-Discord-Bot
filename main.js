@@ -103,7 +103,7 @@ client.on('message', msg => {
                       embed.image.url = subreddit_json.url;
                   };
                   if (subreddit_json.selftext != 'undefined') {
-                      embed.description = subreddit_json.selftext.substring(0, 150) + ` (Read More)[https://reddit.com${subreddit_json.permalink}]`
+                      embed.description = subreddit_json.selftext.substring(0, 150) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
                   };
                   msg.channel.send({embed});
                 };
