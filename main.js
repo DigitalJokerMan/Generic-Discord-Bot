@@ -7,6 +7,7 @@ const prefix = "!";
 const date = new Date();
 const {promisify} = require('util');
 const sleep = promisify(setTimeout);
+const port = process.env.PORT;
 
 async function getTop(subreddit) {
     const response = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
@@ -28,6 +29,10 @@ async function getUser(user) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
+})
+
+app.listen(port, () => {
+  console.log(`Binded to port: ${port}`)
 })
 
 client.on('message', msg => {
@@ -80,7 +85,7 @@ client.on('message', msg => {
               client.destroy();
               client.login(process.env.token).then(() => {
                 msg.delete();
-                msg.channel.send("Completed!").then(async () => {
+                msg.channel.send("Completed!`).then(async () => {
                   await sleep(2500);
                   msg.delete();
                 });
