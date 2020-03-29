@@ -105,7 +105,7 @@ client.on('message', msg => {
                   if (subreddit_json.selftext != 'undefined') {
                     if (subreddit_json.selftext.length > 250) {
                         embed.description = subreddit_json.selftext.substring(0, 250) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
-                    } else if (subreddit_json.self.length =< 250) {
+                    } else if (subreddit_json.self.length <= 250) {
                         embed.description = subreddit_json.selftext.substring(0, 250) + `\n [Open Post](https://reddit.com${subreddit_json.permalink})`
                     }
                   };
