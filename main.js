@@ -76,7 +76,7 @@ client.on('message', msg => {
           case 'topoftheday':
             msg.channel.startTyping();
             if (splitted.length == 2) {
-                async function() {
+                async function dostuff() {
                   subreddit_json = await getTop(splitted[1]);
                   if (subreddit_json == 'error') webError(msg.channel);
                   user_json = await getUser(subreddit_json.author);
@@ -100,6 +100,7 @@ client.on('message', msg => {
                   };
                   msg.channel.send({embed});
                 };
+                dostuff();
               } else {
                 embed = {
                   "title": "Invalid arguments!",
