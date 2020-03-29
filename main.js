@@ -75,6 +75,7 @@ client.on('message', msg => {
                   msg.channel.send({embed});
                 };
                 dostuff()
+                break;
               } else {
                 embed = {
                   "title": "Invalid arguments!",
@@ -88,6 +89,7 @@ client.on('message', msg => {
                 msg.channel.send({embed});
                 break;
             }
+            break;
           case 'reboot':
             if(!msg.member.hasPermission(['ADMINISTRATOR'])) noPerms(msg.channel);
             msg.delete();
@@ -96,7 +98,8 @@ client.on('message', msg => {
               client.login(process.env.token).then(() => {
                 msg.delete();
               })
-            })
+            });
+            break;
           default:
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
             break;
