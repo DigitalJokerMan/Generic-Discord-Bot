@@ -37,7 +37,7 @@ client.on('message', msg => {
         var splitted = content.split(' ');
         var command = String(splitted[0]);
         switch (command) {
-          case 'topoftheday':
+          case "topoftheday":
             if (splitted.length == 2) {
               subreddit_json = getTop(splitted[1]);
               user_json = getUser(subreddit_json.author);
@@ -73,7 +73,7 @@ client.on('message', msg => {
               msg.channel.send({embed});
               break;
             }
-          case 'reboot':
+          case "reboot":
             if(!msg.member.hasPermission(['ADMINISTRATOR'])) return;
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
