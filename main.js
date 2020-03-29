@@ -6,10 +6,20 @@ const axios = require('axios');
 const prefix = "!";
 const date = Date.now();
 
+async function getUrl(url) {
+    const r = await axios.get(url).catch(function (error) {
+        if (error.response) {
+            console.log(error.response.data + "\n" + error.response.status + "\n" + error.response.headers);
+            return 'error';
+        }
+    })
+    return r
+}
+
 async function getTop(subreddit) {
-    const response = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
-    if (response.length == 0) {
-        return false;
+    const response = await getUrl(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
+    if (response == 'error') {
+        return 'error';
     } else {
         return response.data.data.children[0].data;
     }
@@ -17,7 +27,7 @@ async function getTop(subreddit) {
 
 async function getUser(user) {
     const response = await axios.get(`https://www.reddit.com/user/${user}/about.json`);
-    if (response.length ==0) {
+    if (response.length == 0) {
         return false;
     } else {
         return response.data.data
@@ -28,6 +38,20 @@ function noPerms(channel) {
   embed = {
     "title": "Invalid permissions",
     "description": "You do not have the valid permissions to run this command.",
+    "color": 16711680,
+    "footer": {
+      "text": "Generic Discord Bot"
+    },
+    "timestamp": date
+  };
+  channel.send({embed});
+  return
+}
+
+function webError(channel) {
+  embed = {
+    "title": "Error catching website info.",
+    "description": "That website doesn't exist, did you mistype it?",
     "color": 16711680,
     "footer": {
       "text": "Generic Discord Bot"
@@ -52,8 +76,9 @@ client.on('message', msg => {
           case 'topoftheday':
             msg.channel.startTyping();
             if (splitted.length == 2) {
-                async function dostuff() {
+                async function {
                   subreddit_json = await getTop(splitted[1]);
+                  if (subreddit_json == 'error') webError(msg.channel);
                   user_json = await getUser(subreddit_json.author);
                   embed = {
                     "title": subreddit_json.title,
@@ -75,7 +100,6 @@ client.on('message', msg => {
                   };
                   msg.channel.send({embed});
                 };
-                dostuff()
               } else {
                 embed = {
                   "title": "Invalid arguments!",
