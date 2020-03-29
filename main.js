@@ -39,28 +39,30 @@ client.on('message', msg => {
         switch (command) {
           case 'topoftheday':
             if (splitted.length == 2) {
-              async function dostuff() {
-                subreddit_json = await getTop(splitted[1]);
-                user_json = await getUser(subreddit_json.author);
-                embed = {
-                  "title": subreddit_json.title,
-                  "url": `https://reddit.com${subreddit_json.permalink}`,
-                  "color": 16729344,
-                  "image": {
-                    "url": subreddit_json.url
-                  },
-                  "footer": {
-                    "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon/120x120.png",
-                    "text": "redd.it"
-                  },
-                  "author": {
-                    "name": subreddit_json.author,
-                    "url": `https://www.reddit.com/user/${subreddit_json.author}`,
-                    "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                  },
-                  "timestamp": date
+                async function dostuff() {
+                  subreddit_json = await getTop(splitted[1]);
+                  user_json = getUser(subreddit_json.author);
+                  embed = {
+                    "title": subreddit_json.title,
+                    "url": `https://reddit.com${subreddit_json.permalink}`,
+                    "color": 16729344,
+                    "image": {
+                      "url": subreddit_json.url
+                    },
+                    "footer": {
+                      "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon/120x120.png",
+                      "text": "redd.it"
+                    },
+                    "author": {
+                      "name": subreddit_json.author,
+                      "url": `https://www.reddit.com/user/${subreddit_json.author}`,
+                      "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                    },
+                    "timestamp": date
+                  };
+                  msg.channel.send({embed});
                 };
-                msg.channel.send({embed});
+                dostuff()
               } else {
                 embed = {
                   "title": "Invalid arguments!",
@@ -73,8 +75,6 @@ client.on('message', msg => {
                 };
                 msg.channel.send({embed});
                 break;
-              };
-              dostuff();
             }
           case 'reboot':
             if(!msg.member.hasPermission(['ADMINISTRATOR'])) return;
