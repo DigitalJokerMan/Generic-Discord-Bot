@@ -30,6 +30,7 @@ function noPerms(channel) {
   embed = {
     "title": "Invalid permissions",
     "description": "You do not have the valid permissions to run this command.",
+    "color": 16711680,
     "footer": {
       "text": "Generic Discord Bot"
     },
@@ -89,17 +90,13 @@ client.on('message', msg => {
                 break;
             }
           case 'reboot':
-            if(!msg.member.hasPermission(['ADMINISTRATOR']) || msg.author.id != 110137532972314624) noPerms(msg.channel);
+            if(!msg.member.hasPermission(['ADMINISTRATOR'])) noPerms(msg.channel);
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
               client.destroy();
               client.login(process.env.token).then(() => {
                 msg.delete();
-                msg.channel.send("Completed!").then(async () => {
-                  await sleep(2500);
-                  msg.delete();
-                });
-              });
+              })
             })
           default:
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
