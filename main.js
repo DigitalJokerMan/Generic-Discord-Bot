@@ -9,7 +9,7 @@ const date = Date.now();
 async function getUrl(url) {
     const r = await axios.get(url).catch(function (error) {
         if (error.response) {
-            console.log(error.response.data + "\n" + error.response.status + "\n" + error.response.headers);
+            console.log(url + error.response.status);
             return 'error';
         }
     })
