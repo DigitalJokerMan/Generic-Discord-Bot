@@ -50,6 +50,7 @@ client.on('message', msg => {
         var command = splitted[0].replace(/\s/g,'');
         switch (command) {
           case 'topoftheday':
+            msg.channel.startTyping();
             if (splitted.length == 2) {
                 async function dostuff() {
                   subreddit_json = await getTop(splitted[1]);
@@ -75,7 +76,6 @@ client.on('message', msg => {
                   msg.channel.send({embed});
                 };
                 dostuff()
-                break;
               } else {
                 embed = {
                   "title": "Invalid arguments!",
@@ -87,11 +87,11 @@ client.on('message', msg => {
                   "timestamp": date
                 };
                 msg.channel.send({embed});
-                break;
             }
             break;
           case 'reboot':
             if(!msg.member.hasPermission(['ADMINISTRATOR'])) noPerms(msg.channel);
+            msg.channel.startTyping();
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
               client.destroy();
@@ -104,6 +104,7 @@ client.on('message', msg => {
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
             break;
         };
+        msg.channel.stopTyping();
     };
 });
 
