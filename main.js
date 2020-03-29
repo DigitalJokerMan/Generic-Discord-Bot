@@ -103,10 +103,10 @@ client.on('message', msg => {
                       embed.image.url = subreddit_json.url;
                   };
                   if (subreddit_json.selftext != 'undefined') {
-                    if (subreddit_json.selftext.length > 250) {
-                        embed.description = subreddit_json.selftext.substring(0, 250) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
-                    } else if (subreddit_json.self.length <= 250) {
-                        embed.description = subreddit_json.selftext.substring(0, 250) + `\n [Open Post](https://reddit.com${subreddit_json.permalink})`
+                    if (subreddit_json.selftext.length > 300) {
+                        embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
+                    } else {
+                        embed.description = subreddit_json.selftext.substring(0, 300) + `\n [Open Post](https://reddit.com${subreddit_json.permalink})`
                     }
                   };
                   msg.channel.send({embed});
