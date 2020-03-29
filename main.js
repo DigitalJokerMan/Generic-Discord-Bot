@@ -87,7 +87,7 @@ client.on('message', msg => {
               });
             })
           default:
-            console.log(`${msg.author.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
+            console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
             break;
         };
     };
