@@ -98,9 +98,19 @@ client.on('message', msg => {
                     },
                     "timestamp": date
                   };
-                  if (getUrl(subreddit_json.thumbnail) != 'error') {
+                  if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
                       embed.image = new Object();
-                      embed.image.url = subreddit_json.thumbnail;
+                      embed.image.url = subreddit_json.url;
+                  } else if (getUrl(subreddit_json.url) != 'error') {
+                      if (getUrl(subreddit_json.thumbnail) != 'error') {
+                          embed.thumbnail = new Object();
+                          embed.thumbnail.url = subreddit_json.thumbnail
+                      }
+                      embed.fields = new Array();
+                      embed.fields.push({
+                          "name": "Included URL:",
+                          "value": (subreddit_json.url)[subreddit_json.url]
+                      })
                   };
                   if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
                     if (subreddit_json.selftext.length > 300) {
