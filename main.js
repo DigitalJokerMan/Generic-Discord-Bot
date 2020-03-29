@@ -34,7 +34,8 @@ client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.content.startsWith(prefix)) {
         content = msg.content.substring(1, msg.content.length);
-        splitted = content.split(' ')
+        splitted = content.split(' ');
+        console.log(content, splitted[0]);
         switch (splitted[0]) {
           case 'topoftheday':
             if (splitted.length == 2) {
