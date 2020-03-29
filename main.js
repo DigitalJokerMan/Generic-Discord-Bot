@@ -54,7 +54,7 @@ client.on('message', msg => {
                 },
                 "author": {
                   "name": subreddit_json.author,
-                  "url": `https://www.reddit.com/user/${subreddit.json}`,
+                  "url": `https://www.reddit.com/user/${subreddit_json.author}`,
                   "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
                 },
                 "timestamp": date
