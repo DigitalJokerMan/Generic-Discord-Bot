@@ -87,7 +87,7 @@ client.on('message', msg => {
               });
             })
           default:
-            console.log('fuck');
+            console.log(`${msg.author.name} tried to call a command with ${prefix} but it was an invalid command.`)
             break;
         };
     };
