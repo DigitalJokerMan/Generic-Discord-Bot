@@ -80,7 +80,7 @@ client.on('message', msg => {
                   subreddit_json = await getTop(splitted[1]);
                   if (subreddit_json == 'error') {
                       webError(msg.channel);
-                      break;
+                      return;
                   }
                   user_json = await getUser(subreddit_json.author);
                   embed = {
