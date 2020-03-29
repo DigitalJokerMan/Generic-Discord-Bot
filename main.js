@@ -73,7 +73,7 @@ client.on('message', msg => {
               break;
             }
           case 'reboot':
-            if(!msg.member.hasPermission(['ADMINISTRATOR'])) return:
+            if(!msg.member.hasPermission(['ADMINISTRATOR'])) return;
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
               client.destroy();
