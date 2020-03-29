@@ -91,7 +91,7 @@ client.on('message', msg => {
                       "url": subreddit_json.url
                     },
                     "footer": {
-                      "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon/120x120.png",
+                      "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
                       "text": "redd.it"
                     },
                     "author": {
