@@ -98,11 +98,11 @@ client.on('message', msg => {
                     },
                     "timestamp": date
                   };
-                  if (!getUrl(subreddit_json.url) == 'error') {
+                  if (getUrl(subreddit_json.url) != 'error') {
                       embed.image = new Object();
                       embed.image.url = subreddit_json.url;
                   };
-                  if (!subreddit_json.selftext == 'undefined') {
+                  if (subreddit_json.selftext != 'undefined') {
                       embed.description = subreddit_json.selftext.substring(0, 150) + ` (Read More)[https://reddit.com${subreddit_json.permalink}]`
                   };
                   msg.channel.send({embed});
