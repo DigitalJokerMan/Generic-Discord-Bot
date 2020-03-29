@@ -106,7 +106,7 @@ client.on('message', msg => {
                     if (subreddit_json.selftext.length > 300) {
                         embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
                     } else {
-                        embed.description = subreddit_json.selftext.substring(0, 300) + `\n [Open Post](https://reddit.com${subreddit_json.permalink})`
+                        embed.description = subreddit_json.selftext
                     }
                   };
                   msg.channel.send({embed});
