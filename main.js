@@ -78,7 +78,10 @@ client.on('message', msg => {
             if (splitted.length == 2) {
                 async function dostuff() {
                   subreddit_json = await getTop(splitted[1]);
-                  if (subreddit_json == 'error') webError(msg.channel);
+                  if (subreddit_json == 'error') {
+                      webError(msg.channel);
+                      break;
+                  }
                   user_json = await getUser(subreddit_json.author);
                   embed = {
                     "title": subreddit_json.title,
@@ -115,7 +118,10 @@ client.on('message', msg => {
             }
             break;
           case 'reboot':
-            if(!msg.member.hasPermission(['ADMINISTRATOR'])) noPerms(msg.channel);
+            if(!msg.member.hasPermission(['ADMINISTRATOR'])) {
+                noPerms(msg.channel);
+                break;
+            };
             msg.channel.startTyping();
             msg.delete();
             msg.channel.send('Rebooting..').then(msg => {
