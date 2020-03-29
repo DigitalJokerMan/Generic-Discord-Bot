@@ -26,12 +26,24 @@ async function getUser(user) {
     }
 }
 
+function noPerms(channel) {
+  embed = {
+    "title": "Invalid permissions",
+    "description": "You do not have the valid permissions to run this command.",
+    "footer": {
+      "text": "Generic Discord Bot"
+    },
+    "timestamp": date
+  };
+  channel.send({embed});
+}
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
 });
 
 client.on('message', msg => {
-    if (msg.author.bot || msg.author.id == client.user.id) return;
+    if (msg.author.bot || msg.author.id != client.user.id) noPerms(msg.channel);
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(1, msg.content.length);
         var splitted = content.split(' ');
