@@ -39,8 +39,7 @@ client.on('message', msg => {
         switch (command) {
           case 'topoftheday':
             if (splitted.length == 2) {
-              subreddit_json = getTop(splitted[1]);
-              console.log(subreddit_json);
+              subreddit_json = await getTop(splitted[1]);
               user_json = getUser(subreddit_json.author);
               embed = {
                 "title": subreddit_json.title,
