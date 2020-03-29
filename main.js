@@ -116,14 +116,16 @@ client.on('message', msg => {
                   };
                   if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
                     if (subreddit_json.selftext.length > 300) {
-                        embed.description = subreddit_json.selftext.substring(0, 300) + `.. \n[Read More](https://reddit.com${subreddit_json.permalink})`
+                        embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
                     } else {
                         embed.description = subreddit_json.selftext
                     }
                   };
                   msg.channel.send({embed});
                 };
-                dostuff().catch(webError(msg.channel));
+                dostuff().catch(function (error) {
+                    webError(msg.channel);
+                });
               } else {
                 embed = {
                   "title": "Invalid arguments!",
