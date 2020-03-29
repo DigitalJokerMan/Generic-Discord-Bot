@@ -123,9 +123,7 @@ client.on('message', msg => {
                   };
                   msg.channel.send({embed});
                 };
-                dostuff().catch(function (error) {
-                    webError(msg.channel);
-                });
+                dostuff().catch(webError(msg.channel));
               } else {
                 embed = {
                   "title": "Invalid arguments!",
