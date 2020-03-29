@@ -85,7 +85,7 @@ client.on('message', msg => {
               client.destroy();
               client.login(process.env.token).then(() => {
                 msg.delete();
-                msg.channel.send("Completed!`).then(async () => {
+                msg.channel.send("Completed!").then(async () => {
                   await sleep(2500);
                   msg.delete();
                 });
