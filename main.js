@@ -10,7 +10,7 @@ const sleep = promisify(setTimeout);
 
 async function getTop(subreddit) {
     const response = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
-    if (res.length == 0) {
+    if (response.length == 0) {
         return false;
     } else {
         return response.data.data.children[0].data;
