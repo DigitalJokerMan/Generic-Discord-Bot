@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const axios = require('axios');
 const prefix = "!";
 const date = new Date();
+let sleep = require('util').promisify(setTimeout);
 
 async function getTop(subreddit) {
     const response = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
@@ -29,33 +30,62 @@ client.on('ready', () => {
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.content.startsWith(prefix)) {
-        content = msg.content.substring(1, msg.content.length());
-        if (content.startsWith('forcereddit')) {
-            arguments = content.split(' ').splice(0, 1);
-            if (!arguments.length == 1) return;
-            postjson = getTop(arguments[0]);
-            userjson = getUser(postjson.author);
-            const embed = {
-                "title": postjson.title,
-                "description": `[Top of the Day at r/${postjson.subreddit}](https://www.reddit.com${postjson.permalink})`,
+        content = msg.content.substring(1, msg.content.length);
+        splitted = content.split(' ')
+        switch (splitted[0]) {
+          case 'topoftheday':
+            if (splitted.length == 2) {
+              subreddit_json = getTop(splitted[1]);
+              user_json = getUser(subreddit_json.author);
+              embed = {
+                "title": subreddit_json.title,
+                "url": `https://reddit.com${subreddit_json.permalink}`,
                 "color": 16729344,
                 "image": {
-                    "url": postjson.url
-                },
-                "author": {
-                    "name": postjson.author,
-                    "url": `https://reddit.com/user/${postjson.author}`,
-                    "icon_url": userjson.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                  "url": subreddit_json.url
                 },
                 "footer": {
-                    "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon/120x120.png",
-                    "text": "redd.it"
+                  "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon/120x120.png",
+                  "text": "redd.it"
                 },
-                "timestamp": date.now()
-            };
-            msg.channel.send({embed});
-        }
+                "author": {
+                  "name": subreddit_json.author,
+                  "url": `https://www.reddit.com/user/${subreddit.json}`,
+                  "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                },
+                "timestamp": date.Now()
+              };
+              msg.channel.send({embed});
+            } else {
+              embed = {
+                "title": "Invalid arguments!",
+                "description": `**${content}** has an invalid number of arguments. Proper usage: !topoftheday (subredditname)`,
+                "color": 16720932,
+                "footer": {
+                  "text": "Hal8k - Discord Bot"
+                },
+                "timestamp": date.Now()
+              };
+              msg.channel.send({embed});
+              break;
+            }
+          case 'reboot':
+            if(!msg.member.hasPermission(['ADMINISTRATOR'])) return:
+            msg.delete();
+            msg.channel.send('Rebooting..').then(msg => {
+              client.destroy();
+              client.login('NjkzNjQ2Mjc5NzIwNTY2ODU0.XoDTsA.D8MO19UjagEqMpgnVZzzMUp7ISQ').then(() => {
+                msg.delete();
+                msg.channel.send("Completed!").then(() => {
+                  await sleep(2500);
+                  msg.delete();
+                });
+              });
+            })
+          default:
+            break;
+        };
     };
-})
+})`  `
 
-client.login('NjgzNDc0NzQ0NzY2MzY1NzUw.Xnzzpw.Ead5FxIp5ujv2s07SyKOdjd8Brs');
+client.login('NjkzNjQ2Mjc5NzIwNTY2ODU0.XoDTsA.D8MO19UjagEqMpgnVZzzMUp7ISQ');
