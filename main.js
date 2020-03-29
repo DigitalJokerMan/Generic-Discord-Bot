@@ -106,7 +106,7 @@ client.on('message', msg => {
                           embed.thumbnail = new Object();
                           embed.thumbnail.url = subreddit_json.thumbnail
                       }
-                      if (!subreddit_json.url.startsWith(`https://reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                      if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
                           embed.fields = new Array();
                           embed.fields.push({
                               "name": "Included URL:",
