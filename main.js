@@ -35,6 +35,7 @@ function noPerms(channel) {
     "timestamp": date
   };
   channel.send({embed});
+  return
 }
 
 client.on('ready', () => {
