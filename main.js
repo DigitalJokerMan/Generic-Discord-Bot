@@ -138,9 +138,7 @@ client.on('message', msg => {
                 };
                 dostuff().catch(function (error) {
                     webError(msg.channel);
-                    if (error.response != 'undefined') {
-                        console.log(error.response);
-                    };
+                    console.log(error)
                 });
               } else {
                 embed = {
@@ -207,9 +205,7 @@ client.on('message', msg => {
                   };
                   dostuff().catch(function (error) {
                       webError(msg.channel);
-                      if (error.response != 'undefined') {
-                          console.log(error.response);
-                      };
+                      console.log(error)
                   });
                 } else {
                   embed = {
