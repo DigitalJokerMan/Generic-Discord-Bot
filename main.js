@@ -32,17 +32,15 @@ async function redditGet(subreddit, iscustom, arguments) {
 }
 
 async function isImage(url) {
-    console.log(await axios.get(url));
-    return true;
-    mime(url, function (err, type) {
-        if (err) {
-            console.error(err);
-            return false;
-        } else if (type) {
-            console.log(type);
-            return true;
-        }
-    });
+    try {
+        var promise = await axios.get(url);
+        if (promise.headers['content-type'].startsWith('image/')) return true;
+        return false;
+    }
+    catch (err) {
+        console.error(err);
+        return false;
+    }
 }
 
 function noPerms(channel) {
