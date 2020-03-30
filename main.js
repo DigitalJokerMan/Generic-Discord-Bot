@@ -11,44 +11,36 @@ const validcommands = [
     "help"
 ]
 
-async function getUrl(url) {
-    const r = await axios.get(url).catch(function (error) {
-        if (error.response) {
-            console.log("Requested URL: " + url + " | Status Code: " + error.response.status);
-            return 'error';
+async function redditGet(subreddit, iscustom, arguments) {
+    try {
+        if (!iscustom) {
+            const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
+            const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
+            return (postjs.data.data.children[0].data, userjs.data.data)
+        } else if (arguments != 'undefined') {
+            const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${arguments}`);
+            const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
+            return [postjs.data.data.children[0].data, userjs.data.data];
         }
-    })
-    return r
-}
-
-async function getTop(subreddit) {
-    const response = await getUrl(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
-    if (response == 'error') {
-        return 'error';
-    } else {
-        return response.data.data.children[0].data;
+    }
+    catch (err) {
+        console.error(err);
+        return 'error'
     }
 }
 
-async function getCustom(subreddit, custom) {
-    let response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
-    if (response == 'error') {
-        return 'error';
+async function isImage(url) {
+    if (url.match(/.(jpeg|jpg|gif|png)$/)) {
+        return true;
     } else {
-        if (Object.prototype.toString.call(response.data) === '[object Array]') {
-            return response.data[0].data.children[0].data;
-        } else {
-            return response.data.data.children[0].data;
+        try {
+            const ret = await axios.get(url + ".png")
+            return true;
         }
-    }
-}
-
-async function getUser(user) {
-    const response = await axios.get(`https://www.reddit.com/user/${user}/about.json`);
-    if (response.length == 0) {
-        return false;
-    } else {
-        return response.data.data
+        catch (err) {
+            console.error(err);
+            return false;
+        }
     }
 }
 
@@ -94,57 +86,7 @@ client.on('message', msg => {
             msg.channel.startTyping();
             switch (command) {
               case 'topoftheday':
-                if (splitted.length == 2) {
-                    async function dostuff() {
-                      subreddit_json = await getTop(splitted[1]);
-                      if (subreddit_json == 'error') {
-                          webError(msg.channel);
-                          return;
-                      };
-                      user_json = await getUser(subreddit_json.author);
-                      embed = {
-                        "title": subreddit_json.title,
-                        "url": `https://reddit.com${subreddit_json.permalink}`,
-                        "color": 16729344,
-                        "footer": {
-                          "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                          "text": "redd.it"
-                        },
-                        "author": {
-                          "name": subreddit_json.author,
-                          "url": `https://www.reddit.com/user/${subreddit_json.author}`,
-                          "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                        },
-                        "timestamp": date
-                      };
-                      if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/) || await getUrl(subreddit_json.url + ".png") != 'undefined') {
-                          embed.image = new Object();
-                          embed.image.url = subreddit_json.url;
-                      } else {
-                          embed.thumbnail = new Object();
-                          embed.thumbnail.url = subreddit_json.thumbnail
-                          if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
-                              embed.fields = new Array();
-                              embed.fields.push({
-                                  "name": "Included URL:",
-                                  "value": subreddit_json.url
-                              });
-                          }
-                      };
-                      if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
-                        if (subreddit_json.selftext.length > 300) {
-                            embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
-                        } else {
-                            embed.description = subreddit_json.selftext
-                        }
-                      };
-                      msg.channel.send({embed});
-                    };
-                    dostuff().catch(function (error) {
-                        webError(msg.channel);
-                        console.log(error)
-                    });
-                  } else {
+                if (!splitted.length === 2) {
                     embed = {
                       "title": "Invalid arguments!",
                       "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}topoftheday (subredditname)`,
@@ -155,63 +97,55 @@ client.on('message', msg => {
                       "timestamp": date
                     };
                     msg.channel.send({embed});
+                } else {
+                    var foo = (async function() {
+                        var [post, author] = await redditGet(splitted[1], false, 'undefined');
+                        var embed = {
+                            "title": post.title,
+                            "url": `https://www.reddit.com${post.permalink}`,
+                            "color": 16729344,
+                            "footer": {
+                                "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                                "text": "redd.it"
+                            },
+                            "author": {
+                                "name": post.author,
+                                "url": `https://www.reddit.com/user/${post.author}`,
+                                "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                            },
+                            "timestamp": date
+                        };
+                        if (await isImage(post.url) == true) {
+                            embed.image = new Object();
+                            embed.image.url = post.url;
+                        } else if (!post.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                            embed.thumbnail = new Object();
+                            embed.thumbnail.url = post.url;
+                            embed.fields = new Array();
+                            embed.fields.push({
+                                "name": "Included URL:",
+                                "value": post.url
+                            });
+                        };
+                        if (post.selftext != 'undefined' && post.selftext.length > 0) {
+                            if (post.selftext.length > 300) {
+                                embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                            } else {
+                                embed.description = post.selftext
+                            }
+                        };
+                        msg.channel.send({embed});
+                    })().catch(function (err) {
+                        webError(msg.channel);
+                        console.error(err);
+                    });
                 }
                 break;
               case 'customreddit':
-                  if (splitted.length == 3) {
-                      async function dostuff() {
-                        subreddit_json = await getCustom(splitted[1], splitted[2]);
-                        if (subreddit_json == 'error') {
-                            webError(msg.channel);
-                            return;
-                        };
-                        user_json = await getUser(subreddit_json.author);
-                        embed = {
-                          "title": subreddit_json.title,
-                          "url": `https://reddit.com${subreddit_json.permalink}`,
-                          "color": 16729344,
-                          "footer": {
-                            "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                            "text": "redd.it"
-                          },
-                          "author": {
-                            "name": subreddit_json.author,
-                            "url": `https://www.reddit.com/user/${subreddit_json.author}`,
-                            "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                          },
-                          "timestamp": date
-                        };
-                        if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/) || await getUrl(subreddit_json.url + ".png") != 'undefined') {
-                            embed.image = new Object();
-                            embed.image.url = subreddit_json.url;
-                        } else {
-                            embed.thumbnail = new Object();
-                            embed.thumbnail.url = subreddit_json.thumbnail
-                            if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
-                                embed.fields = new Array();
-                                embed.fields.push({
-                                    "name": "Included URL:",
-                                    "value": subreddit_json.url
-                                });
-                            }
-                        };
-                        if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
-                          if (subreddit_json.selftext.length > 300) {
-                              embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
-                          } else {
-                              embed.description = subreddit_json.selftext
-                          }
-                        };
-                        msg.channel.send({embed});
-                      };
-                      dostuff().catch(function (error) {
-                          webError(msg.channel);
-                          console.log(error)
-                      });
-                    } else {
+                  if (!splitted.length === 3) {
                       embed = {
                         "title": "Invalid arguments!",
-                        "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}customreddit (subredditname) (custom json, Ex: /top/.json?top=day)`,
+                        "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}customreddit (subredditname) (json arguments)`,
                         "color": 16720932,
                         "footer": {
                           "text": "Hal8k - Discord Bot"
@@ -219,6 +153,48 @@ client.on('message', msg => {
                         "timestamp": date
                       };
                       msg.channel.send({embed});
+                  } else {
+                      var foo = (async function() {
+                          var [post, author] = await redditGet(splitted[1], true, splitted[2]);
+                          var embed = {
+                              "title": post.title,
+                              "url": `https://www.reddit.com${post.permalink}`,
+                              "color": 16729344,
+                              "footer": {
+                                  "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                                  "text": "redd.it"
+                              },
+                              "author": {
+                                  "name": post.author,
+                                  "url": `https://www.reddit.com/user/${post.author}`,
+                                  "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                              },
+                              "timestamp": date
+                          };
+                          if (await isImage(post.url) == true) {
+                              embed.image = new Object();
+                              embed.image.url = post.url;
+                          } else if (!post.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                              embed.thumbnail = new Object();
+                              embed.thumbnail.url = post.url;
+                              embed.fields = new Array();
+                              embed.fields.push({
+                                  "name": "Included URL:",
+                                  "value": post.url
+                              });
+                          };
+                          if (post.selftext != 'undefined' && post.selftext.length > 0) {
+                              if (post.selftext.length > 300) {
+                                  embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                              } else {
+                                  embed.description = post.selftext
+                              }
+                          };
+                          msg.channel.send({embed});
+                      })().catch(function (err) {
+                          webError(msg.channel);
+                          console.error(err);
+                      });
                   }
                 break;
               case 'help':
@@ -244,13 +220,13 @@ client.on('message', msg => {
                 msg.channel.send({embed})
                 break;
               default:
-                console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
+                console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} which was found in available commands but not in the switch statement.`)
                 break;
             };
+            msg.channel.stopTyping();
         } else {
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
         }
-        msg.channel.stopTyping();
     };
 });
 
