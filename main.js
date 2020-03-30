@@ -13,11 +13,11 @@ const validcommands = [
 
 async function redditGet(subreddit, iscustom, arguments) {
     try {
-        if (!iscustom) {
+        if (iscustom == false) {
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
             return (postjs.data.data.children[0].data, userjs.data.data)
-        } else if (arguments != 'undefined') {
+        } else if (iscustom == true && arguments != 'undefined') {
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${arguments}`);
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
             return [postjs.data.data.children[0].data, userjs.data.data];
