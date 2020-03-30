@@ -3,7 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
-const prefix = "!";
+const prefix = ";";
 const date = Date.now();
 
 async function getUrl(url) {
@@ -64,7 +64,7 @@ function noPerms(channel) {
 function webError(channel) {
   embed = {
     "title": "Error catching website info.",
-    "description": "That website (probably) doesn't exist, did you mistype it?\n\nIf you are using **!topoftheday** or **!customreddit**, this message will also appear if the reddit has no posts. In !customreddit's case, it is most likely you wrote the arguments wrong. (I guess you can blame me.)",
+    "description": `That website (probably) doesn't exist, did you mistype it?\n\nIf you are using **${prefix}topoftheday** or **${prefix}customreddit**, this message will also appear if the reddit has no posts. In ${prefix}customreddit's case, it is most likely you wrote the arguments wrong. (I guess you can blame me.)`,
     "color": 16711680,
     "footer": {
       "text": "Generic Discord Bot"
@@ -145,7 +145,7 @@ client.on('message', msg => {
               } else {
                 embed = {
                   "title": "Invalid arguments!",
-                  "description": `**${content}** has an invalid number of arguments. Proper usage: !topoftheday (subredditname)`,
+                  "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}topoftheday (subredditname)`,
                   "color": 16720932,
                   "footer": {
                     "text": "Hal8k - Discord Bot"
@@ -214,7 +214,7 @@ client.on('message', msg => {
                 } else {
                   embed = {
                     "title": "Invalid arguments!",
-                    "description": `**${content}** has an invalid number of arguments. Proper usage: !customreddit (subredditname) (custom json, Ex: /top/.json?top=day)`,
+                    "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}customreddit (subredditname) (custom json, Ex: /top/.json?top=day)`,
                     "color": 16720932,
                     "footer": {
                       "text": "Hal8k - Discord Bot"
@@ -235,12 +235,12 @@ client.on('message', msg => {
                 "color": 5963612,
                 "fields": [
                     {
-                        "name": "!topoftheday",
-                        "value": "Gets the top post of the day on desired subreddit. \n **Usage**: !topoftheday (subreddit)"
+                        "name": `${prefix}topoftheday`,
+                        "value": `Gets the top post of the day on desired subreddit. \n **Usage**: ${prefix}topoftheday (subreddit)`
                     },
                     {
-                        "name": "!customreddit",
-                        "value": "Gets a reddit post with the provided arguments. \n **Usage**: !customreddit (subreddit) (args)\n**Ex**: !customreddit funny top/.json?t=day (This would return the same thing as !topoftheday, if given reddit was r/funny.)"
+                        "name": `${prefix}customreddit`,
+                        "value": `Gets a reddit post with the provided arguments. \n **Usage**: ${prefix}customreddit (subreddit) (args)\n**Ex**: ${prefix}customreddit funny top/.json?t=day (This would return the same thing as ${prefix}topoftheday, if given reddit was r/funny.)`
                     }
                 ]
             };
