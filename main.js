@@ -136,7 +136,7 @@ client.on('message', msg => {
                                 "value": post.url
                             });
                         };
-                        if (post.selftext != 'undefined' && post.selftext.length > 0) {
+                        if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
                             if (post.selftext.length > 300) {
                                 embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
                             } else {
@@ -198,7 +198,7 @@ client.on('message', msg => {
                                   "value": post.url
                               });
                           };
-                          if (post.selftext != 'undefined' && post.selftext.length > 0) {
+                          if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
                               if (post.selftext.length > 300) {
                                   embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
                               } else {
