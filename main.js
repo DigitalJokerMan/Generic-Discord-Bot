@@ -3,13 +3,15 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
-let prefix = process.env.prefix;
 const date = Date.now();
+const mime = require('mime-magic');
 const validcommands = [
     "topoftheday",
     "customreddit",
     "help"
 ]
+
+let prefix = process.env.prefix;
 
 async function redditGet(subreddit, iscustom, arguments) {
     try {
@@ -30,18 +32,15 @@ async function redditGet(subreddit, iscustom, arguments) {
 }
 
 async function isImage(url) {
-    if (url.match(/.(jpeg|jpg|gif|png)$/)) {
-        return true;
-    } else {
-        try {
-            const ret = await axios.get(url + ".png")
-            return true;
-        }
-        catch (err) {
+    mime(url, function (err, type) {
+        if (err) {
             console.error(err);
             return false;
+        } else if (type) {
+            console.log(type);
+            return true;
         }
-    }
+    });
 }
 
 function noPerms(channel) {
