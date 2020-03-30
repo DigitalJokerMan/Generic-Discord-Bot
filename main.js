@@ -20,11 +20,11 @@ async function redditGet(subreddit, iscustom, arguments) {
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
             return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
-            var finalarguments = `${arguments}`;
-            if (finalarguments.includes('?limit=')) {
+            var finalarguments = (' ' + arguments).slice(1);
+            if (arguments.includes('?limit=')) {
                 var regex = /(limit=)\d+/;
                 finalarguments.replace(regex, 'limit=1');
-            } else if (finalarguments.includes('?count=')) {
+            } else if (arguments.includes('?count=')) {
                 var regex = /(count=)\d+/;
                 finalarguments.replace(regex, 'count=1');
             } else {
