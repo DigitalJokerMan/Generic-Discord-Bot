@@ -4,7 +4,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
 const date = Date.now();
-const mime = require('mime-magic');
 const validcommands = [
     "topoftheday",
     "customreddit",
