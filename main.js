@@ -166,7 +166,7 @@ client.on('message', msg => {
                               var [post, user] = getr;
                           } else {
                               webError(msg.channel);
-                              break;
+                              return;
                           }
                           var embed = {
                               "title": post.title,
