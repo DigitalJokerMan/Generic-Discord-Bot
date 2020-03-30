@@ -102,67 +102,68 @@ client.on('message', msg => {
                     };
                     msg.channel.send({embed});
                 } else {
-                    var m = msg.channel.send('Fetching..')
-                    var foo = (async function() {
-                        var getr = await redditGet(splitted[1], false, 'undefined');
-                        if (getr != 'error') {
-                            var [post, user] = getr;
-                        } else {
-                            webError(msg.channel);
-                            return;
-                        }
-                        var embed = {
-                            "title": post.title,
-                            "url": `https://www.reddit.com${post.permalink}`,
-                            "color": 16729344,
-                            "footer": {
-                                "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                                "text": "redd.it"
-                            },
-                            "author": {
-                                "name": post.author,
-                                "url": `https://www.reddit.com/user/${post.author}`,
-                                "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                            },
-                            "timestamp": date
-                        };
-                        if (await isImage(post.url) == true) {
-                            embed.image = new Object();
-                            embed.image.url = post.url;
-                        } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
-                            embed.thumbnail = new Object();
-                            switch (post.thumbnail) {
-                                case 'default':
-                                    embed.thumbnail.url = "https://www.reddit.com/static/noimage.png"
-                                    break;
-                                case 'self':
-                                    embed.thumbnail.url = "https://www.reddit.com/static/self_default2.png"
-                                    break;
-                                case 'nsfw':
-                                    embed.thumbnail.url = "https://www.reddit.com/static/nsfw2.png"
-                                    break;
-                                default:
-                                    embed.thumbnail.url = post.thumbnail
-                                    break;
-                            };
-                            embed.fields = new Array();
-                            embed.fields.push({
-                                "name": "Included URL:",
-                                "value": post.url
-                            });
-                        };
-                        if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
-                            if (post.selftext.length > 300) {
-                                embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                    msg.channel.send('Fetching..').then(m => {
+                        var foo = (async function() {
+                            var getr = await redditGet(splitted[1], false, 'undefined');
+                            if (getr != 'error') {
+                                var [post, user] = getr;
                             } else {
-                                embed.description = post.selftext
+                                webError(msg.channel);
+                                return;
                             }
-                        };
-                        m.delete();
-                        msg.channel.send({embed});
-                    })().catch(function (err) {
-                        webError(msg.channel);
-                        console.error(err);
+                            var embed = {
+                                "title": post.title,
+                                "url": `https://www.reddit.com${post.permalink}`,
+                                "color": 16729344,
+                                "footer": {
+                                    "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                                    "text": "redd.it"
+                                },
+                                "author": {
+                                    "name": post.author,
+                                    "url": `https://www.reddit.com/user/${post.author}`,
+                                    "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                                },
+                                "timestamp": date
+                            };
+                            if (await isImage(post.url) == true) {
+                                embed.image = new Object();
+                                embed.image.url = post.url;
+                            } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
+                                embed.thumbnail = new Object();
+                                switch (post.thumbnail) {
+                                    case 'default':
+                                        embed.thumbnail.url = "https://www.reddit.com/static/noimage.png"
+                                        break;
+                                    case 'self':
+                                        embed.thumbnail.url = "https://www.reddit.com/static/self_default2.png"
+                                        break;
+                                    case 'nsfw':
+                                        embed.thumbnail.url = "https://www.reddit.com/static/nsfw2.png"
+                                        break;
+                                    default:
+                                        embed.thumbnail.url = post.thumbnail
+                                        break;
+                                };
+                                embed.fields = new Array();
+                                embed.fields.push({
+                                    "name": "Included URL:",
+                                    "value": post.url
+                                });
+                            };
+                            if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
+                                if (post.selftext.length > 300) {
+                                    embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                                } else {
+                                    embed.description = post.selftext
+                                }
+                            };
+                            m.delete();
+                            msg.channel.send({embed});
+                        })().catch(function (err) {
+                            webError(msg.channel);
+                            console.error(err);
+                        });
                     });
                 }
                 break;
@@ -179,56 +180,57 @@ client.on('message', msg => {
                       };
                       msg.channel.send({embed});
                   } else {
-                      var m = msg.channel.send('Fetching..')
-                      var foo = (async function() {
-                          var getr = await redditGet(splitted[1], true, splitted[2]);
-                          if (getr != 'error') {
-                              var [post, user] = getr;
-                          } else {
-                              webError(msg.channel);
-                              return;
-                          }
-                          var embed = {
-                              "title": post.title,
-                              "url": `https://www.reddit.com${post.permalink}`,
-                              "color": 16729344,
-                              "footer": {
-                                  "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                                  "text": "redd.it"
-                              },
-                              "author": {
-                                  "name": post.author,
-                                  "url": `https://www.reddit.com/user/${post.author}`,
-                                  "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                              },
-                              "timestamp": date
-                          };
-                          if (await isImage(post.url) == true) {
-                              embed.image = new Object();
-                              embed.image.url = post.url;
-                          } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
-                              if (post.thumbnail !== 'default') {
-                                  embed.thumbnail = new Object();
-                                  embed.thumbnail.url = post.thumbnail;
-                              };
-                              embed.fields = new Array();
-                              embed.fields.push({
-                                  "name": "Included URL:",
-                                  "value": post.url
-                              });
-                          };
-                          if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
-                              if (post.selftext.length > 300) {
-                                  embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                      msg.channel.send('Fetching..').then(m => {
+                          var foo = (async function() {
+                              var getr = await redditGet(splitted[1], true, splitted[2]);
+                              if (getr != 'error') {
+                                  var [post, user] = getr;
                               } else {
-                                  embed.description = post.selftext
+                                  webError(msg.channel);
+                                  return;
                               }
-                          };
-                          m.delete();
-                          msg.channel.send({embed});
-                      })().catch(function (err) {
-                          webError(msg.channel);
-                          console.error(err);
+                              var embed = {
+                                  "title": post.title,
+                                  "url": `https://www.reddit.com${post.permalink}`,
+                                  "color": 16729344,
+                                  "footer": {
+                                      "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                                      "text": "redd.it"
+                                  },
+                                  "author": {
+                                      "name": post.author,
+                                      "url": `https://www.reddit.com/user/${post.author}`,
+                                      "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                                  },
+                                  "timestamp": date
+                              };
+                              if (await isImage(post.url) == true) {
+                                  embed.image = new Object();
+                                  embed.image.url = post.url;
+                              } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
+                                  if (post.thumbnail !== 'default') {
+                                      embed.thumbnail = new Object();
+                                      embed.thumbnail.url = post.thumbnail;
+                                  };
+                                  embed.fields = new Array();
+                                  embed.fields.push({
+                                      "name": "Included URL:",
+                                      "value": post.url
+                                  });
+                              };
+                              if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
+                                  if (post.selftext.length > 300) {
+                                      embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                                  } else {
+                                      embed.description = post.selftext
+                                  }
+                              };
+                              m.delete();
+                              msg.channel.send({embed});
+                          })().catch(function (err) {
+                              webError(msg.channel);
+                              console.error(err);
+                          });
                       });
                   }
                 break;
