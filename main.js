@@ -26,7 +26,7 @@ async function getTop(subreddit) {
 }
 
 async function getCustom(subreddit, custom) {
-    var response = new Promise();
+    let response;
     if (custom.includes("?limit=1")) {
         response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
     } else {
