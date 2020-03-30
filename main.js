@@ -24,6 +24,7 @@ async function redditGet(subreddit, iscustom, arguments) {
             if (postjs.data.data != 'undefined') {
                 return [postjs.data.data.children[0].data, userjs.data.data];
             } else {
+                console.log(postjs.data[0]);
                 return [postjs.data[0].data.children[0].data, userjs.data.data];
             }
         }
