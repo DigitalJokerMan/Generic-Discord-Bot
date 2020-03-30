@@ -26,7 +26,11 @@ async function getTop(subreddit) {
 }
 
 async function getCustom(subreddit, custom) {
-    const response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
+    if (custom.includes("?limit=1")) {
+        const response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
+    } else {
+        const response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}?limit=1`);
+    }
     if (response == 'error') {
         return 'error';
     } else {
@@ -219,6 +223,15 @@ client.on('message', msg => {
                   };
                   msg.channel.send({embed});
               }
+            break;
+          case 'help':
+            embed = {
+                "title": "Available commands",
+                "description": "This is a list of the commands currently available, it is possible some may require permissions you do not have.",
+                "footer": {
+
+                },
+            }
             break;
           default:
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
