@@ -152,7 +152,7 @@ client.on('message', msg => {
               msg.channel.startTyping();
               if (splitted.length == 3) {
                   async function dostuff() {
-                    subreddit_json = await getTop(splitted[1], splitted[2]);
+                    subreddit_json = await getCustom(splitted[1], splitted[2]);
                     if (subreddit_json == 'error') {
                         webError(msg.channel);
                         return;
