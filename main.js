@@ -102,7 +102,7 @@ client.on('message', msg => {
                     };
                     msg.channel.send({embed});
                 } else {
-                    msg.channel.send('Fetching..').then(m => {
+                    msg.channel.send("Fetching.. (This could take a while, he's kind of slow.)").then(m => {
                         var foo = (async function() {
                             var getr = await redditGet(splitted[1], false, 'undefined');
                             if (getr != 'error') {
@@ -180,7 +180,7 @@ client.on('message', msg => {
                       };
                       msg.channel.send({embed});
                   } else {
-                      msg.channel.send('Fetching..').then(m => {
+                      msg.channel.send("Fetching.. (This could take a while, he's kind of slow.)").then(m => {
                           var foo = (async function() {
                               var getr = await redditGet(splitted[1], true, splitted[2]);
                               if (getr != 'error') {
