@@ -204,7 +204,7 @@ client.on('message', msg => {
                 } else {
                   embed = {
                     "title": "Invalid arguments!",
-                    "description": `**${content}** has an invalid number of arguments. Proper usage: !topoftheday (subredditname)`,
+                    "description": `**${content}** has an invalid number of arguments. Proper usage: !customreddit (subredditname) (custom arguments Ex: ?top=day)`,
                     "color": 16720932,
                     "footer": {
                       "text": "Hal8k - Discord Bot"
