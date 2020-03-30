@@ -32,6 +32,8 @@ async function redditGet(subreddit, iscustom, arguments) {
 }
 
 async function isImage(url) {
+    console.log(await axios.get(url));
+    return true;
     mime(url, function (err, type) {
         if (err) {
             console.error(err);
