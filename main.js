@@ -129,6 +129,7 @@ client.on('message', msg => {
                             embed.image.url = post.url;
                         } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
                             embed.thumbnail = new Object();
+                            console.log(post.thumbnail);
                             embed.thumbnail.url = post.thumbnail;
                             embed.fields = new Array();
                             embed.fields.push({
@@ -191,6 +192,7 @@ client.on('message', msg => {
                               embed.image.url = post.url;
                           } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
                               embed.thumbnail = new Object();
+                              console.log(post.thumbnail);
                               embed.thumbnail.url = post.thumbnail;
                               embed.fields = new Array();
                               embed.fields.push({
