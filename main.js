@@ -23,12 +23,14 @@ async function redditGet(subreddit, iscustom, arguments) {
             var splitargs = arguments.split('?');
             var finalarguments = `${splitargs[0]}`;
             splitargs.splice(0, 1);
-            if (splitargs.includes(/(limit=)\d+/)) {
-                splitargs[splitargs.indexOf(/(limit=)\d+/)] = 'limit=1'
-            } else if (splitargs.includes(/(count=)\d+/)) {
-                splitargs[splitargs.indexOf(/(count=)\d+/)] = 'count=1'
-            };
             for (i=0; i < splitargs.length; i++) {
+                if (/(limit=)\d+/.test(splitargs[i])) {
+                    finalarguments += `?limit=1`
+                    continue;
+                } else if (/(count=)\d+/.test(splitargs[i])) {
+                    finalarguments += `?count=1`
+                    continue;
+                }
                 finalarguments += `?${splitargs[i]}`
             };
             console.log(finalarguments);
