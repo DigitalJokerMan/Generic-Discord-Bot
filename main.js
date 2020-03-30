@@ -21,7 +21,17 @@ async function redditGet(subreddit, iscustom, arguments) {
             return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
             var splitargs = arguments.split('?');
-            console.log(splitargs);
+            var finalarguments = `${splitargs[0]}`;
+            splitargs.splice(0, 1);
+            if (splitargs.includes(/(limit=)\d+/)) {
+                splitargs[splitargs.indexOf(/(limit=)\d+/)] = 'limit=1'
+            } else if (splitargs.includes(/(count=)\d+/)) {
+                splitargs[splitargs.indexOf(/(count=)\d+/)] = 'count=1'
+            };
+            for (i=0; i < splitargs.length; i++) {
+                finalarguments += `?${splitargs[i]}`
+            };
+            console.log(finalarguments);
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${finalarguments}`);
             if (typeof postjs.data.data !== 'undefined') {
                 const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
