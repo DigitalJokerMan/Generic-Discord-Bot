@@ -22,7 +22,7 @@ async function redditGet(subreddit, iscustom, arguments) {
         } else if (iscustom == true && arguments != 'undefined') {
             var finalarguments = arguments;
             if (arguments.includes('?limit=')) {
-                var limit = /\?\l\i\m\i\t\=\(\d+)/.exec(finalarguments);
+                var limit = /\?\l\i\m\i\t\=(\d+)/.exec(finalarguments);
                 finalarguments.replace(`?limit=${limit[1]}`, '?limit=1');
             } else if (arguments.includes('?count=')) {
                 var count = /\?\c\o\u\n\t\=(\d+)/.exec(finalarguments);
