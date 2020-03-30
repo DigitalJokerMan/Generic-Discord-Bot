@@ -159,7 +159,7 @@ client.on('message', msg => {
                       msg.channel.send({embed});
                   } else {
                       var foo = (async function() {
-                          var getr = await redditGet(splitted[1], false, 'undefined');
+                          var getr = await redditGet(splitted[1], true, splitted[2]);
                           if (getr != 'error') {
                               var [post, user] = getr;
                           } else {
