@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const axios = require('axios');
 const prefix = "!";
 const date = Date.now();
-var delay = 750;
+var delay = 1000;
 var lastCall = 0;
 
 async function getUrl(url) {
@@ -70,6 +70,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
+    console.log(lastCall)
     if (lastCall >= (Date.now() - delay)) return;
     lastCall = Date.now();
     if (msg.content.startsWith(prefix)) {
