@@ -231,7 +231,7 @@ client.on('message', msg => {
                 "footer": {
                     "text": "Generic Discord Bot"
                 },
-                "timestamp" = date,
+                "timestamp": date,
                 "color": 5963612,
                 "fields": [
                     {
