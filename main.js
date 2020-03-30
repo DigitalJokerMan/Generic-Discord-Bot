@@ -100,9 +100,8 @@ client.on('message', msg => {
                 } else {
                     var foo = (async function() {
                         var getr = await redditGet(splitted[1], false, 'undefined');
-                        var [post, user];
                         if (getr != 'error') {
-                            [post, user] = getr;
+                            var [post, user] = getr;
                         } else {
                             webError(msg.channel);
                             break;
