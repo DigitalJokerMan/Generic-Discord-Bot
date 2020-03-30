@@ -82,7 +82,7 @@ client.on('ready', () => {
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.content.startsWith(prefix)) {
-        var content = msg.content.substring(1, msg.content.length);
+        var content = msg.content.substring(prefix.length, msg.content.length);
         var splitted = content.split(' ');
         var command = splitted[0].replace(/\s/g,'');
         switch (command) {
