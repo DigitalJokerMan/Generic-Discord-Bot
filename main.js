@@ -60,7 +60,7 @@ function noPerms(channel) {
 function webError(channel) {
   embed = {
     "title": "Error catching website info.",
-    "description": "That website (probably) doesn't exist, did you mistype it?\n\nIf you are using **!topoftheday**, this message will also appear if the reddit has no posts.",
+    "description": "That website (probably) doesn't exist, did you mistype it?\n\nIf you are using **!topoftheday** or **!customreddit**, this message will also appear if the reddit has no posts. In !customreddit's case, it is most likely you wrote the arguments wrong. (I guess you can blame me.)",
     "color": 16711680,
     "footer": {
       "text": "Generic Discord Bot"
