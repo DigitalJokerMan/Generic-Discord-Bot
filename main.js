@@ -27,7 +27,7 @@ async function redditGet(subreddit, iscustom, arguments) {
             } else if (finalarguments.includes('?count=')) {
                 var regex = /(count=)\d+/.exec(finalarguments);
                 finalarguments.replace(regex[0], '?count=1');
-            } else if (finalarguments.indexOf('random.json') === -1 || finalarguments.indexOf('random/.json') === -1) {
+            } else {
                 finalarguments = finalarguments + "?limit=1"
             };
             console.log(finalarguments);
