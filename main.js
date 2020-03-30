@@ -117,14 +117,12 @@ client.on('message', msg => {
                         },
                         "timestamp": date
                       };
-                      if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
+                      if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/) || await getUrl(subreddit_json.url + ".png") != 'undefined') {
                           embed.image = new Object();
                           embed.image.url = subreddit_json.url;
                       } else {
-                          if (subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
-                              embed.thumbnail = new Object();
-                              embed.thumbnail.url = subreddit_json.thumbnail
-                          }
+                          embed.thumbnail = new Object();
+                          embed.thumbnail.url = subreddit_json.thumbnail
                           if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
                               embed.fields = new Array();
                               embed.fields.push({
@@ -183,14 +181,12 @@ client.on('message', msg => {
                           },
                           "timestamp": date
                         };
-                        if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
+                        if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/) || await getUrl(subreddit_json.url + ".png") != 'undefined') {
                             embed.image = new Object();
                             embed.image.url = subreddit_json.url;
                         } else {
-                            if (subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
-                                embed.thumbnail = new Object();
-                                embed.thumbnail.url = subreddit_json.thumbnail
-                            }
+                            embed.thumbnail = new Object();
+                            embed.thumbnail.url = subreddit_json.thumbnail
                             if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
                                 embed.fields = new Array();
                                 embed.fields.push({
