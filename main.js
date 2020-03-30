@@ -30,7 +30,7 @@ async function getCustom(subreddit, custom) {
     if (response == 'error') {
         return 'error';
     } else {
-        if (response.data.isArray() || !response.data.isObject()) {
+        if (Object.prototype.toString.call(response.data) === '[object Array]') {
             return response.data[0].data.children[0].data;
         } else {
             return response.data.data.children[0].data;
