@@ -35,7 +35,11 @@ async function getCustom(subreddit, custom) {
     if (response == 'error') {
         return 'error';
     } else {
-        return response.data.data.children[0].data;
+        if (response.data.isArray()) {
+            return response.data[0].data.children[0].data;
+        } else {
+            return response.data.data.children[0].data;
+        }
     }
 }
 
