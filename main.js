@@ -20,15 +20,15 @@ async function redditGet(subreddit, iscustom, arguments) {
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
             return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
-            var finalarguments = arguments;
+            var finalarguments = `${arguments}`;
             if (finalarguments.includes('?limit=')) {
-                var regex = /(limit=)\d+/
+                var regex = /(limit=)\d+/;
                 finalarguments.replace(regex, 'limit=1');
             } else if (finalarguments.includes('?count=')) {
-                var regex = /(count=)\d+/
+                var regex = /(count=)\d+/;
                 finalarguments.replace(regex, 'count=1');
             } else {
-                finalarguments = finalarguments + "?limit=1"
+                finalarguments = finalarguments + "?limit=1";
             };
             console.log(finalarguments);
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${finalarguments}`);
