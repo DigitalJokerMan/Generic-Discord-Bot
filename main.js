@@ -142,7 +142,7 @@ client.on('message', msg => {
                                 default:
                                     embed.thumbnail.url = post.thumbnail
                                     break;
-                            }
+                            };
                             embed.fields = new Array();
                             embed.fields.push({
                                 "name": "Included URL:",
@@ -248,6 +248,11 @@ client.on('message', msg => {
                     ]
                 };
                 msg.channel.send({embed})
+                break;
+              case 'ping':
+                msg.channel.send("...").then(m => {
+                    m.edit(`🏓 My latency is: **${m.createdTimestamp - msg.createdTimestamp}ms**`)
+                });
                 break;
               default:
                 console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} which was found in available commands but not in the switch statement.`)
