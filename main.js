@@ -102,6 +102,7 @@ client.on('message', msg => {
                     };
                     msg.channel.send({embed});
                 } else {
+                    var m = msg.channel.send('Fetching..')
                     var foo = (async function() {
                         var getr = await redditGet(splitted[1], false, 'undefined');
                         if (getr != 'error') {
@@ -157,6 +158,7 @@ client.on('message', msg => {
                                 embed.description = post.selftext
                             }
                         };
+                        m.delete();
                         msg.channel.send({embed});
                     })().catch(function (err) {
                         webError(msg.channel);
@@ -177,6 +179,7 @@ client.on('message', msg => {
                       };
                       msg.channel.send({embed});
                   } else {
+                      var m = msg.channel.send('Fetching..')
                       var foo = (async function() {
                           var getr = await redditGet(splitted[1], true, splitted[2]);
                           if (getr != 'error') {
@@ -221,6 +224,7 @@ client.on('message', msg => {
                                   embed.description = post.selftext
                               }
                           };
+                          m.delete();
                           msg.channel.send({embed});
                       })().catch(function (err) {
                           webError(msg.channel);
