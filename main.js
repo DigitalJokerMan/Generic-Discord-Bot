@@ -26,7 +26,7 @@ async function getTop(subreddit) {
 }
 
 async function getCustom(subreddit, custom) {
-    const response = await getUrl(`https://www.reddit.com/r/${subreddit}/top/.json?${custom}?limit=1`);
+    const response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
     if (response == 'error') {
         return 'error';
     } else {
@@ -204,7 +204,7 @@ client.on('message', msg => {
                 } else {
                   embed = {
                     "title": "Invalid arguments!",
-                    "description": `**${content}** has an invalid number of arguments. Proper usage: !customreddit (subredditname) (custom arguments Ex: ?top=day)`,
+                    "description": `**${content}** has an invalid number of arguments. Proper usage: !customreddit (subredditname) (custom json, Ex: /top/.json?top=day)`,
                     "color": 16720932,
                     "footer": {
                       "text": "Hal8k - Discord Bot"
