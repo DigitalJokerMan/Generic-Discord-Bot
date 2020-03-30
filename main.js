@@ -16,7 +16,7 @@ async function redditGet(subreddit, iscustom, arguments) {
         if (iscustom == false) {
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/top/.json?t=day?limit=1`);
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
-            return (postjs.data.data.children[0].data, userjs.data.data)
+            return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${arguments}`);
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
@@ -161,7 +161,13 @@ client.on('message', msg => {
                       msg.channel.send({embed});
                   } else {
                       var foo = (async function() {
-                          var [post, author] = await redditGet(splitted[1], true, splitted[2]);
+                          var getr = await redditGet(splitted[1], false, 'undefined');
+                          if (getr != 'error') {
+                              var [post, user] = getr;
+                          } else {
+                              webError(msg.channel);
+                              break;
+                          }
                           var embed = {
                               "title": post.title,
                               "url": `https://www.reddit.com${post.permalink}`,
