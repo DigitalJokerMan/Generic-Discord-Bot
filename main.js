@@ -33,7 +33,6 @@ async function redditGet(subreddit, iscustom, arguments) {
                 }
                 finalarguments += `?${splitargs[i]}`
             };
-            console.log(finalarguments);
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${finalarguments}`);
             if (typeof postjs.data.data !== 'undefined') {
                 const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
