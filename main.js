@@ -123,7 +123,7 @@ client.on('message', msg => {
                         if (await isImage(post.url) == true) {
                             embed.image = new Object();
                             embed.image.url = post.url;
-                        } else if (!post.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                        } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
                             embed.thumbnail = new Object();
                             embed.thumbnail.url = post.url;
                             embed.fields = new Array();
@@ -185,7 +185,7 @@ client.on('message', msg => {
                           if (await isImage(post.url) == true) {
                               embed.image = new Object();
                               embed.image.url = post.url;
-                          } else if (!post.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                          } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
                               embed.thumbnail = new Object();
                               embed.thumbnail.url = post.url;
                               embed.fields = new Array();
