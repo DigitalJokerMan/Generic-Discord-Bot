@@ -229,9 +229,22 @@ client.on('message', msg => {
                 "title": "Available commands",
                 "description": "This is a list of the commands currently available, it is possible some may require permissions you do not have.",
                 "footer": {
-
+                    "text": "Generic Discord Bot"
                 },
-            }
+                "timestamp" = date,
+                "color": 5963612,
+                "fields": [
+                    {
+                        "name": "!topoftheday",
+                        "value": "Gets the top post of the day on desired subreddit. \n Usage: !topoftheday (subreddit)"
+                    },
+                    {
+                        "name": "!customreddit",
+                        "value": "Gets a reddit post with the provided arguments. \n Usage: !customreddit (subreddit) (args)\nEx: !customreddit funny top/.json?t=day (This would return the same thing as !topoftheday, if given reddit was r/funny.)"
+                    }
+                ]
+            };
+            msg.channel.send({embed})
             break;
           default:
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
