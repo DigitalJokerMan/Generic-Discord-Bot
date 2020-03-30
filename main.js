@@ -5,6 +5,8 @@ const client = new Discord.Client();
 const axios = require('axios');
 const prefix = "!";
 const date = Date.now();
+var delay = 750;
+var lastCall = 0;
 
 async function getUrl(url) {
     const r = await axios.get(url).catch(function (error) {
@@ -68,6 +70,8 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
+    if (lastCall >= (Date.now() - delay)) return;
+    lastCall = Date.now();
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(1, msg.content.length);
         var splitted = content.split(' ');
