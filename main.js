@@ -20,7 +20,15 @@ async function redditGet(subreddit, iscustom, arguments) {
             const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
             return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
-            const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${arguments}`);
+            var finalarguments = arguments;
+            if (arguments.includes('?limit=')) {
+                var limit = /?limit=(\d+)/.exec(arguments);
+                finalarguments.replace(`?limit=${limit[1]}`, '?limit=1');
+            } else if (arguments.includes('?count=')) {
+                var count = /?count=(\d+)/.exec(arguments);
+                finalarguments.replace(`?count=${count[1]}`, '?count=1');
+            };
+            const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${finalarguments}`);
             if (typeof postjs.data.data !== 'undefined') {
                 const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
                 return [postjs.data.data.children[0].data, userjs.data.data];
@@ -102,68 +110,66 @@ client.on('message', msg => {
                     };
                     msg.channel.send({embed});
                 } else {
-                    msg.channel.send("Fetching.. (This could take a while, he's kind of slow.)").then(m => {
-                        var foo = (async function() {
-                            var getr = await redditGet(splitted[1], false, 'undefined');
-                            if (getr != 'error') {
-                                var [post, user] = getr;
-                            } else {
-                                webError(msg.channel);
-                                return;
-                            }
-                            var embed = {
-                                "title": post.title,
-                                "url": `https://www.reddit.com${post.permalink}`,
-                                "color": 16729344,
-                                "footer": {
-                                    "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                                    "text": "redd.it"
-                                },
-                                "author": {
-                                    "name": post.author,
-                                    "url": `https://www.reddit.com/user/${post.author}`,
-                                    "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                                },
-                                "timestamp": date
-                            };
-                            if (await isImage(post.url) == true) {
-                                embed.image = new Object();
-                                embed.image.url = post.url;
-                            } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
-                                embed.thumbnail = new Object();
-                                switch (post.thumbnail) {
-                                    case 'default':
-                                        embed.thumbnail.url = "https://www.reddit.com/static/noimage.png"
-                                        break;
-                                    case 'self':
-                                        embed.thumbnail.url = "https://www.reddit.com/static/self_default2.png"
-                                        break;
-                                    case 'nsfw':
-                                        embed.thumbnail.url = "https://www.reddit.com/static/nsfw2.png"
-                                        break;
-                                    default:
-                                        embed.thumbnail.url = post.thumbnail
-                                        break;
-                                };
-                                embed.fields = new Array();
-                                embed.fields.push({
-                                    "name": "Included URL:",
-                                    "value": post.url
-                                });
-                            };
-                            if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
-                                if (post.selftext.length > 300) {
-                                    embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
-                                } else {
-                                    embed.description = post.selftext
-                                }
-                            };
-                            m.delete();
-                            msg.channel.send({embed});
-                        })().catch(function (err) {
+                    var foo = (async function() {
+                        var getr = await redditGet(splitted[1], false, 'undefined');
+                        if (getr != 'error') {
+                            var [post, user] = getr;
+                        } else {
                             webError(msg.channel);
-                            console.error(err);
-                        });
+                            return;
+                        }
+                        var embed = {
+                            "title": post.title,
+                            "url": `https://www.reddit.com${post.permalink}`,
+                            "color": 16729344,
+                            "footer": {
+                                "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                                "text": "redd.it"
+                            },
+                            "author": {
+                                "name": post.author,
+                                "url": `https://www.reddit.com/user/${post.author}`,
+                                "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                            },
+                            "timestamp": date
+                        };
+                        if (await isImage(post.url) == true) {
+                            embed.image = new Object();
+                            embed.image.url = post.url;
+                        } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
+                            embed.thumbnail = new Object();
+                            switch (post.thumbnail) {
+                                case 'default':
+                                    embed.thumbnail.url = "https://www.reddit.com/static/noimage.png"
+                                    break;
+                                case 'self':
+                                    embed.thumbnail.url = "https://www.reddit.com/static/self_default2.png"
+                                    break;
+                                case 'nsfw':
+                                    embed.thumbnail.url = "https://www.reddit.com/static/nsfw2.png"
+                                    break;
+                                default:
+                                    embed.thumbnail.url = post.thumbnail
+                                    break;
+                            };
+                            embed.fields = new Array();
+                            embed.fields.push({
+                                "name": "Included URL:",
+                                "value": post.url
+                            });
+                        };
+                        if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
+                            if (post.selftext.length > 300) {
+                                embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                            } else {
+                                embed.description = post.selftext
+                            }
+                        };
+                        m.delete();
+                        msg.channel.send({embed});
+                    })().catch(function (err) {
+                        webError(msg.channel);
+                        console.error(err);
                     });
                 }
                 break;
@@ -180,57 +186,55 @@ client.on('message', msg => {
                       };
                       msg.channel.send({embed});
                   } else {
-                      msg.channel.send("Fetching.. (This could take a while, he's kind of slow.)").then(m => {
-                          var foo = (async function() {
-                              var getr = await redditGet(splitted[1], true, splitted[2]);
-                              if (getr != 'error') {
-                                  var [post, user] = getr;
-                              } else {
-                                  webError(msg.channel);
-                                  return;
-                              }
-                              var embed = {
-                                  "title": post.title,
-                                  "url": `https://www.reddit.com${post.permalink}`,
-                                  "color": 16729344,
-                                  "footer": {
-                                      "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                                      "text": "redd.it"
-                                  },
-                                  "author": {
-                                      "name": post.author,
-                                      "url": `https://www.reddit.com/user/${post.author}`,
-                                      "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                                  },
-                                  "timestamp": date
-                              };
-                              if (await isImage(post.url) == true) {
-                                  embed.image = new Object();
-                                  embed.image.url = post.url;
-                              } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
-                                  if (post.thumbnail !== 'default') {
-                                      embed.thumbnail = new Object();
-                                      embed.thumbnail.url = post.thumbnail;
-                                  };
-                                  embed.fields = new Array();
-                                  embed.fields.push({
-                                      "name": "Included URL:",
-                                      "value": post.url
-                                  });
-                              };
-                              if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
-                                  if (post.selftext.length > 300) {
-                                      embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
-                                  } else {
-                                      embed.description = post.selftext
-                                  }
-                              };
-                              m.delete();
-                              msg.channel.send({embed});
-                          })().catch(function (err) {
+                      var foo = (async function() {
+                          var getr = await redditGet(splitted[1], true, splitted[2]);
+                          if (getr != 'error') {
+                              var [post, user] = getr;
+                          } else {
                               webError(msg.channel);
-                              console.error(err);
-                          });
+                              return;
+                          }
+                          var embed = {
+                              "title": post.title,
+                              "url": `https://www.reddit.com${post.permalink}`,
+                              "color": 16729344,
+                              "footer": {
+                                  "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                                  "text": "redd.it"
+                              },
+                              "author": {
+                                  "name": post.author,
+                                  "url": `https://www.reddit.com/user/${post.author}`,
+                                  "icon_url": user.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                              },
+                              "timestamp": date
+                          };
+                          if (await isImage(post.url) == true) {
+                              embed.image = new Object();
+                              embed.image.url = post.url;
+                          } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
+                              if (post.thumbnail !== 'default') {
+                                  embed.thumbnail = new Object();
+                                  embed.thumbnail.url = post.thumbnail;
+                              };
+                              embed.fields = new Array();
+                              embed.fields.push({
+                                  "name": "Included URL:",
+                                  "value": post.url
+                              });
+                          };
+                          if (typeof post.selftext !== 'undefined' && post.selftext.length > 0) {
+                              if (post.selftext.length > 300) {
+                                  embed.description = post.selftext.substring(0,300) + `.. [Read More](https://reddit.com${post.permalink})`
+                              } else {
+                                  embed.description = post.selftext
+                              }
+                          };
+                          m.delete();
+                          msg.channel.send({embed});
+                      })().catch(function (err) {
+                          webError(msg.channel);
+                          console.error(err);
                       });
                   }
                 break;
