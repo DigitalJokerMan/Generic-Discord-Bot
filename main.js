@@ -99,7 +99,14 @@ client.on('message', msg => {
                     msg.channel.send({embed});
                 } else {
                     var foo = (async function() {
-                        var [post, author] = await redditGet(splitted[1], false, 'undefined');
+                        var getr = await redditGet(splitted[1], false, 'undefined');
+                        var [post, user];
+                        if (getr != 'error') {
+                            [post, user] = getr;
+                        } else {
+                            webError(msg.channel);
+                            break;
+                        }
                         var embed = {
                             "title": post.title,
                             "url": `https://www.reddit.com${post.permalink}`,
