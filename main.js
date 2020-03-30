@@ -7,7 +7,8 @@ const date = Date.now();
 const validcommands = [
     "topoftheday",
     "customreddit",
-    "help"
+    "help",
+    "ping"
 ]
 
 let prefix = process.env.prefix;
@@ -244,6 +245,10 @@ client.on('message', msg => {
                         {
                             "name": `${prefix}customreddit`,
                             "value": `Gets a reddit post with the provided arguments. \n **Usage**: ${prefix}customreddit (subreddit) (args)\n**Ex**: ${prefix}customreddit funny top/.json?t=day (This would return the same thing as ${prefix}topoftheday, if given reddit was r/funny.)`
+                        },
+                        {
+                            "name": `${prefix}ping`,
+                            "value": `C'mon, you know what it does. (Returns how long it takes for the bot to reply to your message in ms)`
                         }
                     ]
                 };
