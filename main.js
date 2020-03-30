@@ -128,10 +128,21 @@ client.on('message', msg => {
                             embed.image = new Object();
                             embed.image.url = post.url;
                         } else if (!post.url.startsWith(`https://www.reddit.com/${post.subreddit_name_prefixed}/comments/`)) {
-                            if (post.thumbnail !== 'default') {
-                                embed.thumbnail = new Object();
-                                embed.thumbnail.url = post.thumbnail;
-                            };
+                            embed.thumbnail = new Object();
+                            switch (post.thumbnail) {
+                                case 'default':
+                                    embed.thumbnail.url = "https://www.reddit.com/static/noimage.png"
+                                    break;
+                                case 'self':
+                                    embed.thumbnail.url = "https://www.reddit.com/static/self_default2.png"
+                                    break;
+                                case 'nsfw':
+                                    embed.thumbnail.url = "https://www.reddit.com/static/nsfw2.png"
+                                    break;
+                                default:
+                                    embed.thumbnail.url = post.thumbnail
+                                    break;
+                            }
                             embed.fields = new Array();
                             embed.fields.push({
                                 "name": "Included URL:",
