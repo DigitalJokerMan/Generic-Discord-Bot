@@ -227,7 +227,7 @@ client.on('message', msg => {
           case 'help':
             embed = {
                 "title": "Available commands",
-                "description": "This is a list of the commands currently available, it is possible some may require permissions you do not have.",
+                "description": "This is a list of the commands currently available, it is possible some may require permissions you do not have.\n",
                 "footer": {
                     "text": "Generic Discord Bot"
                 },
@@ -236,11 +236,11 @@ client.on('message', msg => {
                 "fields": [
                     {
                         "name": "!topoftheday",
-                        "value": "Gets the top post of the day on desired subreddit. \n Usage: !topoftheday (subreddit)"
+                        "value": "Gets the top post of the day on desired subreddit. \n **Usage**: !topoftheday (subreddit)"
                     },
                     {
                         "name": "!customreddit",
-                        "value": "Gets a reddit post with the provided arguments. \n Usage: !customreddit (subreddit) (args)\nEx: !customreddit funny top/.json?t=day (This would return the same thing as !topoftheday, if given reddit was r/funny.)"
+                        "value": "Gets a reddit post with the provided arguments. \n **Usage**: !customreddit (subreddit) (args)\n**Ex**: !customreddit funny top/.json?t=day (This would return the same thing as !topoftheday, if given reddit was r/funny.)"
                     }
                 ]
             };
