@@ -144,20 +144,6 @@ client.on('message', msg => {
                 msg.channel.send({embed});
             }
             break;
-          case 'reboot':
-            if(!msg.member.hasPermission(['ADMINISTRATOR'])) {
-                noPerms(msg.channel);
-                break;
-            };
-            msg.channel.startTyping();
-            msg.delete();
-            msg.channel.send('Rebooting..').then(msg => {
-              client.destroy();
-              client.login(process.env.token).then(() => {
-                msg.delete();
-              })
-            });
-            break;
           default:
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
             break;
