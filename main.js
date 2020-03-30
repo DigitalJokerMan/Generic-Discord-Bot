@@ -23,10 +23,12 @@ async function redditGet(subreddit, iscustom, arguments) {
             var finalarguments = arguments;
             if (arguments.includes('?limit=')) {
                 var limit = /?limit=(\d+)/.exec(arguments);
-                finalarguments.replace(`?limit=${limit[1]}`, '?limit=1');
+                finalarguments.replace(`?limit=${limit}`, '?limit=1');
             } else if (arguments.includes('?count=')) {
                 var count = /?count=(\d+)/.exec(arguments);
-                finalarguments.replace(`?count=${count[1]}`, '?count=1');
+                finalarguments.replace(`?count=${count}`, '?count=1');
+            } else if (!arguments.includes('random.json') || !arguments.includes('random/.json')) {
+                finalarguments = finalarguments + "?limit=1"
             };
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${finalarguments}`);
             if (typeof postjs.data.data !== 'undefined') {
@@ -165,7 +167,6 @@ client.on('message', msg => {
                                 embed.description = post.selftext
                             }
                         };
-                        m.delete();
                         msg.channel.send({embed});
                     })().catch(function (err) {
                         webError(msg.channel);
@@ -230,7 +231,6 @@ client.on('message', msg => {
                                   embed.description = post.selftext
                               }
                           };
-                          m.delete();
                           msg.channel.send({embed});
                       })().catch(function (err) {
                           webError(msg.channel);
