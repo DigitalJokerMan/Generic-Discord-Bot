@@ -26,12 +26,7 @@ async function getTop(subreddit) {
 }
 
 async function getCustom(subreddit, custom) {
-    let response;
-    if (custom.includes("?limit=1")) {
-        response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
-    } else {
-        response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}?limit=1`);
-    }
+    let response = await getUrl(`https://www.reddit.com/r/${subreddit}/${custom}`);
     if (response == 'error') {
         return 'error';
     } else {
