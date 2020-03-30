@@ -70,9 +70,6 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
-    console.log(lastCall)
-    if (lastCall >= (Date.now() - delay)) return;
-    lastCall = Date.now();
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(1, msg.content.length);
         var splitted = content.split(' ');
