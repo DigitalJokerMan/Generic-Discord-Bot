@@ -5,6 +5,11 @@ const client = new Discord.Client();
 const axios = require('axios');
 let prefix = process.env.prefix;
 const date = Date.now();
+const validcommands = [
+    "topoftheday",
+    "customreddit",
+    "help"
+]
 
 async function getUrl(url) {
     const r = await axios.get(url).catch(function (error) {
@@ -85,167 +90,170 @@ client.on('message', msg => {
         var content = msg.content.substring(prefix.length, msg.content.length);
         var splitted = content.split(' ');
         var command = splitted[0].replace(/\s/g,'');
-        switch (command) {
-          case 'topoftheday':
+        if (validcommands.includes(command)) {
             msg.channel.startTyping();
-            if (splitted.length == 2) {
-                async function dostuff() {
-                  subreddit_json = await getTop(splitted[1]);
-                  if (subreddit_json == 'error') {
-                      webError(msg.channel);
-                      return;
-                  };
-                  user_json = await getUser(subreddit_json.author);
-                  embed = {
-                    "title": subreddit_json.title,
-                    "url": `https://reddit.com${subreddit_json.permalink}`,
-                    "color": 16729344,
-                    "footer": {
-                      "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                      "text": "redd.it"
-                    },
-                    "author": {
-                      "name": subreddit_json.author,
-                      "url": `https://www.reddit.com/user/${subreddit_json.author}`,
-                      "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
-                    },
-                    "timestamp": date
-                  };
-                  if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
-                      embed.image = new Object();
-                      embed.image.url = subreddit_json.url;
-                  } else {
-                      if (subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
-                          embed.thumbnail = new Object();
-                          embed.thumbnail.url = subreddit_json.thumbnail
-                      }
-                      if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
-                          embed.fields = new Array();
-                          embed.fields.push({
-                              "name": "Included URL:",
-                              "value": subreddit_json.url
-                          });
-                      }
-                  };
-                  if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
-                    if (subreddit_json.selftext.length > 300) {
-                        embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
-                    } else {
-                        embed.description = subreddit_json.selftext
-                    }
-                  };
-                  msg.channel.send({embed});
-                };
-                dostuff().catch(function (error) {
-                    webError(msg.channel);
-                    console.log(error)
-                });
-              } else {
-                embed = {
-                  "title": "Invalid arguments!",
-                  "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}topoftheday (subredditname)`,
-                  "color": 16720932,
-                  "footer": {
-                    "text": "Hal8k - Discord Bot"
-                  },
-                  "timestamp": date
-                };
-                msg.channel.send({embed});
-            }
-            break;
-          case 'customreddit':
-              msg.channel.startTyping();
-              if (splitted.length == 3) {
-                  async function dostuff() {
-                    subreddit_json = await getCustom(splitted[1], splitted[2]);
-                    if (subreddit_json == 'error') {
-                        webError(msg.channel);
-                        return;
+            switch (command) {
+              case 'topoftheday':
+                if (splitted.length == 2) {
+                    async function dostuff() {
+                      subreddit_json = await getTop(splitted[1]);
+                      if (subreddit_json == 'error') {
+                          webError(msg.channel);
+                          return;
+                      };
+                      user_json = await getUser(subreddit_json.author);
+                      embed = {
+                        "title": subreddit_json.title,
+                        "url": `https://reddit.com${subreddit_json.permalink}`,
+                        "color": 16729344,
+                        "footer": {
+                          "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                          "text": "redd.it"
+                        },
+                        "author": {
+                          "name": subreddit_json.author,
+                          "url": `https://www.reddit.com/user/${subreddit_json.author}`,
+                          "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                        },
+                        "timestamp": date
+                      };
+                      if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
+                          embed.image = new Object();
+                          embed.image.url = subreddit_json.url;
+                      } else {
+                          if (subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
+                              embed.thumbnail = new Object();
+                              embed.thumbnail.url = subreddit_json.thumbnail
+                          }
+                          if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                              embed.fields = new Array();
+                              embed.fields.push({
+                                  "name": "Included URL:",
+                                  "value": subreddit_json.url
+                              });
+                          }
+                      };
+                      if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
+                        if (subreddit_json.selftext.length > 300) {
+                            embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
+                        } else {
+                            embed.description = subreddit_json.selftext
+                        }
+                      };
+                      msg.channel.send({embed});
                     };
-                    user_json = await getUser(subreddit_json.author);
+                    dostuff().catch(function (error) {
+                        webError(msg.channel);
+                        console.log(error)
+                    });
+                  } else {
                     embed = {
-                      "title": subreddit_json.title,
-                      "url": `https://reddit.com${subreddit_json.permalink}`,
-                      "color": 16729344,
+                      "title": "Invalid arguments!",
+                      "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}topoftheday (subredditname)`,
+                      "color": 16720932,
                       "footer": {
-                        "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
-                        "text": "redd.it"
-                      },
-                      "author": {
-                        "name": subreddit_json.author,
-                        "url": `https://www.reddit.com/user/${subreddit_json.author}`,
-                        "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                        "text": "Hal8k - Discord Bot"
                       },
                       "timestamp": date
                     };
-                    if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
-                        embed.image = new Object();
-                        embed.image.url = subreddit_json.url;
-                    } else {
-                        if (subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
-                            embed.thumbnail = new Object();
-                            embed.thumbnail.url = subreddit_json.thumbnail
-                        }
-                        if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
-                            embed.fields = new Array();
-                            embed.fields.push({
-                                "name": "Included URL:",
-                                "value": subreddit_json.url
-                            });
-                        }
-                    };
-                    if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
-                      if (subreddit_json.selftext.length > 300) {
-                          embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
-                      } else {
-                          embed.description = subreddit_json.selftext
-                      }
-                    };
                     msg.channel.send({embed});
-                  };
-                  dostuff().catch(function (error) {
-                      webError(msg.channel);
-                      console.log(error)
-                  });
-                } else {
-                  embed = {
-                    "title": "Invalid arguments!",
-                    "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}customreddit (subredditname) (custom json, Ex: /top/.json?top=day)`,
-                    "color": 16720932,
+                }
+                break;
+              case 'customreddit':
+                  if (splitted.length == 3) {
+                      async function dostuff() {
+                        subreddit_json = await getCustom(splitted[1], splitted[2]);
+                        if (subreddit_json == 'error') {
+                            webError(msg.channel);
+                            return;
+                        };
+                        user_json = await getUser(subreddit_json.author);
+                        embed = {
+                          "title": subreddit_json.title,
+                          "url": `https://reddit.com${subreddit_json.permalink}`,
+                          "color": 16729344,
+                          "footer": {
+                            "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
+                            "text": "redd.it"
+                          },
+                          "author": {
+                            "name": subreddit_json.author,
+                            "url": `https://www.reddit.com/user/${subreddit_json.author}`,
+                            "icon_url": user_json.icon_img.replace(/^(.+?\.(png|jpe?g)).*$/i, '$1')
+                          },
+                          "timestamp": date
+                        };
+                        if (subreddit_json.url.match(/.(jpeg|jpg|gif|png)$/)) {
+                            embed.image = new Object();
+                            embed.image.url = subreddit_json.url;
+                        } else {
+                            if (subreddit_json.thumbnail.match(/.(jpeg|jpg|gif|png)$/)) {
+                                embed.thumbnail = new Object();
+                                embed.thumbnail.url = subreddit_json.thumbnail
+                            }
+                            if (!subreddit_json.url.startsWith(`https://www.reddit.com/${subreddit_json.subreddit_name_prefixed}/comments/`)) {
+                                embed.fields = new Array();
+                                embed.fields.push({
+                                    "name": "Included URL:",
+                                    "value": subreddit_json.url
+                                });
+                            }
+                        };
+                        if (subreddit_json.selftext != 'undefined' && subreddit_json.selftext.length != 0) {
+                          if (subreddit_json.selftext.length > 300) {
+                              embed.description = subreddit_json.selftext.substring(0, 300) + `.. [Read More](https://reddit.com${subreddit_json.permalink})`
+                          } else {
+                              embed.description = subreddit_json.selftext
+                          }
+                        };
+                        msg.channel.send({embed});
+                      };
+                      dostuff().catch(function (error) {
+                          webError(msg.channel);
+                          console.log(error)
+                      });
+                    } else {
+                      embed = {
+                        "title": "Invalid arguments!",
+                        "description": `**${content}** has an invalid number of arguments. Proper usage: ${prefix}customreddit (subredditname) (custom json, Ex: /top/.json?top=day)`,
+                        "color": 16720932,
+                        "footer": {
+                          "text": "Hal8k - Discord Bot"
+                        },
+                        "timestamp": date
+                      };
+                      msg.channel.send({embed});
+                  }
+                break;
+              case 'help':
+                embed = {
+                    "title": "Available commands",
+                    "description": "This is a list of the commands currently available, it is possible some may require permissions you do not have.\n",
                     "footer": {
-                      "text": "Hal8k - Discord Bot"
+                        "text": "Generic Discord Bot"
                     },
-                    "timestamp": date
-                  };
-                  msg.channel.send({embed});
-              }
-            break;
-          case 'help':
-            embed = {
-                "title": "Available commands",
-                "description": "This is a list of the commands currently available, it is possible some may require permissions you do not have.\n",
-                "footer": {
-                    "text": "Generic Discord Bot"
-                },
-                "timestamp": date,
-                "color": 5963612,
-                "fields": [
-                    {
-                        "name": `${prefix}topoftheday`,
-                        "value": `Gets the top post of the day on desired subreddit. \n **Usage**: ${prefix}topoftheday (subreddit)`
-                    },
-                    {
-                        "name": `${prefix}customreddit`,
-                        "value": `Gets a reddit post with the provided arguments. \n **Usage**: ${prefix}customreddit (subreddit) (args)\n**Ex**: ${prefix}customreddit funny top/.json?t=day (This would return the same thing as ${prefix}topoftheday, if given reddit was r/funny.)`
-                    }
-                ]
+                    "timestamp": date,
+                    "color": 5963612,
+                    "fields": [
+                        {
+                            "name": `${prefix}topoftheday`,
+                            "value": `Gets the top post of the day on desired subreddit. \n **Usage**: ${prefix}topoftheday (subreddit)`
+                        },
+                        {
+                            "name": `${prefix}customreddit`,
+                            "value": `Gets a reddit post with the provided arguments. \n **Usage**: ${prefix}customreddit (subreddit) (args)\n**Ex**: ${prefix}customreddit funny top/.json?t=day (This would return the same thing as ${prefix}topoftheday, if given reddit was r/funny.)`
+                        }
+                    ]
+                };
+                msg.channel.send({embed})
+                break;
+              default:
+                console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
+                break;
             };
-            msg.channel.send({embed})
-            break;
-          default:
+        } else {
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
-            break;
-        };
+        }
         msg.channel.stopTyping();
     };
 });
