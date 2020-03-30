@@ -3,7 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
-const prefix = ";";
+const prefix = process.env.prefix;
 const date = Date.now();
 
 async function getUrl(url) {
