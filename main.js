@@ -22,11 +22,11 @@ async function redditGet(subreddit, iscustom, arguments) {
         } else if (iscustom == true && arguments != 'undefined') {
             var finalarguments = arguments;
             if (arguments.includes('?limit=')) {
-                var limit = /\?\l\i\m\i\t\=(\d+)/.exec(finalarguments);
+                var limit = /\?\l\i\m\i\t\=\d+/.exec(finalarguments);
                 console.log(limit);
                 finalarguments.replace(`?limit=${limit}`, '?limit=1');
             } else if (arguments.includes('?count=')) {
-                var count = /\?\c\o\u\n\t\=(\d+)/.exec(finalarguments);
+                var count = /\?\c\o\u\n\t\=\d+/.exec(finalarguments);
                 console.log(count);
                 finalarguments.replace(`?count=${count}`, '?count=1');
             } else if (!arguments.includes('random.json') || !arguments.includes('random/.json')) {
