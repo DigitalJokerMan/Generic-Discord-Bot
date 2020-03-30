@@ -220,7 +220,7 @@ client.on('message', msg => {
                 msg.channel.send({embed})
                 break;
               default:
-                console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
+                console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} which was found in available commands but not in the switch statement.`)
                 break;
             };
             msg.channel.stopTyping();
