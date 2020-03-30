@@ -5,8 +5,6 @@ const client = new Discord.Client();
 const axios = require('axios');
 const prefix = "!";
 const date = Date.now();
-var delay = 1000;
-var lastCall = 0;
 
 async function getUrl(url) {
     const r = await axios.get(url).catch(function (error) {
