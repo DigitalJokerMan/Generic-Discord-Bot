@@ -21,7 +21,7 @@ async function redditGet(subreddit, iscustom, arguments) {
         } else if (iscustom == true && arguments != 'undefined') {
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${arguments}`);
             console.log(postjs.data.data);
-            if (postjs.data.data !== 'undefined') {
+            if (typeof postjs.data.data !== 'undefined') {
                 const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
                 return [postjs.data.data.children[0].data, userjs.data.data];
             } else {
