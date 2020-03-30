@@ -21,13 +21,13 @@ async function redditGet(subreddit, iscustom, arguments) {
             return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
             var finalarguments = arguments;
-            if (arguments.includes('?limit=')) {
+            if (finalarguments.includes('?limit=')) {
                 var regex = /(limit=)\d+/.exec(finalarguments);
                 finalarguments.replace(regex[0], '?limit=1');
-            } else if (arguments.includes('?count=')) {
+            } else if (finalarguments.includes('?count=')) {
                 var regex = /(count=)\d+/.exec(finalarguments);
                 finalarguments.replace(regex[0], '?count=1');
-            } else if (arguments.indexOf('random.json') === -1 || arguments.indexOf('random/.json') === -1) {
+            } else if (finalarguments.indexOf('random.json') === -1 || finalarguments.indexOf('random/.json') === -1) {
                 finalarguments = finalarguments + "?limit=1"
             };
             console.log(finalarguments);
