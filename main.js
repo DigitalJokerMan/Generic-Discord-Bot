@@ -20,13 +20,15 @@ async function redditGet(subreddit, iscustom, arguments) {
             return [postjs.data.data.children[0].data, userjs.data.data]
         } else if (iscustom == true && arguments != 'undefined') {
             const postjs = await axios.get(`https://www.reddit.com/r/${subreddit}/${arguments}`);
-            const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
             if (postjs.data.data != 'undefined') {
+                const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data.data.children[0].data.author}/about.json`);
                 return [postjs.data.data.children[0].data, userjs.data.data];
             } else {
-                console.log(postjs.data[0]);
+                const userjs = await axios.get(`https://www.reddit.com/user/${postjs.data[0].data.children[0].data.author}/about.json`);
                 return [postjs.data[0].data.children[0].data, userjs.data.data];
             }
+
+
         }
     }
     catch (err) {
