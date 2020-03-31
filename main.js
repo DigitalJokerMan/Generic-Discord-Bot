@@ -44,10 +44,12 @@ async function redditGet(subreddit, iscustom, arguments) {
         }
     }
     catch (err) {
-        if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+        if (process.env.debug == 'true') {
             console.error(err);
-        };
-        return 'error'
+            return 'error';
+        } else if (process.env.debug == 'false'); {
+            return 'error'
+        }
     }
 }
 
@@ -58,10 +60,12 @@ async function isImage(url) {
         return false;
     }
     catch (err) {
-        if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+        if (process.env.debug == 'true') {
             console.error(err);
-        };
-        return false;
+            return 'error';
+        } else if (process.env.debug == 'false'); {
+            return 'error'
+        }
     }
 }
 
@@ -177,9 +181,9 @@ client.on('message', msg => {
                         msg.channel.send({embed});
                     })().catch(function (err) {
                         webError(msg.channel);
-                        if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+                        if (process.env.debug == 'true') {
                             console.error(err);
-                        };
+                        }
                     });
                 }
                 break;
@@ -243,9 +247,9 @@ client.on('message', msg => {
                           msg.channel.send({embed});
                       })().catch(function (err) {
                           webError(msg.channel);
-                          if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+                          if (process.env.debug == 'true') {
                               console.error(err);
-                          };
+                          }
                       });
                   }
                 break;
