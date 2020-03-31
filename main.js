@@ -98,7 +98,7 @@ function webError(channel) {
 }
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`)
+    console.log(`Logged in as ${client.user.tag}!\nCurrent prefix is ${prefix}.\nDebug mode is ${process.env.debug}.`)
 });
 
 client.on('message', msg => {
