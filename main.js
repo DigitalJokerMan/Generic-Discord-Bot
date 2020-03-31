@@ -253,11 +253,11 @@ client.on('message', msg => {
                     "fields": [
                         {
                             "name": `${prefix}topoftheday`,
-                            "value": `Gets the top post of the day on desired subreddit. \n \`**Usage**: ${prefix}topoftheday (subreddit)\``
+                            "value": `Gets the top post of the day on desired subreddit. \n **Usage**: \`${prefix}topoftheday (subreddit)\``
                         },
                         {
                             "name": `${prefix}customreddit`,
-                            "value": `Gets a reddit post with the provided arguments. \n \`**Usage**: ${prefix}customreddit (subreddit) (args)\`\n\`**Ex**: ${prefix}customreddit funny top/.json?t=day\` (This would return the same thing as ${prefix}topoftheday, if given reddit was r/funny.)`
+                            "value": `Gets a reddit post with the provided arguments. \n **Usage**: \`${prefix}customreddit (subreddit) (args)\`\n**Ex**: \`${prefix}customreddit funny top/.json?t=day\` (This would return the same thing as ${prefix}topoftheday, if given reddit was r/funny.)`
                         },
                         {
                             "name": `${prefix}ping`,
