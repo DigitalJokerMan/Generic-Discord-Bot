@@ -44,7 +44,9 @@ async function redditGet(subreddit, iscustom, arguments) {
         }
     }
     catch (err) {
-        console.error(err);
+        if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+            console.error(err);
+        };
         return 'error'
     }
 }
@@ -56,7 +58,9 @@ async function isImage(url) {
         return false;
     }
     catch (err) {
-        console.error(err);
+        if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+            console.error(err);
+        };
         return false;
     }
 }
@@ -173,7 +177,9 @@ client.on('message', msg => {
                         msg.channel.send({embed});
                     })().catch(function (err) {
                         webError(msg.channel);
-                        console.error(err);
+                        if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+                            console.error(err);
+                        };
                     });
                 }
                 break;
@@ -237,7 +243,9 @@ client.on('message', msg => {
                           msg.channel.send({embed});
                       })().catch(function (err) {
                           webError(msg.channel);
-                          console.error(err);
+                          if (process.env.disableerrors != 'yes' || process.env.disableerrors != 'true') {
+                              console.error(err);
+                          };
                       });
                   }
                 break;
