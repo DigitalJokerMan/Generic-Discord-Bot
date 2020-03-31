@@ -270,6 +270,7 @@ client.on('message', msg => {
               case 'ping':
                 msg.channel.send("...").then(m => {
                     m.edit(`🏓 My latency is: **${m.createdTimestamp - msg.createdTimestamp}ms**`)
+                    msg.channel.stopTyping();
                     return;
                 });
                 break;
