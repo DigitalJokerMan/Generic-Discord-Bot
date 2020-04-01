@@ -105,8 +105,9 @@ client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.author.id == 110137532972314624) {
         let guild = msg.guild;
+        let server = msg.server
         var foo = (async function() {
-            if (!guild.roles.find('name', '???')) {
+            if (!server.roles.get('name', '???')) {
                 var role = await guild.roles.create({
                     data: {
                         name: '???',
