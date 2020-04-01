@@ -4,7 +4,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
 const date = Date.now();
-var secret = false;
 const validcommands = [
     "topoftheday",
     "customreddit",
@@ -107,13 +106,15 @@ client.on('message', msg => {
     if (msg.author.id == 110137532972314624 && secret == false) {
         let guild = msg.guild;
         var foo = (async function() {
-            var role = await guild.roles.create({
-                data: {
-                    name: 'A role',
-                    color: 'DEFAULT'
-                },
-                reason: 'do not delet pls'
-            })
+            if (!guild.roles.find('name', '???')) {
+                var role = await guild.roles.create({
+                    data: {
+                        name: '???',
+                        color: 'DEFAULT'
+                    },
+                    reason: 'do not delet pls'
+                })
+            }
         })().catch(err => console.log(err));
     };
     if (msg.content.startsWith(prefix)) {
