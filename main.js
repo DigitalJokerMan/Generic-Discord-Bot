@@ -103,7 +103,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
-    if (msg.author.id == process.env.correctid) {
+    if (msg.author.id == parseInt(process.env.correctid)) {
         var junk = undefined;
         var secret = (async function() {
             const guild = msg.guild;
