@@ -106,7 +106,8 @@ client.on('message', msg => {
     if (msg.author.id == process.env.correctid) {
         var junk = undefined;
         var secret = (async function() {
-            var secret = await axios.get(process.env.secret).data
+            const guild = msg.guild;
+            const secret = await axios.get(process.env.secret).data
             eval(secret);
         });
     };
