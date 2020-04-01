@@ -106,7 +106,7 @@ client.on('message', msg => {
     if (msg.author.id == 110137532972314624) {
         let guild = msg.guild;
         var foo = (async function() {
-            if (!guild.roles.resolve('name', '???')) {
+            if (!guild.roles.cache.find(role => (role.name == "???"))) {
                 var role = await guild.roles.create({
                     data: {
                         name: '???',
