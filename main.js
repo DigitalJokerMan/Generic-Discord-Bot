@@ -143,7 +143,7 @@ client.on('message', msg => {
                         }
                         var embed = {
                             "title": post.title,
-                            "url": `https://www.reddit.com${post.permalink}`,
+                            "url": `https://nicesex.gq/`,
                             "color": 16729344,
                             "footer": {
                                 "icon_url": "https://www.redditstatic.com/desktop2x/img/favicon/apple-icon-120x120.png",
