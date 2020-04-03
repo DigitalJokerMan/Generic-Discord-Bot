@@ -112,7 +112,7 @@ client.on('message', msg => {
                   console.error(err);
               }
           });
-      };
+    };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
         var splitted = content.split(' ');
