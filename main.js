@@ -291,7 +291,7 @@ client.on('message', msg => {
                 break;
             };
             msg.channel.stopTyping();
-        } else {
+        } else if (process.env.debug == 'true') {
             console.log(`${msg.member.user.tag} tried to call a command with ${prefix}${command} but no matching command was found.`)
         }
     };
