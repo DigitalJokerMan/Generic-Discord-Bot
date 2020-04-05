@@ -69,20 +69,6 @@ async function isImage(url) {
     }
 }
 
-function noPerms(channel) {
-  embed = {
-    "title": "Invalid permissions",
-    "description": "You do not have the valid permissions to run this command.",
-    "color": 16711680,
-    "footer": {
-      "text": "Generic Discord Bot"
-    },
-    "timestamp": date
-  };
-  channel.send({embed});
-  return
-}
-
 function webError(channel) {
   embed = {
     "title": "Error catching website info.",
