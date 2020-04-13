@@ -10,7 +10,7 @@ const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token == null ? undefined : proc.token
 
-async function redditGet(subreddit, arguments) {
+async function getReddit(subreddit, arguments) {
     const reddit = 'https://www.reddit.com/';
     try {
         if (arguments.length == 0) {
@@ -27,6 +27,10 @@ async function redditGet(subreddit, arguments) {
         if (debug) console.error(err);
         return 'error';
     }
+}
+
+async function Image() {
+    return (promise.headers['content-type'].startsWith('image/'));
 }
 
 const commands = {
