@@ -5,6 +5,12 @@ const client = new Discord.Client();
 const axios = require('axios');
 const sleep = (waitTimeInS) => new Promise(resolve => setTimeout(resolve, waitTimeInS * 1000)); // thx stackoverflow (Ryan Shillington)
 
+const proc = process.env;
+const prefix = proc.prefix == null ? "!" : proc.prefix;
+const debug = proc.debug == null ? true : (proc.debug == 'true');
+const token = proc.token == null ? undefined : proc.token
+
+async function redditGet(subreddit, arguments) {
     const reddit = 'https://www.reddit.com/';
     try {
         if (arguments.length == 0) {
