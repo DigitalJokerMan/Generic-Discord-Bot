@@ -24,7 +24,7 @@ async function redditGet(subreddit, arguments) {
         }
     }
     catch (err) {
-        console.error(err);
+        if (debug) console.error(err);
         return 'error';
     }
 }
