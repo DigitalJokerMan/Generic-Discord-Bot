@@ -29,8 +29,15 @@ async function getReddit(subreddit, arguments) {
     }
 }
 
-async function Image() {
-    return (promise.headers['content-type'].startsWith('image/'));
+async function Image(url) {
+    try {
+        var promise = await axios.get(url)
+        return (promise.headers['content-type'].startsWith('image/'));
+    }
+    catch (err) {
+        if (debug) console.error(err);
+        return false;
+    }
 }
 
 const commands = {
