@@ -36,7 +36,7 @@ async function Image(url) {
     }
     catch (err) {
         if (debug) console.error(err);
-        return false;
+        return 'error';
     }
 }
 
