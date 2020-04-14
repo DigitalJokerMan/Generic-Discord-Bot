@@ -60,7 +60,6 @@ const commands = {
                     break;
                 }
             }
-            message.channel.stopTyping();
             return;
         },
         'permissions': []
