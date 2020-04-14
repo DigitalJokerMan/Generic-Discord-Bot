@@ -16,9 +16,11 @@ const commands = {
         'method': async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             if (command_chunks.length == 2) {
-                message.channel.send(await tools.getrembed(command_chunks[1], null))
+                const embed = await tools.getrembed(command_chunks[1], null)
+                if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
             } else if (command_chunks.length == 3) {
-                message.channel.send(await tools.getrembed(command_chunks[1], command_chunks[2]))
+                const embed = await tools.getrembed(command_chunks[1], command_chunks[2])
+                if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
             } else {
                 message.channel.send('Too many, too little arguments or invalid arguments!');
             }
