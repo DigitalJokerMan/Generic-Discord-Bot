@@ -33,8 +33,8 @@ const construct = async function(postdata, userdata) {
         .setTitle(postdata.title)
         .setURL(reddit + postdata.permalink)
         .setAuthor(postdata.author, userdata.icon_img, reddit + `/user/${pd.author}`)
-    if (isimg(pd.url)) {embed.setImage(pd.url)} else if (isimg(pd.thumbnail)) embed.setThumbnail(pd.thumbnail);
-    if (pd.selftext.length != 0) embed.setDescription(truncate(pd.selftext, 250));
+    if (isimg(postdata.url)) {embed.setImage(postdata.url)} else if (isimg(postdata.thumbnail)) embed.setThumbnail(postdata.thumbnail);
+    if (postdata.selftext.length != 0) embed.setDescription(truncate(postdata.selftext, 250));
     return embed
 }
 
