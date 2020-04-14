@@ -20,7 +20,10 @@ const commands = {
                 case 2: {
                     tools.getrembed(command_chunks[1], null)
                         .then(embed => {
-                            message.channel.send(embed);
+                            message.channel.send(embed).catch(err => {
+                                if (debug) console.error(err);
+                                message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                            });
                             message.channel.stopTyping();
                         })
                         .catch(err => {
@@ -32,7 +35,10 @@ const commands = {
                 case 3: {
                     tools.getrembed(command_chunks[1], command_chunks[2])
                         .then(embed => {
-                            message.channel.send(embed);
+                            message.channel.send(embed).catch(err => {
+                                if (debug) console.error(err);
+                                message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                            });
                             message.channel.stopTyping();
                         })
                         .catch(err => {
