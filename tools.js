@@ -3,6 +3,7 @@ require('dotenv').config();
 const axios = require('axios');
 const Discord = require('discord.js');
 const now = new Date().now;
+const reddit = 'https://www.reddit.com';
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -38,7 +39,6 @@ const construct = async function(postdata, userdata) {
 }
 
 const getrembed = async function(subreddit, arguments) {
-    const reddit = 'https://www.reddit.com';
     const split = arguments == null ? false : arguments.split('?');
     const embed = new Discord.MessageEmbed()
         .setColor(16729344)
