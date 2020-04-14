@@ -17,20 +17,23 @@ const commands = {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             message.channel.startTyping();
             switch (command_chunks.length) {
-                case 2:
+                case 2: {
                     const embed = await tools.getrembed(command_chunks[1], null)
                     if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
                     message.channel.stopTyping();
                     break;
-                case 3:
+                }
+                case 3: {
                     const embed = await tools.getrembed(command_chunks[1], command_chunks[2])
                     if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
                     message.channel.stopTyping();
                     break;
-                default:
-                    message.channel.send('Too many, too little arguments or invalid arguments!');
+                }
+                default: {
+                    message.channel.send('Too many, too little or invalid arguments!');
                     message.channel.stopTyping();
                     break;
+                }
             }
             return;
         },
