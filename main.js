@@ -15,15 +15,20 @@ const commands = {
         'description': 'Gets reddit posts and displays them in an embed.',
         'method': async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
+            message.channel.startTyping();
             if (command_chunks.length == 2) {
                 const embed = await tools.getrembed(command_chunks[1], null)
                 if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
+                message.channel.stopTyping();
             } else if (command_chunks.length == 3) {
                 const embed = await tools.getrembed(command_chunks[1], command_chunks[2])
                 if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
+                message.channel.stopTyping();
             } else {
                 message.channel.send('Too many, too little arguments or invalid arguments!');
+                message.channel.stopTyping();
             }
+            return
         },
         'permissions': []
     }
