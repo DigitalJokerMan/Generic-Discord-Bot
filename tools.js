@@ -40,10 +40,6 @@ const construct = async function(postdata, userdata) {
 
 const getrembed = async function(subreddit, arguments) {
     const split = arguments == null ? false : arguments.split('?');
-    const embed = new Discord.MessageEmbed()
-        .setColor(16729344)
-        .setFooter('redd.it', 'https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png')
-        .setTimestamp(now)
     try {
         if (split && split[0].endsWith('.json')) {
             if (split[0] != 'random.json') {
