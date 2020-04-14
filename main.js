@@ -22,7 +22,7 @@ const commands = {
             } else if (command_chunks.length == 3) {
                 message.channel.send(await getrembed(command_chunks[1], command_chunks[2]))
             } else {
-                message.channel.send('Too many or too little arguments or invalid arguments!');
+                message.channel.send('Too many, too little arguments or invalid arguments!');
             }
         },
         'permissions': []
