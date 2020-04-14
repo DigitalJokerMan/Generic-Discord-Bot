@@ -37,7 +37,8 @@ const commands = {
             }
             catch (err) {
                 if (debug) console.error(err);
-                message.channel.send('An unexpected error ocurred.')
+                message.channel.send('An unexpected error ocurred.');
+                message.channel.stopTyping();
             }
             return;
         },
