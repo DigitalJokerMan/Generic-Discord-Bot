@@ -16,30 +16,51 @@ const commands = {
         'method': async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             message.channel.startTyping();
-            try {
-                switch (command_chunks.length) {
-                    case 2: {
-                        const embed = await tools.getrembed(command_chunks[1], null)
-                        if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
-                        break;
-                    }
-                    case 3: {
-                        const embed = await tools.getrembed(command_chunks[1], command_chunks[2])
-                        if (embed != null || typeof(embed) != undefined) message.channel.send(embed);
-                        break;
-                    }
-                    default: {
-                        message.channel.send('Too many, too little or invalid arguments!');
-                        break;
-                    }
+            switch (command_chunks.length) {
+                case 2: {
+                    tools.getrembed(command_chunks[1], null)
+                        .then(embed => {
+                            if (typeof(embed) != undefined || typeof(embed) != null) {
+                                message.channel.send(embed);
+                                message.channel.stopTyping();
+                            }
+                        })
+                        .catch(error => {
+                            if (debug) console.error(err);
+                            message.channel.stopTyping();
+                        });
+                    break;
                 }
-                message.channel.stopTyping();
+                case 3: {
+                    tools.getrembed(command_chunks[1], null)
+                        .then(embed => {
+                            if (typeof(embed) != undefined || typeof(embed) != null) {
+                                message.channel.send(embed);
+                                message.channel.stopTyping();
+                            }
+                        })
+                        .catch(error => {
+                            if (debug) console.error(err);
+                            message.channel.stopTyping();
+                        });
+                    break;
+                }
+                default: {
+                    tools.getrembed(command_chunks[1], null)
+                        .then(embed => {
+                            if (typeof(embed) != undefined || typeof(embed) != null) {
+                                message.channel.send(embed);
+                                message.channel.stopTyping();
+                            }
+                        })
+                        .catch(error => {
+                            if (debug) console.error(err);
+                            message.channel.stopTyping();
+                        });
+                    break;
+                }
             }
-            catch (err) {
-                if (debug) console.error(err);
-                message.channel.send('An unexpected error ocurred.');
-                message.channel.stopTyping();
-            }
+            message.channel.stopTyping();
             return;
         },
         'permissions': []
