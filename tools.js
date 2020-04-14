@@ -38,26 +38,39 @@ const getrembed = async function(subreddit, arguments) {
                 const pd = postjson.data.data.children[0].data;
                 const userjson = await axios.get(reddit + `/user/${pd.author}/about.json`)
                 const ud = userjson.data.data;
+                embed.setTitle(pd.title)
+                embed.setURL(reddit + pd.permalink)
+                embed.setAuthor(pd.author, ud.icon_img, reddit + `/user/${pd.author}`)
+                if (isimg(pd.url)) {embed.setImage(pd.url)} else if (isimg(pd.thumbnail)) embed.setThumbnail(pd.thumbnail);
+                if (pd.selftext.length != 0) embed.setDescription(truncate(pd.selftext, 250));
+                return embed;
             } else if (split[0] == 'random.json') {
                 const postjson = await axios.get(reddit + `/r/${subreddit}/${arguments}`);
                 const pd = postjson.data[0].data.children[0].data;
                 const userjson = await axios.get(reddit + `/user/${pd.author}/about.json`);
                 const ud = userjson.data.data;
+                embed.setTitle(pd.title)
+                embed.setURL(reddit + pd.permalink)
+                embed.setAuthor(pd.author, ud.icon_img, reddit + `/user/${pd.author}`)
+                if (isimg(pd.url)) {embed.setImage(pd.url)} else if (isimg(pd.thumbnail)) embed.setThumbnail(pd.thumbnail);
+                if (pd.selftext.length != 0) embed.setDescription(truncate(pd.selftext, 250));
+                return embed;
             } else return null;
         } else if (!split) {
             const postjson = await axios.get(reddit + `/r/${subreddit}/top.json?t=day`);
             const pd = postjson.data.data.children[0].data;
             const userjson = await axios.get(reddit + `/user/${pd.author}/about.json`);
             const ud = userjson.data.data;
+            embed.setTitle(pd.title)
+            embed.setURL(reddit + pd.permalink)
+            embed.setAuthor(pd.author, ud.icon_img, reddit + `/user/${pd.author}`)
+            if (isimg(pd.url)) {embed.setImage(pd.url)} else if (isimg(pd.thumbnail)) embed.setThumbnail(pd.thumbnail);
+            if (pd.selftext.length != 0) embed.setDescription(truncate(pd.selftext, 250));
+            return embed;
         } else {
             return null;
         }
-        embed.setTitle(pd.title)
-        embed.setURL(reddit + pd.permalink)
-        embed.setAuthor(pd.author, ud.icon_img, reddit + `/user/${pd.author}`)
-        if (isimg(pd.url)) {embed.setImage(pd.url)} else if (isimg(pd.thumbnail)) embed.setThumbnail(pd.thumbnail);
-        if (pd.selftext.length != 0) embed.setDescription(truncate(pd.selftext, 250));
-        return embed;
+        
     }
     catch (err) {
         if (debug) console.error(err);
