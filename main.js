@@ -23,12 +23,15 @@ const commands = {
                             message.channel.send(embed).catch(err => {
                                 if (debug) console.error(err);
                                 message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                                break;
                             });
                             message.channel.stopTyping();
+                            break;
                         })
                         .catch(err => {
                             if (debug) console.error(err);
                             message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                            break;
                         })
                     break;
                 }
@@ -38,12 +41,15 @@ const commands = {
                             message.channel.send(embed).catch(err => {
                                 if (debug) console.error(err);
                                 message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                                break;
                             });
                             message.channel.stopTyping();
+                            break;
                         })
                         .catch(err => {
                             if (debug) console.error(err);
                             message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                            break;
                         })
                     break;
                 }
