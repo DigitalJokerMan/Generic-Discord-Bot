@@ -17,7 +17,7 @@ const truncate = function(string, length) {
 const isimg = async function(url) {
     try {
         var promise = await axios.get(url)
-        return promise.headers['content-type'].startsWith('image/') ? true : false;
+        return !!promise.headers['content-type'].startsWith('image/')
     }
     catch (err) {
         if (debug) console.error(err);
@@ -33,7 +33,7 @@ const construct = async function(postdata, userdata) {
         .setTitle(postdata.title)
         .setURL(reddit + postdata.permalink)
         .setAuthor(postdata.author, userdata.icon_img.split('?')[0], reddit + `/user/${postdata.author}`)
-    if (isimg(postdata.url)) {embed.setImage(postdata.url)} else if (isimg(postdata.thumbnail)) embed.setThumbnail(postdata.thumbnail);
+    if (!!isimg(postdata.url)) {embed.setImage(postdata.url)} else if (isimg(postdata.thumbnail)) embed.setThumbnail(postdata.thumbnail);
     if (postdata.selftext.length != 0) embed.setDescription(truncate(postdata.selftext, 250));
     return embed
 }
