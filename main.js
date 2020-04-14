@@ -20,43 +20,30 @@ const commands = {
                 case 2: {
                     tools.getrembed(command_chunks[1], null)
                         .then(embed => {
-                            if (typeof(embed) != undefined || typeof(embed) != null) {
-                                message.channel.send(embed);
-                                message.channel.stopTyping();
-                            }
+                            message.channel.send(embed);
+                            message.channel.stopTyping();
                         })
                         .catch(err => {
                             if (debug) console.error(err);
-                            message.channel.stopTyping();
-                        });
+                            message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                        })
                     break;
                 }
                 case 3: {
-                    tools.getrembed(command_chunks[1], null)
+                    tools.getrembed(command_chunks[1], command_chunks[2])
                         .then(embed => {
-                            if (typeof(embed) != undefined || typeof(embed) != null) {
-                                message.channel.send(embed);
-                                message.channel.stopTyping();
-                            }
+                            message.channel.send(embed);
+                            message.channel.stopTyping();
                         })
                         .catch(err => {
                             if (debug) console.error(err);
-                            message.channel.stopTyping();
-                        });
+                            message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                        })
                     break;
                 }
                 default: {
-                    tools.getrembed(command_chunks[1], null)
-                        .then(embed => {
-                            if (typeof(embed) != undefined || typeof(embed) != null) {
-                                message.channel.send(embed);
-                                message.channel.stopTyping();
-                            }
-                        })
-                        .catch(err => {
-                            if (debug) console.error(err);
-                            message.channel.stopTyping();
-                        });
+                    message.channel.send('Too many, too little, or invalid arguments.');
+                    message.channel.stopTyping();
                     break;
                 }
             }
