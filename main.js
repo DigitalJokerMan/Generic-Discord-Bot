@@ -16,13 +16,13 @@ const commands = {
     'reddit': {
         'description': 'Gets reddit posts and displays them in an embed.',
         'method': async function(message) {
-            var command_chunks = message.content.substring(prefix.length).split();
+            var command_chunks = message.content.substring(prefix.length).split(' ');
             if (command_chunks.length == 2) {
                 message.channel.send(await getrembed(command_chunks[1], null))
             } else if (command_chunks.length == 3) {
                 message.channel.send(await getrembed(command_chunks[1], command_chunks[2]))
             } else {
-                message.channel.send('Too many arguments or invalid arguments!');
+                message.channel.send('Too many or too little arguments or invalid arguments!');
             }
         },
         'permissions': []
