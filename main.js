@@ -35,7 +35,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if (message.author.id == client.user.id || message.author.bot) return;
-    if (message.content.StartsWith(prefix)) {
+    if (message.content.startsWith(prefix)) {
         var command_chunks = message.content.substring(prefix.length).split();
         if (command_chunks[0] in commands) {
             try {
