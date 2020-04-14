@@ -1,6 +1,6 @@
 const axios = require('axios');
 const Discord = require('discord.js');
-const now = new Date.now();
+const now = new Date().now;
 
 const truncate = function(string, length) {
     return string.length <= length ? string : string.substring(0,length) + '...';
