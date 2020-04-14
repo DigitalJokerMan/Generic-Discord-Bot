@@ -1,6 +1,13 @@
+require('dotenv').config();
+
 const axios = require('axios');
 const Discord = require('discord.js');
 const now = new Date().now;
+
+const proc = process.env;
+const prefix = proc.prefix == null ? "!" : proc.prefix;
+const debug = proc.debug == null ? true : (proc.debug == 'true');
+const token = proc.token == null ? undefined : proc.token
 
 const truncate = function(string, length) {
     return string.length <= length ? string : string.substring(0,length) + '...';
