@@ -25,7 +25,7 @@ const commands = {
                                 message.channel.stopTyping();
                             }
                         })
-                        .catch(error => {
+                        .catch(err => {
                             if (debug) console.error(err);
                             message.channel.stopTyping();
                         });
@@ -39,7 +39,7 @@ const commands = {
                                 message.channel.stopTyping();
                             }
                         })
-                        .catch(error => {
+                        .catch(err => {
                             if (debug) console.error(err);
                             message.channel.stopTyping();
                         });
@@ -53,7 +53,7 @@ const commands = {
                                 message.channel.stopTyping();
                             }
                         })
-                        .catch(error => {
+                        .catch(err => {
                             if (debug) console.error(err);
                             message.channel.stopTyping();
                         });

@@ -40,44 +40,34 @@ const construct = async function(postdata, userdata) {
 
 const getrembed = async function(subreddit, arguments) {
     const split = arguments == null ? false : arguments.split('?');
-    if (split && split[0].endsWith('.json')) {
-        if (split[0] != 'random.json') {
-            axios.get(reddit + `/r/${subreddit}/${arguments}`)
-                .then(postpromise => {
-                    const postdata = postpromise.data.data.children[0].data;
-                    axios.get(reddit + `/user/${postdata.author}/about.json`).then((postdata, userpromise) => {
-                        return construct(postdata, userpromise.data.data);
-                    })
-                })
-                .catch(err => {
-                    if (debug) console.error(err);
-                    return null;
-                })
-        } else if (split[0] == 'random.json') {
-            axios.get(reddit + `/r/${subreddit}/${arguments}`)
-                .then(postpromise => {
-                    const postdata = postpromise.data[0].data.children[0].data;
-                    axios.get(reddit + `/user/${postdata.author}/about.json`).then((postdata, userpromise) => {
-                        return construct(postdata, userpromise.data.data);
-                    })
-                })
-                .catch(err => {
-                    if (debug) console.error(err);
-                    return null;
-                })
-        } else return null;
-    } else if (!split) {
-        axios.get(reddit + `/r/${subreddit}/top.json?t=day`)
-                .then(postpromise => {
-                    const postdata = postpromise.data[0].data.children[0].data;
-                    axios.get(reddit + `/user/${postdata.author}/about.json`).then((postdata, userpromise) => {
-                        return construct(postdata, userpromise.data.data);
-                    })
-                })
-                .catch(err => {
-                    if (debug) console.error(err);
-                    return null;
-                })
+    try {
+        if (split && split[0].endsWith('.json')) {
+            if (split[0] != 'random.json') {
+                const postjson = await axios.get(reddit + `/r/${subreddit}/${arguments}`);
+                const pd = postjson.data.data.children[0].data;
+                const userjson = await axios.get(reddit + `/user/${pd.author}/about.json`)
+                const ud = userjson.data.data;
+                return construct(pd, ud);
+            } else if (split[0] == 'random.json') {
+                const postjson = await axios.get(reddit + `/r/${subreddit}/${arguments}`);
+                const pd = postjson.data[0].data.children[0].data;
+                const userjson = await axios.get(reddit + `/user/${pd.author}/about.json`);
+                const ud = userjson.data.data;
+                return construct(pd, ud);
+            } else return null;
+        } else if (!split) {
+            const postjson = await axios.get(reddit + `/r/${subreddit}/top.json?t=day`);
+            const pd = postjson.data.data.children[0].data;
+            const userjson = await axios.get(reddit + `/user/${pd.author}/about.json`);
+            const ud = userjson.data.data;
+            return construct(pd, ud);
+        } else {
+            return null;
+        }
+    }
+    catch (err) {
+        if (debug) console.error(err);
+        return null;
     }
 }
 
