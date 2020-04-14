@@ -44,9 +44,9 @@ client.on('message', message => {
                 if (permissions.length > 0 && message.member != message.guild.owner) {
                     for (const permission in permissions) {
                         if (!message.member.hasPermission(permission)) return;
-                        commands[command_chunks[0]].method(message);
                     }
-                }
+                    commands[command_chunks[0]].method(message);
+                } else commands[command_chunks[0]].method(message);
             }
             catch(err) {
                 if (debug) console.error(err);
