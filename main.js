@@ -3,7 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const sleep = (waitTimeInS) => new Promise(resolve => setTimeout(resolve, waitTimeInS * 1000)); // thx stackoverflow (Ryan Shillington)
-const webtools = require('./webtools.js');
+const webtools = require('./tools.js');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -15,8 +15,15 @@ const token = proc.token == null ? undefined : proc.token
 const commands = {
     'reddit': {
         'description': 'Gets reddit posts and displays them in an embed.',
-        'method': function(message) {
-
+        'method': async function(message) {
+            var command_chunks = message.content.substring(prefix.length).split();
+            if (command_chunks.length == 2) {
+                message.channel.send(await getrembed(command_chunks[1], null))
+            } else if (command_chunks.length == 3) {
+                message.channel.send(await getrembed(command_chunks[1], command_chunks[2]))
+            } else {
+                message.channel.send('Too many arguments or invalid arguments!');
+            }
         },
         'permissions': []
     }
