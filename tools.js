@@ -59,7 +59,6 @@ const getrembed = async function(subreddit, arguments) {
 }
 
 module.exports = {
-    forEach,
     truncate,
     getrembed,
     isimg
