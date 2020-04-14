@@ -2,43 +2,15 @@ require('dotenv').config();
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const axios = require('axios');
 const sleep = (waitTimeInS) => new Promise(resolve => setTimeout(resolve, waitTimeInS * 1000)); // thx stackoverflow (Ryan Shillington)
+const webtools = require('./webtools.js');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token == null ? undefined : proc.token
 
-async function getReddit(subreddit, arguments) {
-    const reddit = 'https://www.reddit.com/';
-    try {
-        if (arguments.length == 0) {
-            const postjs = await axios.get(reddit + `r/${subreddit}/top/.json?t=day`);
-            const userjs = await axios.get(reddit + `user/${postjs.data.data.children[0].data.author}/about.json`);
-            return [postjs.data.data.children[0].data, userjs.data.data];
-        } else {
-            const postjs = await axios.get(reddit + `r/${subreddit}/${arguments}`);
-            const userjs = await axios.get(reddit + `user/${postjs.data.data.children[0].data.author}/about.json`);
-            return [postjs.data.data.children[0].data, userjs.data.data];
-        }
-    }
-    catch (err) {
-        if (debug) console.error(err);
-        return 'error';
-    }
-}
 
-async function Image(url) {
-    try {
-        var promise = await axios.get(url)
-        return (promise.headers['content-type'].startsWith('image/'));
-    }
-    catch (err) {
-        if (debug) console.error(err);
-        return 'error';
-    }
-}
 
 const commands = {
     'reddit': {
