@@ -17,7 +17,7 @@ const truncate = function(string, length) {
 const isimg = async function(url) {
     try {
         var promise = await axios.get(url)
-        console.log(promise.headers['content-type'], typeof(promise.headers['content-type']));
+        console.log(promise.headers['content-type'], typeof(promise.headers['content-type']), promise.headers['content-type'].startsWith('image/'));
         return (promise.headers['content-type'].startsWith('image/'));
     }
     catch (err) {
