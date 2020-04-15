@@ -91,6 +91,10 @@ client.on('message', message => {
 });
 
 (function login() {
+    if (typeof(token) == undefined || token == undefined) {
+        console.log('There isn\'t an entry in process environment named token.');
+        return;
+    };
     client.login(token).catch(err => {
         console.error('' + err);
         setTimeout(login, 5000);
