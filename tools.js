@@ -28,7 +28,7 @@ const isimg = async function(url) {
 const construct = async function(postdata, userdata) {
     const embed = new Discord.MessageEmbed()
         .setColor(16729344)
-        .setFooter('redd.it', 'https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png')
+        .setFooter(postdata.subreddit_name_prefixed, 'https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png')
         .setTimestamp(now)
         .setTitle(postdata.title)
         .setURL(reddit + postdata.permalink)
