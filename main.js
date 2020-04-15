@@ -94,8 +94,7 @@ client.on('message', message => {
     if (typeof(token) == undefined || token == undefined) {
         console.log('There isn\'t an entry in process environment named token, retrying in 5 seconds.');
         setTimeout(login, 5000);
-    };
-    client.login(token).catch(err => {
+    } else client.login(token).catch(err => {
         if (debug) console.error(err);
         console.log('Given token is invalid, retrying in 5 seconds.');
         setTimeout(login, 5000);
