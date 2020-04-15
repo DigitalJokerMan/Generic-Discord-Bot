@@ -7,7 +7,7 @@ const tools = require('./tools.js');
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
-const token = proc.token == null ? undefined : proc.token
+const token = proc.token
 
 const commands = {
     'reddit': {
