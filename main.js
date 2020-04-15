@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const sleep = (waitTimeInS) => new Promise(resolve => setTimeout(resolve, waitTimeInS * 1000)); // thx stackoverflow (Ryan Shillington)
 const tools = require('./tools.js');
 
 const proc = process.env;
@@ -91,17 +90,14 @@ client.on('message', message => {
     }
 });
 
-(async function login() {
+(function login() {
     if (typeof(token) != undefined) {
         client.login(token).catch(err => {
             console.error('Token was found, but it was invalid.\n' + err);
-            sleep(5);
-            login()
+            setTimeout(login, 5000);
         });
     } else {
         console.log('No token found in the process environment, is it misspelt?');
-        sleep(5);
-        login()
+        setTimeout(login, 5000);
     }
 })();
-    
