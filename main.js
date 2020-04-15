@@ -91,13 +91,8 @@ client.on('message', message => {
 });
 
 (function login() {
-    if (typeof(token) != undefined) {
-        client.login(token).catch(err => {
-            console.error('' + err);
-            setTimeout(login, 5000);
-        });
-    } else {
-        console.log('No token found in the process environment, is it misspelt?');
+    client.login(token).catch(err => {
+        console.error('' + err);
         setTimeout(login, 5000);
-    }
+    });
 })();
