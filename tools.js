@@ -4,11 +4,9 @@ const axios = require('axios');
 const Discord = require('discord.js');
 const now = new Date().now;
 const reddit = 'https://www.reddit.com';
+const google = require('google-search-results-nodejs');
 
-const proc = process.env;
-const prefix = proc.prefix == null ? "!" : proc.prefix;
-const debug = proc.debug == null ? true : (proc.debug == 'true');
-const token = proc.token == null ? undefined : proc.token
+const debug = process.env.debug == null ? true : (process.env.debug == 'true');
 
 const truncate = function(string, length) {
     return string.length <= length ? string : string.substring(0,length) + '...';
@@ -38,7 +36,7 @@ const construct = async function(postdata, userdata) {
     return embed
 }
 
-const getrembed = async function(subreddit, arguments) {
+const getRedditEmbed = async function(subreddit, arguments) {
     const split = arguments == null ? false : arguments.split('?');
     try {
         if (split && split[0].endsWith('.json')) {
@@ -74,6 +72,6 @@ const getrembed = async function(subreddit, arguments) {
 module.exports = {
     construct,
     truncate,
-    getrembed,
+    getRedditEmbed: getRedditEmbed,
     isimg
 }

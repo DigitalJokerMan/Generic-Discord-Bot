@@ -17,7 +17,7 @@ const commands = {
             message.channel.startTyping();
             switch (command_chunks.length) {
                 case 2: {
-                    tools.getrembed(command_chunks[1], null)
+                    tools.getRedditEmbed(command_chunks[1], null)
                         .then(embed => {
                             message.channel.send(embed).catch(err => {
                                 if (debug) console.error(err);
@@ -35,7 +35,7 @@ const commands = {
                     break;
                 }
                 case 3: {
-                    tools.getrembed(command_chunks[1], command_chunks[2])
+                    tools.getRedditEmbed(command_chunks[1], command_chunks[2])
                         .then(embed => {
                             message.channel.send(embed).catch(err => {
                                 if (debug) console.error(err);
