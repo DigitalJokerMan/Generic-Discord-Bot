@@ -93,7 +93,7 @@ client.on('message', message => {
 (function login() {
     if (typeof(token) != undefined) {
         client.login(token).catch(err => {
-            console.error('Token was found, but it was invalid.\n' + err);
+            console.error(err);
             setTimeout(login, 5000);
         });
     } else {
