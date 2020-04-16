@@ -73,7 +73,9 @@ const commands = {
                 const actual = commands[command];
                 if (command != 'help') {
                     if (actual.permissions.legnth > 0) {
+                        console.log(command + permissions);
                         if (actual.permissions.every((perm) => message.member.hasPermission(perm))) {
+                            console.log(true);
                             const field = new Object();
                             field.name = prefix + command;
                             field.value = actual.description
