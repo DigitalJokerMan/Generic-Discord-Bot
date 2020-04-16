@@ -81,7 +81,7 @@ const commands = {
                         newfield2.name = 'Required Permissions';
                         newfield2.value = ''
                         for (i=0; i<actual.permissions.length; i++) {
-                            newfield2.value += `${i==0 ? ' ' : ',\n'}${actual.permissions[i]}`
+                            newfield2.value += `${i==0 ? '' : ',\n'}${actual.permissions[i]}`
                         }
                         embed.addFields(newfield, newfield2);
                     } else embed.addFields(newfield);
