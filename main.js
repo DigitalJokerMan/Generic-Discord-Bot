@@ -112,7 +112,7 @@ client.on('message', message => {
             try {
                 let permissions = commands[command_chunks[0]].permissions;
                 if (permissions.length > 0 && message.member != message.guild.owner) {
-                    for (const permission in permissions) {
+                    for (i=0; i<permissions.length; i++) {
                         if (!message.member.hasPermission(permission)) return;
                     }
                     commands[command_chunks[0]].method(message);
