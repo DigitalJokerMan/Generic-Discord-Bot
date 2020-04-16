@@ -11,7 +11,7 @@ const token = proc.token
 
 const commands = {
     'reddit': {
-        'description': 'Gets reddit posts and displays them in an embed.\n**Usage:** ``reddit (subreddit) (optional: arguments)``\n Arguments should start with something like top.json, hot.json or random.json.\nYou can also add arguments like ?t=day or ?t=all. (Which means gets the post in the timeframe of today and all-time, respectively.)',
+        'description': 'Gets reddit posts and\ndisplays them in an embed.\n**Usage:** \n``reddit (subreddit) (optional: arguments)``',
         'method': async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             message.channel.startTyping();
@@ -60,7 +60,7 @@ const commands = {
             }
             return;
         },
-        'permissions': ['VIEW_MESSAGES']
+        'permissions': []
     },
     'help': {
         'description': 'Lists all commands.',
@@ -96,7 +96,7 @@ const commands = {
         'permissions': []
     },
     'test': {
-        'description': 'This is testing permissions',
+        'description': 'This is testing command to check if permissions are checked properly, and to see if they are properly shown in the help command. What this command actually does will probably vary.',
         'method': function(message) {
             console.log(message.content)
         },
