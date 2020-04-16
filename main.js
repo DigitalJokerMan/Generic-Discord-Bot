@@ -67,7 +67,7 @@ const commands = {
         'method': function(message) {
             const embed = new Discord.MessageEmbed()
                 .setTitle('List of all commands.')
-                .setTimestamp(new Date().now)
+                .setTimestamp()
                 .setColor('#ff0a0a')
             for (const command in commands) {
                 const actual = commands[command];
