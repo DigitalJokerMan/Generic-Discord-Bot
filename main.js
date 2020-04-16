@@ -60,7 +60,7 @@ const commands = {
             }
             return;
         },
-        'permissions': []
+        'permissions': ['VIEW_MESSAGES']
     },
     'help': {
         'description': 'Lists all commands.',
