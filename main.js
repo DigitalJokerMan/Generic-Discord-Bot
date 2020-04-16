@@ -82,8 +82,8 @@ const commands = {
                         for (i=0; i<actual.permissions.length; i++) {
                             newfield2.value += `${i==0 ? ' ' : ',\n'}${actual.permissions[i]}`
                         }
-                    }
-                    embed.addFields(newfield);
+                        embed.addFields(newfield, newfield2);
+                    } else embed.addFields(newfield);
                 }
             }
 
