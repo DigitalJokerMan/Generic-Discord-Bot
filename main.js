@@ -77,13 +77,14 @@ const commands = {
                             const field = new Object();
                             field.name = prefix + command;
                             field.value = actual.description
+                            embed.addFields(field);
                         }
                     } else {
                         const field = new Object();
                         field.name = prefix + command;
                         field.value = actual.description;
+                        embed.addFields(field);
                     }
-                    if (field != undefined) embed.addFields(field);
                 }
             }
 
