@@ -96,7 +96,7 @@ const commands = {
         'permissions': []
     },
     'test': {
-        'description': 'This is testing command to check if permissions are checked properly, and to see if they are properly shown in the help command. What this command actually does will probably vary.',
+        'description': 'This is testing command to check if permissions are checked properly, and to see if they are properly shown in the help command.\nWhat this command actually does will probably vary.',
         'method': function(message) {
             console.log(message.content)
         },
