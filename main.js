@@ -101,11 +101,11 @@ const commands = {
                 .setTitle('List of all commands.')
                 .setTimestamp(new Date().now)
             for (const command in commands) {
+                const actual = commands[command]
                 if (command != 'help') {
-                    console.log(command, commands[command].description);
                     embed.addFields({
                         name: command,
-                        value: command.description == undefined ? 'Unable to load description.' : command.description
+                        value: actual[command].description == undefined ? 'Unable to load description.' : actual.description
                     })
                 } else continue
             }
