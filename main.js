@@ -71,18 +71,32 @@ const commands = {
             for (const command in commands) {
                 const actual = commands[command];
                 if (command != 'help') {
-                    embed.addFields({
-                        name: prefix + command,
-                        value: actual.description == undefined ? 'Unable to load description.' : actual.description
-                    });
+                    const newfield = {};
+                    newfield.name = prefix + command;
+                    newfield.value = actual.description
+                    if (actual.permissions.length > 0) {
+                        newfield.value += '\nRequired Permissions:'
+                        for (i=0; i<actual.permissions.length; i++) {
+                            newfield.value += `\n\t${actual.permissions[i]}`
+                        }
+                    }
+                    embed.addFields(newfield);
                 }
             }
+
             message.channel.send({embed})
                 .catch(err => {
                     if (debug) console.error(err);
                 })
         },
         'permissions': []
+    },
+    'test': {
+        'description': 'This is testing permissions',
+        'method': function(message) {
+            console.log(message.content)
+        },
+        'permissions': ['ADMINISTRATOR']
     }
 }
 
