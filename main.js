@@ -83,10 +83,10 @@ const commands = {
                         for (i=0; i<actual.permissions.length; i++) {
                             newfield2.value += `${i==0 ? '' : ',\n'}${actual.permissions[i]}`
                         }
-                        embed.addFields(newfield, newfield2);
+                        embed.addFields(newfield, newfield2, {name: '\u200b', value: '\u200b'});
                     } else embed.addFields(newfield);
                 }
-                embed.addField('\u200b', '\u200b', true);
+                embed.addField('\u200b', '\u200b');
             }
 
             message.channel.send({embed})
