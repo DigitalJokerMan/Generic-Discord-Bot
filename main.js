@@ -77,7 +77,7 @@ const commands = {
                     if (actual.permissions.length > 0) {
                         newfield.value += '\n**Required Permissions:**'
                         for (i=0; i<actual.permissions.length; i++) {
-                            newfield.value += `${i==0 ? ' ' : ' - '}*${actual.permissions[i].substring(0,1) + actual.permissions[i].toLowerCase().substring(1)}*`
+                            newfield.value += `${i==0 ? ' ' : ' - '}*${actual.permissions[i]}*`
                         }
                     }
                     embed.addFields(newfield);
@@ -96,7 +96,7 @@ const commands = {
         'method': function(message) {
             console.log(message.content)
         },
-        'permissions': ['ADMINISTRATOR']
+        'permissions': ['ADMINISTRATOR', 'MANAGE_ROLES']
     }
 }
 
