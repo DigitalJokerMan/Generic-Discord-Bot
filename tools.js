@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const axios = require('axios');
 const Discord = require('discord.js');
-const now = new Date().now;
 const reddit = 'https://www.reddit.com';
 const google = require('google-search-results-nodejs');
 
@@ -27,7 +26,7 @@ const construct = async function(postdata, userdata) {
     const embed = new Discord.MessageEmbed()
         .setColor(16729344)
         .setFooter(postdata.subreddit_name_prefixed, 'https://www.redditstatic.com/desktop2x/img/favicon/android-icon-192x192.png')
-        .setTimestamp(now)
+        .setTimestamp()
         .setTitle(postdata.title)
         .setURL(reddit + postdata.permalink)
         .setAuthor(postdata.author, userdata.icon_img.split('?')[0], reddit + `/user/${postdata.author}`)
