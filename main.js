@@ -79,6 +79,7 @@ const commands = {
                         newfield.inline = true
                         newfield2.inline = true;
                         newfield2.name = 'Required Permissions';
+                        newfield2.value = ''
                         for (i=0; i<actual.permissions.length; i++) {
                             newfield2.value += `${i==0 ? ' ' : ',\n'}${actual.permissions[i]}`
                         }
