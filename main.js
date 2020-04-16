@@ -11,7 +11,7 @@ const token = proc.token
 
 const commands = {
     'reddit': {
-        'description': 'Gets reddit posts and\ndisplays them in an embed.\n**Usage:** \n``reddit (subreddit) (optional: arguments)``',
+        'description': '``reddit (subreddit) (optional: arguments)``\nGets reddit posts and\ndisplays them in an embed.``reddit (subreddit) (optional: arguments)``',
         'method': async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             message.channel.startTyping();
