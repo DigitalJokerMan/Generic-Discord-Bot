@@ -80,6 +80,7 @@ const commands = {
                             embed.addFields(field);
                         }
                     } else {
+                        console.log(embed.description)
                         const field = new Object();
                         field.name = prefix + command;
                         field.value = actual.description;
