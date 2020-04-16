@@ -80,7 +80,7 @@ const commands = {
                             field.value = actual.description
                             embed.addFields(field);
                         } else if (embed.description == undefined || typeof(embed.description) == undefined) {
-                            embed.setDescription('*Some commands weren\'t shown because you don\'t have the permissions to run them.*')
+                            embed.setDescription('*Some commands weren\'t shown because you don\'t\n have the permissions to run them.*')
                         }
                     } else {
                         const field = new Object();
