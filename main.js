@@ -68,6 +68,7 @@ const commands = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('List of all commands.')
                 .setTimestamp(new Date().now)
+                .setColor('#ff0000')
             for (const command in commands) {
                 const actual = commands[command];
                 if (command != 'help') {
