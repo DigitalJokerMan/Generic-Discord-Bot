@@ -78,9 +78,10 @@ const commands = {
                             field.name = prefix + command;
                             field.value = actual.description
                             embed.addFields(field);
+                        } else if (embed.description == undefined || typeof(embed.description) == undefined) {
+                            embed.setDescription('Some commands weren\'t shown because you don\'t have the permissions to run them.')
                         }
                     } else {
-                        console.log(embed.description)
                         const field = new Object();
                         field.name = prefix + command;
                         field.value = actual.description;
