@@ -101,13 +101,13 @@ const commands = {
                 .setTitle('List of all commands.')
                 .setTimestamp(new Date().now)
             for (const command in commands) {
-                const actual = commands[command]
-                if (actual != this) {
+                const actual = commands[command];
+                if (command != 'help') {
                     embed.addFields({
                         name: command,
                         value: actual[command].description == undefined ? 'Unable to load description.' : actual.description
-                    })
-                } else continue
+                    });
+                }
             }
             message.channel.send({embed})
                 .catch(err => {
