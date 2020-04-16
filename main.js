@@ -73,7 +73,7 @@ const commands = {
                 const actual = commands[command];
                 if (command != 'help') {
                     if (actual.permissions.length > 0) {
-                        if (actual.permissions.every((perm) => message.member.hasPermission(perm))) {
+                        if (actual.permissions.every((perm) => message.member.hasPermission(perm)) || message.member == message.guild.owner) {
                             const field = new Object();
                             field.name = prefix + command;
                             field.value = actual.description
