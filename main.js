@@ -102,7 +102,7 @@ const commands = {
                 .setTimestamp(new Date().now)
             for (const command in commands) {
                 const actual = commands[command]
-                if (command != 'help') {
+                if (actual != this) {
                     embed.addFields({
                         name: command,
                         value: actual[command].description == undefined ? 'Unable to load description.' : actual.description
