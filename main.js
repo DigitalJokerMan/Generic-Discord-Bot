@@ -77,7 +77,7 @@ const commands = {
                     if (actual.permissions.length > 0) {
                         newfield.value += '\n**Required Permissions:**'
                         for (i=0; i<actual.permissions.length; i++) {
-                            newfield.value += `\n   - ${actual.permissions[i].substring(0,1) + actual.permissions[i].toLowerCase().substring(1)}`
+                            newfield.value += `\n- *${actual.permissions[i].substring(0,1) + actual.permissions[i].toLowerCase().substring(1)}*`
                         }
                     }
                     embed.addFields(newfield);
