@@ -102,7 +102,7 @@ const commands = {
                 .setTimestamp(new Date().now)
             for (const command in commands) {
                 if (command != 'help') {
-                    console.log(command);
+                    console.log(command, command.description);
                     embed.addFields({
                         name: command,
                         value: command['description']
