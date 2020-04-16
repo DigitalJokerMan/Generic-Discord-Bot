@@ -72,20 +72,18 @@ const commands = {
             for (const command in commands) {
                 const actual = commands[command];
                 if (command != 'help') {
-                    const newfield = {};
-                    newfield.name = prefix + command;
-                    newfield.value = actual.description
-                    if (actual.permissions.length > 0) {
-                        const newfield2 = {};
-                        newfield.inline = true
-                        newfield2.inline = true;
-                        newfield2.name = 'Needs permissions:';
-                        newfield2.value = ''
-                        for (i=0; i<actual.permissions.length; i++) {
-                            newfield2.value += `${i==0 ? '' : ',\n'}${actual.permissions[i]}`
+                    if (actual.permissions.legnth > 0) {
+                        if (actual.permissions.every((perm) => message.member.hasPermission(perm))) {
+                            const field = new Object();
+                            field.name = prefix + command;
+                            field.value = actual.description
                         }
-                        embed.addFields(newfield, newfield2, {name: '\u200b', value: '\u200b'});
-                    } else embed.addFields(newfield);
+                    } else {
+                        const field = new Object();
+                        field.name = prefix + command;
+                        field.value = actual.description;
+                    }
+                    if (field != undefined) embed.addFields(field);
                 }
             }
 
