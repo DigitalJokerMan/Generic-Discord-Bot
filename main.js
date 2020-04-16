@@ -100,7 +100,7 @@ const commands = {
         'method': function(message) {
             console.log(message.content)
         },
-        'permissions': ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_ROLE']
+        'permissions': ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_PERM']
     }
 }
 
