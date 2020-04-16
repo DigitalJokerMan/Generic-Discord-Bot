@@ -21,7 +21,7 @@ const commands = {
                         .then(embed => {
                             message.channel.send(embed).catch(err => {
                                 if (debug) console.error(err);
-                                message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                                message.channel.send('An unexpected error ocurred, most likely an invalid subreddit. (I\'m too lazy to make this command more fail-proof)');
                                 return;
                             });
                             message.channel.stopTyping();
@@ -39,7 +39,7 @@ const commands = {
                         .then(embed => {
                             message.channel.send(embed).catch(err => {
                                 if (debug) console.error(err);
-                                message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                                message.channel.send('An unexpected error ocurred, most likely an invalid subreddit. (I\'m too lazy to make this command more fail-proof)');
                                 return;
                             });
                             message.channel.stopTyping();
@@ -47,7 +47,7 @@ const commands = {
                         })
                         .catch(err => {
                             if (debug) console.error(err);
-                            message.channel.send('An unexpected error ocurred, most likely an invalid subreddit.');
+                            message.channel.send('An unexpected error ocurred, most likely an invalid subreddit. (I\'m too lazy to make this command more fail-proof)');
                             return;
                         })
                     break;
