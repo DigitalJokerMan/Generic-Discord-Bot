@@ -86,7 +86,6 @@ const commands = {
                         embed.addFields(newfield, newfield2, {name: '\u200b', value: '\u200b'});
                     } else embed.addFields(newfield);
                 }
-                embed.addField('\u200b', '\u200b');
             }
 
             message.channel.send({embed})
