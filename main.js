@@ -69,6 +69,7 @@ const commands = {
                 .setTitle('List of all commands.')
                 .setTimestamp()
                 .setColor('#ff0a0a')
+                .setThumbnail('https://cdn.discordapp.com/avatars/693646279720566854/fe72094e62bcdda7b7a627af9611c8ee.png?size=256')
             for (const command in commands) {
                 const actual = commands[command];
                 if (command != 'help') {
