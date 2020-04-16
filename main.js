@@ -86,6 +86,7 @@ const commands = {
                         embed.addFields(newfield, newfield2);
                     } else embed.addFields(newfield);
                 }
+                embed.addBlankField(true);
             }
 
             message.channel.send({embed})
