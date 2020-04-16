@@ -105,7 +105,7 @@ const commands = {
                     console.log(command);
                     embed.addFields({
                         name: command,
-                        value: command.description
+                        value: command['description']
                     })
                 } else continue
             }
