@@ -11,7 +11,7 @@ const token = proc.token
 
 const commands = {
     'reddit': {
-        'description': 'Gets reddit posts and displays them in an embed.',
+        'description': 'Gets reddit posts and displays them in an embed.\nUsage: reddit (subreddit) (optional: arguments), arguments should start with something like top.json, hot.json or random.json.\nYou can also add arguments like ?t=day or ?t=all. (Which means gets the post in the timeframe of today and all-time, respectively.)',
         'method': async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             message.channel.startTyping();
