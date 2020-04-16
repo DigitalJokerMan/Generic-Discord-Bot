@@ -101,7 +101,8 @@ const commands = {
                 .setTitle('List of all commands.')
                 .setTimestamp(new Date().now)
             for (const command in commands) {
-                if (command != this) {
+                if (command != 'help') {
+                    console.log(command);
                     embed.addFields({
                         name: command,
                         value: command.description
