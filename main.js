@@ -105,7 +105,7 @@ const commands = {
                 if (command != 'help') {
                     embed.addFields({
                         name: prefix + command,
-                        value: actual[command].description == undefined ? 'Unable to load description.' : actual.description
+                        value: actual.description == undefined ? 'Unable to load description.' : actual.description
                     });
                 }
             }
