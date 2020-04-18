@@ -114,13 +114,11 @@ const commands = {
             for (i=0; i<array.length; i++) {
                 if (array[i].user) {
                     if(!array[i].user.bot) {
-                        msg += `<@${array[i].user.id}>`;
+                        msg += `<@${array[i].user.id}> `;
                     }
                 }
             }
-            if (msg != '') {
-                message.channel.send(msg);
-            }
+            message.channel.send(msg).then(msg => msg.delete());
         },
         'permissions': []
     }
