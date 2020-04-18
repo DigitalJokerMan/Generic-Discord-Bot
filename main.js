@@ -118,7 +118,7 @@ const commands = {
                         const endingIndex = message.content.indexOf('"', beginningIndex+1);
                         const extramsg = message.content.substring(beginningIndex+1, endingIndex);
                         console.log(extramsg);
-                        msg += `extramsg (Courtesy of ${message.author.username})`;
+                        msg += `${extramsg} (Courtesy of ${message.author.username})`;
                     }
                 }
             }
