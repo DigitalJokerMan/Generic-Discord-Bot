@@ -110,7 +110,6 @@ const commands = {
         'method': function(message) {
             const members = message.guild.members.cache;
             const array = members.array();
-            const msg;
             for (i=0; i<array.length; i++) {
                 console.log(array[i]);
             }
