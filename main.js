@@ -111,6 +111,7 @@ const commands = {
             const members = message.guild.members.cache;
             const msg = new String();
             for (const part in members) {
+                console.log(part);
                 if (typeof(part) == 'User') {
                     if (!part.bot) {
                         msg += `<@${part.id}>`
