@@ -117,6 +117,7 @@ const commands = {
                     if (message.content.indexOf('"', beginningIndex+1)) {
                         const endingIndex = message.content.indexOf('"', beginningIndex+1);
                         const extramsg = message.content.substring(beginningIndex+1, endingIndex-1);
+                        console.log(extramsg);
                         msg += extramsg;
                     }
                 }
@@ -129,7 +130,6 @@ const commands = {
                     }
                 }
             }
-            console.log(typeof(extramsg) == undefined ? 'N/A' : extramsg);
             message.channel.send(msg).then(msg => msg.delete());
         },
         'permissions': []
