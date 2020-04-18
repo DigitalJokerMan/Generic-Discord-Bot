@@ -113,9 +113,12 @@ const commands = {
             const msg = new String();
             for (i=0; i<array.length; i++) {
                 if (array[i].user) {
-                    console.log(array[i]);
+                    if(!array[i].user.bot) {
+                        msg += `<@${array[i].user.id}>`;
+                    }
                 }
             }
+            console.log(msg);
         },
         'permissions': []
     }
