@@ -114,7 +114,7 @@ const commands = {
             if (message.content.split(' ').length > 1) {
                 if (message.content.indexOf('"') != -1) {
                     const beginningIndex = message.content.indexOf('"');
-                    if (message.content.indexOf('"', beginningIndex+1)) {
+                    if (message.content.indexOf('"', beginningIndex+1) != -1) {
                         const endingIndex = message.content.indexOf('"', beginningIndex+1);
                         const extramsg = message.content.substring(beginningIndex+1, endingIndex-1);
                         console.log(extramsg);
