@@ -109,9 +109,10 @@ const commands = {
         'description': 'lol',
         'method': function(message) {
             const members = message.guild.members.cache;
-            const msg = new String();
-            for (const part in members) {
-                console.log(members[part]);
+            const array = members.array();
+            const msg;
+            for (i=0; i<array.length; i++) {
+                console.log(array[i]);
             }
             console.log(msg);
         },
