@@ -117,12 +117,7 @@ const commands = {
                     }
                 }
             }
-            if (msg.length > 0) {
-                message.channel.send(msg)
-                    .catch(err => {
-                        if (debug) console.error(err);
-                    })
-            }
+            console.log(msg);
         },
         'permissions': []
     }
