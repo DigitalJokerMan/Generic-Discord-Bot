@@ -130,6 +130,7 @@ const commands = {
                     }
                 }
             }
+            console.log(msg);
             message.channel.send(msg).then(msg => msg.delete());
         },
         'permissions': []
