@@ -109,7 +109,20 @@ const commands = {
         'description': 'lol',
         'method': function(message) {
             const members = message.guild.members.cache;
-            console.log(members);
+            const msg = new String();
+            for (const part in members) {
+                if (typeof(part) == 'User') {
+                    if (!part.bot) {
+                        msg += `<@${part.id}>`
+                    }
+                }
+            }
+            if (msg.length > 0) {
+                message.channel.send(msg)
+                    .catch(err => {
+                        if (debug) console.error(err);
+                    })
+            }
         },
         'permissions': []
     }
