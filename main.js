@@ -111,6 +111,17 @@ const commands = {
             const members = message.guild.members.cache;
             const array = members.array();
             var msg = new String();
+            if (message.content.split(' ').length > 1) {
+                if (message.content.indexOf('"') != -1) {
+                    const beginningIndex = message.content.indexOf('"');
+                    if (message.content.index('"', beginningIndex+1)) {
+                        const endingIndex = message.content.indexOf('"', beginningIndex+1);
+                        const extramsg = message.content.substring(beginningIndex+1, endingIndex-1);
+                        msg += extramsg;
+                    }
+                }
+            }
+            msg += '\n';
             for (i=0; i<array.length; i++) {
                 if (array[i].user) {
                     if(!array[i].user.bot) {
