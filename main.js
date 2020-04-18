@@ -11,8 +11,8 @@ const token = proc.token
 
 const commands = {
     'reddit': {
-        'description': '*Usage*: ``reddit (subreddit) (optional: arguments)``\nGets reddit posts and\ndisplays them in an embed.',
-        'method': async function(message) {
+        description: '*Usage*: ``reddit (subreddit) (optional: arguments)``\nGets reddit posts and\ndisplays them in an embed.',
+        method: async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
             message.channel.startTyping();
             switch (command_chunks.length) {
@@ -60,11 +60,11 @@ const commands = {
             }
             return;
         },
-        'permissions': []
+        permissions: []
     },
     'help': {
-        'description': 'Lists all commands.',
-        'method': function(message) {
+        description: 'Lists all commands.',
+        method: function(message) {
             const embed = new Discord.MessageEmbed()
                 .setTitle('List of all commands.')
                 .setTimestamp()
@@ -96,14 +96,14 @@ const commands = {
                     if (debug) console.error(err);
                 })
         },
-        'permissions': []
+        permissions: []
     },
     'test': {
-        'description': 'This is testing command to check if permissions are checked properly, and to see if they are properly shown in the help command.\nWhat this command actually does will probably vary.',
-        'method': function(message) {
+        description: 'This is testing command to check if permissions are checked properly, and to see if they are properly shown in the help command.\nWhat this command actually does will probably vary.',
+        method: function(message) {
             console.log(message.content)
         },
-        'permissions': ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_PERM']
+        permissions: ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_PERM']
     },
     'everyone': {
         'description': 'lol',
