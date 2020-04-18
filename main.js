@@ -112,7 +112,7 @@ const commands = {
             const array = members.array();
             const msg = new String();
             for (i=0; i<array.length; i++) {
-                if (array[i].hasOwnProperty('User')) {
+                if (array[i].user) {
                     console.log(array[i]);
                 }
             }
