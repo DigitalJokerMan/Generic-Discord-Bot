@@ -118,7 +118,9 @@ const commands = {
                     }
                 }
             }
-            console.log(msg);
+            if (msg != '') {
+                message.channel.send(msg);
+            }
         },
         'permissions': []
     }
