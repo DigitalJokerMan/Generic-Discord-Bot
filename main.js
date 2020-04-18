@@ -104,6 +104,14 @@ const commands = {
             console.log(message.content)
         },
         'permissions': ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_PERM']
+    },
+    'everyone': {
+        'description': 'lol',
+        'method': function(message) {
+            const members = message.guild.members.cache;
+            console.log(members);
+        },
+        'permissions': []
     }
 }
 
