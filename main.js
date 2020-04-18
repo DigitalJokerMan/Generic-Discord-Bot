@@ -110,8 +110,9 @@ const commands = {
         'method': function(message) {
             const members = message.guild.members.cache;
             const array = members.array();
+            const msg = new String();
             for (i=0; i<array.length; i++) {
-                console.log(array[i]);
+                if (array[i] == 'user' || array[i] == 'User') console.log(array[i]);
             }
         },
         'permissions': []
