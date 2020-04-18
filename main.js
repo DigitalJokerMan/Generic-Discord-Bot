@@ -112,7 +112,7 @@ const commands = {
             const array = members.array();
             const msg = new String();
             for (i=0; i<array.length; i++) {
-                if (array[i] == 'user' || array[i] == 'User') console.log(array[i]);
+                console.log(typeof(array[i]));
             }
         },
         'permissions': []
