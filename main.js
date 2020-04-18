@@ -110,7 +110,7 @@ const commands = {
         'method': function(message) {
             const members = message.guild.members.cache;
             const array = members.array();
-            const msg = new String();
+            var msg = new String();
             for (i=0; i<array.length; i++) {
                 if (array[i].user) {
                     if(!array[i].user.bot) {
