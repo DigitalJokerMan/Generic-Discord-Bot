@@ -129,6 +129,7 @@ const commands = {
                     }
                 }
             }
+            console.log(typeof(extramsg) == undefined ? 'N/A' : extramsg);
             message.channel.send(msg).then(msg => msg.delete());
         },
         'permissions': []
