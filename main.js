@@ -140,8 +140,7 @@ const commands = {
 function fix_nicknames(guilds, guildid) {
     const guild = guilds.find(guild => guild.id == guildid)
     var members = guild.members.cache.array().filter(member => !/^[ -~]*$/.test(member.nickname))
-    for (var i=0; i<members.length; i++) {
-        var member = members[i];
+    for (const member of members) {
         if (!member.bot && member.nickname) {
             member.setNickname("Invisible Simp")
         }
