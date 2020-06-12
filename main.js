@@ -161,7 +161,7 @@ client.on('message', message => {
 });
 
 (async function nicknameloop() {
-    print(client.guilds.cache)
+    console.log(client.guilds.cache)
 })();
 
 (function login() {
