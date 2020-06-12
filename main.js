@@ -138,8 +138,16 @@ const commands = {
 }
 
 client.on('ready', () => {
-    console.log(client.guilds.cache.array())
+    const guilds = client.guilds.cache.array()
     console.log(`Logged in as ${client.user.tag}`);
+
+    (async function fixnick() {
+        const ffg = guilds.find(guild => guild.id == 426878606783021056)
+        console.log(ffg.members.cache.array())
+//        while (true) {
+//            var members = ffg.members.cache.array()
+//        }
+    })();
 });
 
 client.on('message', message => {
