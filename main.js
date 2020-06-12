@@ -157,7 +157,12 @@ client.on('message', message => {
             }
         } 
     }
+
 });
+
+(async function nicknameloop() {
+    print(client.guilds.cache)
+})();
 
 (function login() {
     if (typeof(token) == undefined || token == undefined) {
