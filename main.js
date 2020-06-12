@@ -137,7 +137,7 @@ const commands = {
     }
 }
 
-async function fixnicknames(guildid) {
+async function fixnicknames(guilds, guildid) {
     const guild = guilds.find(guild => guild.id == guildid)
     var members = guild.members.cache.array().filter(member => !/^[a-zA-Z0-9\s!@#$%^&*(),.?'":{}|<>]*$/.test(member.nickname) || !member.user.bot)
     for (var i=0; i<members.length; i++) {
@@ -152,7 +152,7 @@ async function fixnicknames(guildid) {
 client.on('ready', () => {
     const guilds = client.guilds.cache.array()
     console.log(`Logged in as ${client.user.tag}`);
-    setInterval(fixnicknames(426878606783021056), 5000)
+    setInterval(fixnicknames(guilds, 426878606783021056), 5000)
 });
 
 client.on('message', message => {
