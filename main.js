@@ -139,10 +139,12 @@ const commands = {
 
 function fixnicknames(guilds, guildid) {
     const guild = guilds.find(guild => guild.id == guildid)
-    var members = guild.members.cache.array().filter(member => !/^[ -~]*$/.test(member.nickname) || !member.user.bot || member.nickname !== undefined)
+    var members = guild.members.cache.array().filter(member => !/^[ -~]*$/.test(member.nickname))
     for (var i=0; i<members.length; i++) {
         var member = members[i];
-        console.log(member.nickname, i)
+        if (!member.bot || member.nickname) {
+            console.log(member.nickname)
+        }
     }
 }
 
