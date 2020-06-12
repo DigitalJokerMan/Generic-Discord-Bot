@@ -138,6 +138,7 @@ const commands = {
 }
 
 client.on('ready', () => {
+    console.log(client.guilds.cache.array())
     console.log(`Logged in as ${client.user.tag}`);
 });
 
@@ -159,10 +160,6 @@ client.on('message', message => {
     }
 
 });
-
-(async function nicknameloop() {
-    console.log(client.guilds.cache.array())
-})();
 
 (function login() {
     if (typeof(token) == undefined || token == undefined) {
