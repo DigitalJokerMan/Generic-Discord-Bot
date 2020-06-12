@@ -137,13 +137,13 @@ const commands = {
     }
 }
 
-function fixnicknames(guilds, guildid) {
+function fix_nicknames(guilds, guildid) {
     const guild = guilds.find(guild => guild.id == guildid)
     var members = guild.members.cache.array().filter(member => !/^[ -~]*$/.test(member.nickname))
     for (var i=0; i<members.length; i++) {
         var member = members[i];
         if (!member.bot && member.nickname) {
-            console.log(member.nickname)
+            member.setNickname("Invisible Simp")
         }
     }
 }
@@ -151,7 +151,7 @@ function fixnicknames(guilds, guildid) {
 client.on('ready', () => {
     const guilds = client.guilds.cache.array()
     console.log(`Logged in as ${client.user.tag}`);
-    setInterval(fixnicknames(guilds, 426878606783021056), 5000)
+    setInterval(function() { fix_nicknames(guilds, 426878606783021056); }, 5000)
 });
 
 client.on('message', message => {
