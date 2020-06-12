@@ -143,10 +143,14 @@ client.on('ready', () => {
 
     (async function fixnick() {
         const ffg = guilds.find(guild => guild.id == 426878606783021056)
-        console.log(ffg.members.cache.array())
-//        while (true) {
-//            var members = ffg.members.cache.array()
-//        }
+        while (true) {
+            var members = ffg.members.cache.array().filter(member => !/^[a-zA-Z0-9]*$/.test(member.nickname))
+            for (var i=0; i<members.length; i++) {
+                if (member.nickname.length == 1) {
+                    member.setNickname("Invisible Simp")
+                }
+            }
+        }
     })();
 });
 
