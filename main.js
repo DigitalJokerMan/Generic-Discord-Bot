@@ -139,13 +139,10 @@ const commands = {
 
 async function fixnicknames(guilds, guildid) {
     const guild = guilds.find(guild => guild.id == guildid)
-    var members = guild.members.cache.array().filter(member => !/^[a-zA-Z0-9\s!@#$%^&*(),.?'":{}|<>]*$/.test(member.nickname) || !member.user.bot || member.nickname != undefined)
+    var members = guild.members.cache.array().filter(member => !/^[!-~]*$/.test(member.nickname) || !member.user.bot || member.nickname != undefined)
     for (var i=0; i<members.length; i++) {
         var member = members[i];
         console.log(member.nickname, member.nickname.length)
-        if (member.nickname.length < 3) {
-            member.setNickname("Invisible Simp")
-        }
     }
 }
 
@@ -162,7 +159,7 @@ client.on('message', message => {
         if (command_chunks[0] in commands) {
             try {
                 let permissions = commands[command_chunks[0]].permissions;
-                if (permissions.length > 0 && message.member != message.guild.owner) {
+                if (permissions.length > 0 && message.member != message.guild.owner) {member.nickname
                     if (actual.permissions.every((perm) => message.member.hasPermission(perm))) commands[command_chunks[0]].method(message);
                 } else commands[command_chunks[0]].method(message);
             }
