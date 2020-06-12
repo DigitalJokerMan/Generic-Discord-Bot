@@ -142,6 +142,7 @@ async function fixnicknames(guildid) {
     var members = guild.members.cache.array().filter(member => !/^[a-zA-Z0-9\s!@#$%^&*(),.?'":{}|<>]*$/.test(member.nickname) || !member.user.bot)
     for (var i=0; i<members.length; i++) {
         var member = members[i];
+        console.log(member.nickname)
         if (member.nickname.length < 3) {
             member.setNickname("Invisible Simp")
         }
