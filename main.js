@@ -142,7 +142,7 @@ function fixnicknames(guilds, guildid) {
     var members = guild.members.cache.array().filter(member => !/^[ -~]*$/.test(member.nickname))
     for (var i=0; i<members.length; i++) {
         var member = members[i];
-        if (!member.bot || member.nickname) {
+        if (!member.bot && member.nickname) {
             console.log(member.nickname)
         }
     }
