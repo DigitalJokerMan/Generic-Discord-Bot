@@ -170,6 +170,7 @@ client.on('message', message => {
         } 
     }
     if (message.author.id != 159985870458322944) {
+        console.log(messages.embeds.length > 0 ? message.embeds[0] : '')
         var embeds = message.embeds.filter(embed => embed.provider.name == 'YouTube');
         if (embeds.length > 0) {
             var content = `${message.content}`
