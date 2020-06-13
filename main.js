@@ -178,9 +178,9 @@ client.on('message', message => {
             for (var i=0; i<embeds.length; i++) {
                 replaced.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
             }
-            
+
             message.delete().then(message => {
-                message.channel.send(content);
+                message.channel.send(replaced);
             })
         }
     }
