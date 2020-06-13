@@ -170,10 +170,9 @@ client.on('message', message => {
         } 
     }
     if (message.author.id != 159985870458322944) {
-        console.log(message.embeds.length > 0 ? message.embeds[0] : '')
         var embeds = message.embeds.filter(embed => embed.provider.name == 'YouTube');
-        if (embeds.length > 0) {
-            var content = ''; content += message.content;
+        if (embeds[0]) {
+            var content = (' ' + message.content).slice(1);
             for (var i=0; i<embeds.length; i++) {
                 content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
                 console.log(content);
