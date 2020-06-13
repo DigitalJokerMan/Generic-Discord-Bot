@@ -176,6 +176,7 @@ client.on('message', message => {
             var content = ''; content += message.content;
             for (const embed of embeds) {
                 content.replace(embed.url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
+                console.log(content);
             }
             message.delete().then(message => {
                 message.channel.send(content);
