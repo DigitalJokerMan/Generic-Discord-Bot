@@ -179,7 +179,6 @@ client.on('message', message => {
                 
                 for (var i=0; i<embeds.length; i++) {
                     var content = content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw")
-                    console.log(content);
                 }
 
                 me.setNickname(message.member.displayName).then(() => {
