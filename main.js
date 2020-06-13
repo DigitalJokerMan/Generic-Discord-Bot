@@ -174,6 +174,7 @@ client.on('message', message => {
         if (embeds[0]) {
             var content = message.content;
             for (var i=0; i<embeds.length; i++) {
+                console.log(embeds[i].url)
                 content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
             }
             message.delete().then(message => {
