@@ -187,7 +187,7 @@ client.on('message', message => {
         }
     }
     if (range(0, 100) >= 99.5) {
-        imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 99})
+        imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1})
             .then(json => {
                 const data = json.data;
                 const keys = Object.keys(data);
