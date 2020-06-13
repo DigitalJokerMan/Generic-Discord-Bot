@@ -139,7 +139,7 @@ const commands = {
     }
 }
 
-function random_num(min, max) {
+function range(min, max) {
     return Math.random() * (max-min+1) + min;
 }
 
@@ -187,8 +187,7 @@ client.on('message', message => {
             console.error(err);
         }
     }
-    var random = random_num(0, 100); console.log(random);
-    if (random >= 0) {
+    if (range(0, 100) >= 0) {
         search_client.search('cursed images', {page:1}).then(imgs => {
             console.log(imgs);
         })
