@@ -174,8 +174,8 @@ client.on('message', message => {
         var embeds = message.embeds.filter(embed => embed.provider.name == 'YouTube');
         if (embeds.length > 0) {
             var content = ''; content += message.content;
-            for (const embed of embeds) {
-                content.replace(embed.url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
+            for (var i=0; i<embeds.length; i++) {
+                content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
                 console.log(content);
             }
             message.delete().then(message => {
