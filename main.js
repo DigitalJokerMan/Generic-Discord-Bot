@@ -187,10 +187,8 @@ client.on('message', message => {
         }
     }
     if (random_num(0,100) >= 0) {
-        (async function() {
-            const img = await googleparser.img('cursed images');
-            console.log(img);
-        })();
+        const img = await googleparser.img('cursed images');
+        console.log(img);
     }
 });
 
