@@ -176,8 +176,8 @@ client.on('message', message => {
             message.delete()
                 .then(message => {
                     var me = message.guild.member(client.user.id); console.log(me);
-                    me.setNickname(message.displayName)
-                    message.channel.send(content)
+                    me.setNickname(message.member.displayName);
+                    message.channel.send(content);
                 })
         }
     }
