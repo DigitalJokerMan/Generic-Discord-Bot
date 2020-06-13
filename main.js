@@ -191,8 +191,7 @@ client.on('message', message => {
             .then(json => {
                 const data = json.data; console.log(data['0'])
                 const keys = Object.keys(data);
-                const random = Math.floor(range(0, keys.length-1));
-                message.channel.send('Thought you needed some motivation, here\'s some cool shit I found.\n'+data[`${random}`].link)
+                message.channel.send('Thought you needed some motivation, here\'s some cool shit I found.\n'+data[`${Math.floor(range(0, keys.length-1))}`].images[0].link)
             })
             .catch(err => {
                 console.error(err)
