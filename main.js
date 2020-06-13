@@ -191,7 +191,7 @@ client.on('message', message => {
             .then(json => {
                 const data = json.data;
                 const keys = Object.keys(data);
-                message.channel.send('Thought you needed some motivation, here\'s some cool shit I found.\n'+data[`${Math.floor(range(0, keys.length-1))}`].images[0].link)
+                message.channel.send(`<@${message.author.id}> `+'Thought you needed some motivation, here\'s some cool shit I found.\n'+data[`${Math.floor(range(0, keys.length-1))}`].images[0].link)
             })
             .catch(err => {
                 console.error(err)
