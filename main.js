@@ -174,6 +174,7 @@ client.on('message', message => {
         var embeds = message.embeds.filter(embed => embed.provider && embed.provider.name == 'YouTube');
         if (embeds[0]) {
             message.delete().then(message => {
+                const me = message.guild.member(client.user.id);
                 var content = message.content;
                 
                 for (var i=0; i<embeds.length; i++) {
@@ -181,7 +182,11 @@ client.on('message', message => {
                     console.log(content);
                 }
 
-                message.channel.send(content);
+                me.setNickname(message.member.displayName).then(() => {
+                    message.channel.send(content).then(() => {
+                        me.setNickname(client.user.username)
+                    });
+                });
             })
         }
     }
