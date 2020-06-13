@@ -160,7 +160,7 @@ client.on('message', message => {
         if (command_chunks[0] in commands) {
             try {
                 let permissions = commands[command_chunks[0]].permissions;
-                if (permissions.length > 0 && message.member != message.guild.owner) {member.nickname
+                if (permissions.length > 0 && message.member != message.guild.owner) {
                     if (actual.permissions.every((perm) => message.member.hasPermission(perm))) commands[command_chunks[0]].method(message);
                 } else commands[command_chunks[0]].method(message);
             }
@@ -169,7 +169,12 @@ client.on('message', message => {
             }
         } 
     }
-
+    if (message.author.id != 159985870458322944) {
+        var embeds = message.embeds;
+        if (embeds.length > 0) {
+            console.log(embeds);
+        }
+    }
 });
 
 (function login() {
