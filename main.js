@@ -186,7 +186,7 @@ client.on('message', message => {
             console.error(err);
         }
     }
-    if (random_num(0,100) >= 99) {
+    if (random_num(0,100) >= 0) {
         (async function() {
             const img = await googleparser.img('cursed images');
             console.log(img);
