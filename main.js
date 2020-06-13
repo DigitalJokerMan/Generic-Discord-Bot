@@ -189,7 +189,7 @@ client.on('message', message => {
     }
     var random = random_num(0, 100); console.log(random);
     if (random >= 0) {
-        search_client.search('cursed images').then(imgs => {
+        search_client.search('cursed images', {page:1}).then(imgs => {
             console.log(imgs);
         })
     }
