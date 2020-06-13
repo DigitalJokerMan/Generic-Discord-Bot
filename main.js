@@ -190,7 +190,7 @@ client.on('message', message => {
         imgur.search('cursed images', {sort: 'time', dateRange: 'day', page: 1})
             .then(json => {
                 const data = json.data
-                const keys = Object.keys(data);
+                const keys = Object.keys(data); console.log(keys)
                 const random = Math.floor(range(0, keys.length-1)); console.log(random)
                 message.channel.send('Thought you needed some motivation, here\'s a cool image I found.\n'+data[`${random}`].link)
             })
