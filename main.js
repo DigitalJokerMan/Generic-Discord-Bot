@@ -164,7 +164,6 @@ client.on('message', message => {
     }
     if (message.author.id != 159985870458322944) {
         try {
-            if (message.embeds[0]) console.log(message.embeds[0]);
             var embeds = message.embeds.filter(embed => embed.provider && embed.provider.name == 'YouTube');
             if (embeds[0]) {
                 message.delete().then(message => {
