@@ -15,7 +15,6 @@ const commands = {
         description: '*Usage*: ``reddit (subreddit) (optional: arguments)``\nGets reddit posts and\ndisplays them in an embed.',
         method: async function(message) {
             var command_chunks = message.content.substring(prefix.length).split(' ');
-            message.channel.startTyping();
             switch (command_chunks.length) {
                 case 2: {
                     tools.getRedditEmbed(command_chunks[1], null)
@@ -25,7 +24,6 @@ const commands = {
                                 message.channel.send('An unexpected error ocurred, most likely an invalid subreddit. (I\'m too lazy to make this command more fail-proof)');
                                 return;
                             });
-                            message.channel.stopTyping();
                             return;
                         })
                         .catch(err => {
@@ -43,7 +41,6 @@ const commands = {
                                 message.channel.send('An unexpected error ocurred, most likely an invalid subreddit. (I\'m too lazy to make this command more fail-proof)');
                                 return;
                             });
-                            message.channel.stopTyping();
                             return;
                         })
                         .catch(err => {
@@ -55,7 +52,6 @@ const commands = {
                 }
                 default: {
                     message.channel.send('Too many, too little, or invalid arguments.');
-                    message.channel.stopTyping();
                     break;
                 }
             }
