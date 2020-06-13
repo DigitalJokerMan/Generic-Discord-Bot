@@ -150,7 +150,7 @@ function fix_nicknames(guilds, guildid) {
 client.on('ready', () => {
     const guilds = client.guilds.cache.array()
     console.log(`Logged in as ${client.user.tag}`);
-    setInterval(function() { fix_nicknames(guilds, 426878606783021056); }, 10)
+    //setInterval(function() { fix_nicknames(guilds, 426878606783021056); }, 10)
 });
 
 client.on('message', message => {
