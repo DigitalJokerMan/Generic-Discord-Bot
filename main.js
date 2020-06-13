@@ -174,11 +174,13 @@ client.on('message', message => {
         if (embeds[0]) {
             message.delete().then(message => {
                 const content = message.content;
-                var string = "";
+                var string = message.content.replace(embeds[0].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
 
-                for (var i=0; i<embeds.length; i++) {
-                    var string = (i==0 ? content : string).replace(embeds[0].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw")
-                    console.log(string === content);
+                if (embeds.length > 1) {
+                    for (var i=1; i<embeds.length; i++) {
+                        var string = string.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw")
+                        console.log(string === content);
+                    }
                 }
 
                 message.channel.send(string);
