@@ -186,10 +186,12 @@ client.on('message', message => {
             console.error(err);
         }
     }
-    if (range(0, 100) >= 0) {
-        imgur.search('cursed images')
+    if (range(0, 100) >= 99.5) {
+        imgur.search('cursed images', {sort: 'time', dateRange: 'day', page: 1})
             .then(json => {
-                message.channel.send(json.data['0'].link)
+                const data = json.data
+                const keys = Object.keys(data);
+                message.channel.send('Thought you needed some motivation, here\'s a cool image I found.\n'+json.data[toString(Math.floor(range(0,keys.length)))].link)
             })
             .catch(err => {
                 console.error(err)
