@@ -3,8 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const tools = require('./tools.js');
-const imageSearch = require('image-search-google');
-const search_client = new imageSearch('006536729167279915928:s6sojgmwn5o', 'AIzaSyCv6Hs0PFtTXZQo11FQlQ3IFPtn5ZwtRXg');
+const imgur = require('imgur');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -188,9 +187,13 @@ client.on('message', message => {
         }
     }
     if (range(0, 100) >= 0) {
-        search_client.search('cursed images', {page:1}).then(imgs => {
-            console.log(imgs);
-        })
+        imgur.search('cursed images')
+            .then(json => {
+                console.log(json)
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 });
 
