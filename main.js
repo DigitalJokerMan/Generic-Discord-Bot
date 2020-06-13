@@ -146,7 +146,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
 
-client.on('message', async (message) => {
+client.on('message', message => {
     if (message.author.id == client.user.id || message.author.bot) return;
     if (message.content.startsWith(prefix)) {
         var command_chunks = message.content.substring(prefix.length).split(' ');
@@ -188,8 +188,10 @@ client.on('message', async (message) => {
         }
     }
     if (random_num(0,100) >= 99) {
-        const img = await googleparser.img('cursed images');
-        console.log(img);
+        (async function() {
+            const img = await googleparser.img('cursed images');
+            console.log(img);
+        })();
     }
 });
 
