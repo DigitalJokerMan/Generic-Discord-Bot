@@ -187,12 +187,12 @@ client.on('message', message => {
         }
     }
     if (range(0, 100) >= 0) {
-        imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1})
+        imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 10})
             .then(json => {
                 const data = json.data;
-                const keys = Object.keys(data); console.log(keys)
-                const random = Math.floor(range(0, keys.length-1)); console.log(random)
-                message.channel.send('Thought you needed some motivation, here\'s a cool image I found.\n'+data[`${random}`].link)
+                const keys = Object.keys(data);
+                const random = Math.floor(range(0, keys.length-1));
+                message.channel.send('Thought you needed some motivation, here\'s some cool shit I found.\n'+data[`${random}`].link)
             })
             .catch(err => {
                 console.error(err)
