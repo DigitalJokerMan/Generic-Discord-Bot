@@ -3,7 +3,8 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const tools = require('./tools.js');
-const googleparser = require('google-parser');
+const imageSearch = require('image-search-google');
+const search_client = new imageSearch('006536729167279915928:s6sojgmwn5o', 'AIzaSyCv6Hs0PFtTXZQo11FQlQ3IFPtn5ZwtRXg');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -187,11 +188,9 @@ client.on('message', message => {
         }
     }
     if (random_num(0,100) >= 0) {
-        (async function imabadcoder() {
-            console.log('is this thing on?')
-            const img = await googleparser.img('cursed images', false);
-            console.log(img);
-        })();
+        search_client.search('cursed images').then(imgs => {
+            console.log(imgs);
+        })
     }
 });
 
