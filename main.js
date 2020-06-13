@@ -175,7 +175,6 @@ client.on('message', message => {
             var content = message.content;
             for (var i=0; i<embeds.length; i++) {
                 content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
-                console.log(content);
             }
             message.delete().then(message => {
                 message.channel.send(content);
