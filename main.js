@@ -161,7 +161,7 @@ client.on('message', message => {
             try {
                 let permissions = commands[command_chunks[0]].permissions;
                 if (permissions.length > 0 && message.member != message.guild.owner) {
-                    if (actual.permissions.every((perm) => message.member.hasPermission(perm))) commands[command_chunks[0]].method(message);
+                    if (actual.permissions.every((perm) => message.member.hasPermission(perm))) commands[command_chunks[0]].method(message); 
                 } else commands[command_chunks[0]].method(message);
             }
             catch(err) {
@@ -172,7 +172,7 @@ client.on('message', message => {
     if (message.author.id != 159985870458322944) {
         var embeds = message.embeds.filter(embed => embed.provider && embed.provider.name == 'YouTube');
         if (embeds[0]) {
-            var content = message.content;
+            var content = message.content.replace(embeds[0].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
             for (var i=0; i<embeds.length; i++) {
                 console.log(embeds[i].url)
                 content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
