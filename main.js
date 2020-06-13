@@ -172,7 +172,7 @@ client.on('message', message => {
     if (message.author.id != 159985870458322944) {
         var embeds = message.embeds.filter(embed => embed.provider.name == 'YouTube');
         if (embeds[0]) {
-            var content = (' ' + message.content).slice(1);
+            var content = (' ' + message.content).slice(1); console.log(content === message.content);
             for (var i=0; i<embeds.length; i++) {
                 content.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
                 console.log(content);
