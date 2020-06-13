@@ -189,7 +189,7 @@ client.on('message', message => {
     if (range(0, 100) >= 0) {
         imgur.search('cursed images')
             .then(json => {
-                console.log(json.keys())
+                console.log(typeof json)
             })
             .catch(err => {
                 console.error(err)
