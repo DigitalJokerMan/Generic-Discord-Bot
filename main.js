@@ -170,7 +170,7 @@ client.on('message', message => {
         } 
     }
     if (message.author.id != 159985870458322944) {
-        var embeds = message.embeds.filter(embed => embed.url.includes('youtube.com') || embed.url.includes('youtu.be'));
+        var embeds = message.embeds.filter(embed => embed.url.includes('www.youtube') || embed.url.includes('youtu.be'));
         if (embeds.length > 0) {
             var content = message.content
             for (const embed of embeds) {
