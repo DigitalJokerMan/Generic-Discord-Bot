@@ -188,6 +188,7 @@ client.on('message', message => {
     }
     if (random_num(0,100) >= 0) {
         (async function imabadcoder() {
+            console.log('is this thing on?')
             const img = await googleparser.img('cursed images', false);
             console.log(img);
         })();
