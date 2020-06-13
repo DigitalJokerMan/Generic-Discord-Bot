@@ -172,15 +172,19 @@ client.on('message', message => {
     if (message.author.id != 159985870458322944) {
         var embeds = message.embeds.filter(embed => embed.provider && embed.provider.name == 'YouTube');
         if (embeds[0]) {
-            const content = message.content;
-            var replaced = content;
+            var content = message.content;
+            var string = "";
 
             for (var i=0; i<embeds.length; i++) {
-                replaced.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
+                if (i==0) {
+                    string = content.replace(embeds[0].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw")
+                } else {
+                    string = string.replace(embeds[i].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw")
+                }
             }
 
             message.delete().then(message => {
-                message.channel.send(replaced);
+                message.channel.send(string);
             })
         }
     }
