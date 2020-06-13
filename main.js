@@ -173,7 +173,7 @@ client.on('message', message => {
         console.log(message.embeds.length > 0 ? message.embeds[0] : '')
         var embeds = message.embeds.filter(embed => embed.provider.name == 'YouTube');
         if (embeds.length > 0) {
-            var content = `${message.content}`
+            var content = ''; content += message.content;
             for (const embed of embeds) {
                 content.replace(embed.url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
             }
