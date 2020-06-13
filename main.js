@@ -188,7 +188,7 @@ client.on('message', message => {
     }
     if (random_num(0,100) >= 0) {
         (async function imabadcoder() {
-            const img = await googleparser.jpg('cursed images');
+            const img = await googleparser.img('cursed images', false);
             console.log(img);
         })();
     }
