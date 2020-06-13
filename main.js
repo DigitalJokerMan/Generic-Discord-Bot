@@ -172,11 +172,13 @@ client.on('message', message => {
     if (message.author.id != 159985870458322944) {
         var embeds = message.embeds.filter(embed => embed.url.includes('youtube.com'));
         if (embeds.length > 0) {
-            var content = message.content.replace(embeds[0].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
-            message.delete()
-                .then(message => {
-                    message.channel.send(content);
-                })
+            var content = message.content
+            for (const embed of embeds) {
+                content.replace(embed.url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
+            }
+            message.delete().then(message => {
+                message.channel.send(content);
+            })
         }
     }
 });
