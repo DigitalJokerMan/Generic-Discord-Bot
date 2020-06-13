@@ -3,7 +3,6 @@ require('dotenv').config();
 const axios = require('axios');
 const Discord = require('discord.js');
 const reddit = 'https://www.reddit.com';
-const google = require('google-search-results-nodejs');
 
 const debug = process.env.debug == null ? true : (process.env.debug == 'true');
 

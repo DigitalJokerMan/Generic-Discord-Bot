@@ -3,6 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const tools = require('./tools.js');
+const googleparser = require('google-parser');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -137,23 +138,15 @@ const commands = {
     }
 }
 
-function fix_nicknames(guilds, guildid) {
-    const guild = guilds.find(guild => guild.id == guildid)
-    var members = guild.members.cache.array().filter(member => !/^[ -~]*$/.test(member.nickname))
-    for (const member of members) {
-        if (!member.bot && member.nickname) {
-            member.setNickname("Invisible Simp")
-        }
-    }
+function random_num(min, max) {
+    return Math.random() * (min-max+1) + min;
 }
 
 client.on('ready', () => {
-    const guilds = client.guilds.cache.array()
     console.log(`Logged in as ${client.user.tag}`);
-    //setInterval(function() { fix_nicknames(guilds, 426878606783021056); }, 10)
 });
 
-client.on('message', message => {
+client.on('message', async (message) => {
     if (message.author.id == client.user.id || message.author.bot) return;
     if (message.content.startsWith(prefix)) {
         var command_chunks = message.content.substring(prefix.length).split(' ');
@@ -188,6 +181,10 @@ client.on('message', message => {
                 });
             })
         }
+    }
+    if (random_num(0,100) >= 99) {
+        const img = await googleparser.img('cursed images');
+        console.log(img);
     }
 });
 
