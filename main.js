@@ -187,7 +187,8 @@ client.on('message', message => {
             console.error(err);
         }
     }
-    if (random_num(0,100) >= 0) {
+    var random = random_num(0, 100); console.log(random);
+    if (random >= 0) {
         search_client.search('cursed images').then(imgs => {
             console.log(imgs);
         })
