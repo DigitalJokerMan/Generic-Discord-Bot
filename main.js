@@ -175,8 +175,6 @@ client.on('message', message => {
             var content = message.content.replace(embeds[0].url, "https://www.youtube.com/watch?v=ST7DxZrwkRw");
             message.delete()
                 .then(message => {
-                    var me = message.guild.member(client.user.id); console.log(me);
-                    me.setNickname(message.member.displayName);
                     message.channel.send(content);
                 })
         }
