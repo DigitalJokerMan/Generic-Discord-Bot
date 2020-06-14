@@ -163,9 +163,6 @@ const commands = {
                         var mp3 = flowData.mp3;
                         var duration = flowData.duration; console.log(duration);
                         var dispatcher = connection.play(mp3);
-                        dispatcher.on('speaking', playing => {
-                            if (!playing) connection.disconnect();
-                        });
                     });
                 }
                 catch (err) {
