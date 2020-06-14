@@ -160,9 +160,7 @@ const commands = {
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
                         var flowData = await getFlowData(session_id);
-                        var mp3 = flowData.mp3;
-                        var duration = flowData.duration; console.log(duration);
-                        var dispatcher = connection.play(mp3);
+                        var dispatcher = connection.play(flowData.mp3);
                     });
                 }
                 catch (err) {
