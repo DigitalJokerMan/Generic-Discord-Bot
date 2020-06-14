@@ -158,12 +158,13 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        let flowData = await getFlowData(session_id);
+                        var flowData = await getFlowData(session_id);
                         var mp3 = flowData.mp3;
                         const dispatcher = connection.play(mp3);
                         dispatcher.on('speaking', async (speaking) => {
                             if (!speaking) {
-                                mp3, duration = await getFlowData(session_id);
+                                flowData = await getFlowData(session_id);
+                                mp3 = flowData.mp3;
                                 dispatcher = connection.play(mp3)
                             }
                         })
