@@ -149,14 +149,9 @@ const commands = {
                     const vc = message.member.voice.channel;
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
-                    vc.join(async connection => {
-                        console.log('is it even working at all');
-                        var newFlowReq = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
-                        var newFlowData = newFlowReq.data; console.log(newFlowData);
-                        var mp3 = newFlowData.mp3;
-                        var mp3duration = newFlowData.data[newFlowData.data.length-1].time;
-                        const dispatch = connection.play(mp3);
-                        dispatch.setVolume(1);
+                    vc.join().then(async (connection) => {
+                        let newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`)
+                        const dispatch = connection.play(newFlow.data.mp3);
                     });
                 }
                 catch (err) {
