@@ -150,6 +150,7 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join(async connection => {
+                        console.log('is it even working at all');
                         var newFlowReq = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
                         var newFlowData = newFlowReq.data; console.log(newFlowData);
                         var mp3 = newFlowData.mp3;
