@@ -5,11 +5,21 @@ const client = new Discord.Client();
 const tools = require('./tools.js');
 const imgur = require('imgur');
 const axios = require('axios');
+const { setIntervalAsync } = require('set-interval-async/dynamic');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token
+
+async function playFlow(session_id, connection) {
+    const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
+    const flowData = newFlow.data;
+    const mp3url = flowData.mp3;
+    connection.play(mp3url);
+
+    return flowData.data[flowData.data.length-1].time;
+};
 
 const commands = {
     'reddit': {
@@ -150,9 +160,10 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        var newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`)
-                        console.log(newFlow.data);
-                        const dispatch = connection.play(newFlow.data.mp3);
+                        var mp3duration = await playFlow(session_id, connection);
+                        setIntervalAsync(async function() {
+                            mp3duration = await playFlow(session_id, connection);
+                        }, mp3duration*1000)
                     });
                 }
                 catch (err) {
