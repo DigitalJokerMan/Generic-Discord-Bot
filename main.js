@@ -12,13 +12,12 @@ const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token
 
-async function playFlow(session_id, connection) {
+async function getFlowData(session_id, connection) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
     const flowData = newFlow.data;
     const mp3url = flowData.mp3;
-    connection.play(mp3url);
 
-    return flowData.data[flowData.data.length-1].time;
+    return mp3url, flowData.data[flowData.data.length-1].time;
 };
 
 const commands = {
@@ -160,10 +159,14 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        var mp3duration = await playFlow(session_id, connection);
-                        setIntervalAsync(async function() {
-                            mp3duration = await playFlow(session_id, connection);
-                        }, mp3duration*1000)
+                        var mp3, duration = await getFlowData(session_id, connection);
+                        const dispatcher = connection.play(mp3);
+                        dispatcher.on('speaking', speaking => {
+                            if (!speaking) {
+                                mp3, duration = await getFlowData(session_id, connection);
+                                dispatcher = connection.play(mp3)
+                            }
+                        })
                     });
                 }
                 catch (err) {
