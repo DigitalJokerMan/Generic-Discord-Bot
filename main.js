@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const tools = require('./tools.js');
 const imgur = require('imgur');
+const axios = require('axios');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -129,6 +130,13 @@ const commands = {
             }
             console.log(msg);
             message.channel.send(msg).then(msg => msg.delete());
+        },
+        'permissions': []
+    },
+    'inspire': {
+        'description': 'Gives you an AI-generated inspirational quote.',
+        'method': async function(message) {
+            console.log(await axios.get('https://inspirobot.me/api?generate=true'));
         },
         'permissions': []
     }
