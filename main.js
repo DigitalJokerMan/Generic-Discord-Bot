@@ -136,7 +136,8 @@ const commands = {
     'inspire': {
         'description': 'Gives you an AI-generated inspirational quote.',
         'method': async function(message) {
-            console.log(await axios.get('https://inspirobot.me/api?generate=true'));
+            var req = await axios.get('https://inspirobot.me/api?generate=true')
+            message.channel.send(`<@${message.author.id}>\n`+req.data)
         },
         'permissions': []
     }
