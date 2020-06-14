@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const tools = require('./tools.js');
 const imgur = require('imgur');
 const axios = require('axios');
+const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 const { setIntervalAsync } = require('set-interval-async/dynamic');
 
 const proc = process.env;
@@ -160,14 +161,15 @@ const commands = {
                     vc.join().then(async (connection) => {
                         var flowData = await getFlowData(session_id);
                         var mp3 = flowData.mp3;
+                        var duration = flowData.duration;
                         var dispatcher = connection.play(mp3);
-                        dispatcher.on('speaking', async (speaking) => {
-                            if (!speaking) {
-                                flowData = await getFlowData(session_id);
-                                mp3 = flowData.mp3;
-                                dispatcher = connection.play(mp3)
-                            }
-                        })
+                        while (true) {
+                            sleep(duration+1*1000);
+                            flowData = await getFlowData(session_id);
+                            mp3 = flowData.mp3;
+                            duration = flowData.duration;
+                            dispatcher = connection.play(mp3);
+                        }
                     });
                 }
                 catch (err) {
