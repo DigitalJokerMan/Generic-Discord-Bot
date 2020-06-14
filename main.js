@@ -154,14 +154,9 @@ const commands = {
                         var newFlowData = newFlowReq.data;
                         var mp3 = newFlowData.mp3;
                         var mp3duration = newFlowData.data[newFlowData.data.length-1].time;
-                        connection.play(mp3);
-                        setInterval(async function() {
-                            newFlowReq = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
-                            newFlowData = newFlowReq.data;
-                            mp3 = newFlowData.mp3;
-                            mp3duration = newFlowData.data[newFlowData.data.length-1].time;
-                            connection.play(mp3)
-                        }, mp3duration*1000)
+                        console.log(mp3);
+                        const dispatch = connection.play(mp3);
+                        dispatch.setVolume(1);
                     });
                 }
                 catch (err) {
