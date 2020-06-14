@@ -12,7 +12,7 @@ const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token
 
-async function getFlowData(session_id, connection) {
+async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
     const flowData = newFlow.data;
     const mp3url = flowData.mp3;
@@ -159,11 +159,11 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        var mp3, duration = await getFlowData(session_id, connection);
+                        var mp3, duration = await getFlowData(session_id);
                         const dispatcher = connection.play(mp3);
                         dispatcher.on('speaking', async (speaking) => {
                             if (!speaking) {
-                                mp3, duration = await getFlowData(session_id, connection);
+                                mp3, duration = await getFlowData(session_id);
                                 dispatcher = connection.play(mp3)
                             }
                         })
