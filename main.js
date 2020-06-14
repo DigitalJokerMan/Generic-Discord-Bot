@@ -160,7 +160,7 @@ const commands = {
                     vc.join().then(async (connection) => {
                         var flowData = await getFlowData(session_id);
                         var mp3 = flowData.mp3;
-                        const dispatcher = connection.play(mp3);
+                        var dispatcher = connection.play(mp3);
                         dispatcher.on('speaking', async (speaking) => {
                             if (!speaking) {
                                 flowData = await getFlowData(session_id);
