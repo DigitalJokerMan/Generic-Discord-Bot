@@ -161,15 +161,11 @@ const commands = {
                     vc.join().then(async (connection) => {
                         var flowData = await getFlowData(session_id);
                         var mp3 = flowData.mp3;
-                        var duration = flowData.duration;
+                        var duration = flowData.duration; console.log(duration);
                         var dispatcher = connection.play(mp3);
-                        while (true) {
-                            sleep(duration+1*1000);
-                            flowData = await getFlowData(session_id);
-                            mp3 = flowData.mp3;
-                            duration = flowData.duration;
-                            dispatcher = connection.play(mp3);
-                        }
+                        dispatcher.on('speaking', playing => {
+                            if (!playing) connection.disconnect();
+                        });
                     });
                 }
                 catch (err) {
