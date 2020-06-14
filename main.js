@@ -15,9 +15,8 @@ const token = proc.token
 async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
     const flowData = newFlow.data;
-    const mp3url = flowData.mp3;
 
-    return mp3url, flowData.data[flowData.data.length-1].time;
+    return flowData.mp3, flowData.data[flowData.data.length-1].time;
 };
 
 const commands = {
