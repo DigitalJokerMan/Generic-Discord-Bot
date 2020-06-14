@@ -214,7 +214,7 @@ client.on('message', message => {
 });
 
 (async function f() {
-    console.log(await axios.get('https://generated.inspirobot.me/flow010/aa2430dc.mp3').data);
+    console.log((await axios.get('https://generated.inspirobot.me/flow010/aa2430dc.mp3')).data);
 })();
 
 (function login() {
