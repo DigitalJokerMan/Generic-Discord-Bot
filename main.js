@@ -144,8 +144,11 @@ const commands = {
     'mindfulness': {
         'description': '**You need to be in a VC.** Says various sentences to you, in order to help your mindfulness. (Don\'t ask me what that means, idfk.)\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
         'method': async function(message) {
-            const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
-            const session_id = session_req.data;
+            const guild = message.guild;
+            const channels = guild.channels.cache;
+            console.log(channels);
+            //const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
+            //const session_id = session_req.data;
 
         },
         'permissions': []
