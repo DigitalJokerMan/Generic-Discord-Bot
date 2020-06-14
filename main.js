@@ -144,12 +144,20 @@ const commands = {
     'mindfulness': {
         'description': '**You need to be in a VC.** Says various sentences to you, in order to help your mindfulness. (Don\'t ask me what that means, idfk.)\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
         'method': async function(message) {
-            const guild = message.guild;
-            const channels = guild.channels.cache;
-            console.log(channels);
-            //const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
-            //const session_id = session_req.data;
-
+            if (message.member.voice && message.member.voice.channel) {
+                try {
+                    const vc = message.member.voice.channel;
+                    const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
+                    const session_id = session_req.data;
+                    var mp3 = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
+                    console.log(mp3)
+                }
+                catch (err) {
+                    console.error(err);
+                }
+            } else {
+                message.channel.send('You are not connected to a VC.');
+            }
         },
         'permissions': []
     }
