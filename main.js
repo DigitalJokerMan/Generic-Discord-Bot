@@ -20,6 +20,14 @@ async function getFlowData(session_id) {
     return {mp3: flowData.mp3, duration: flowData.data[flowData.data.length-1].time}
 };
 
+async function dispatchFlow(connection, session_id) {
+    const flowData = await getFlowData(session_id);
+    const dispatcher = connection.play(flowData.mp3);
+    dispatcher.on('speaking', async (playing) => {
+        if (!playing) dispatchFlow(session_id);
+    });
+}
+
 const commands = {
     'reddit': {
         description: '*Usage*: ``reddit (subreddit) (optional: custom JSON)``\nGets reddit posts and\ndisplays them in an embed.',
@@ -159,14 +167,7 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        var flowData = await getFlowData(session_id);
-                        var dispatcher = connection.play(flowData.mp3);
-                        dispatcher.on('speaking', async (playing) => {
-                            if (!playing) {
-                                flowData = await getFlowData(session_id);
-                                dispatcher = connection.play(flowData.mp3);
-                            }
-                        });
+                        dispatchFlow(connection, session_id);
                     });
                 }
                 catch (err) {
