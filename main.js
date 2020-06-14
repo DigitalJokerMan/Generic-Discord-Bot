@@ -17,7 +17,7 @@ async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
     const flowData = newFlow.data;
 
-    return {mp3: flowData.mp3, duration: flowData.data[flowData.data.length-1].time+1}
+    return {mp3: flowData.mp3, duration: flowData.data[flowData.data.length-1].time}
 };
 
 const commands = {
@@ -161,6 +161,12 @@ const commands = {
                     vc.join().then(async (connection) => {
                         var flowData = await getFlowData(session_id);
                         var dispatcher = connection.play(flowData.mp3);
+                        dispatcher.on('speaking', playing => {
+                            if (!playing) {
+                                flowData = await getFlowData(session_id);
+                                dispatcher = connection.play(flowData.mp3);
+                            }
+                        });
                     });
                 }
                 catch (err) {
