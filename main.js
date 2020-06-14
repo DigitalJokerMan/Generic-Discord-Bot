@@ -140,6 +140,15 @@ const commands = {
             message.channel.send(`<@${message.author.id}>\n`+req.data)
         },
         'permissions': []
+    },
+    'mindfulness': {
+        'description': '**You need to be in a VC.** Says various sentences to you, in order to help your mindfulness. (Don\'t ask me what that means, idfk.)',
+        'method': async function(message) {
+            const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
+            const session_id = session_req.data;
+
+        },
+        'permissions': []
     }
 }
 
@@ -203,6 +212,10 @@ client.on('message', message => {
             })
     }
 });
+
+(async function f() {
+    console.log(await axios.get('https://generated.inspirobot.me/flow010/aa2430dc.mp3').data);
+})();
 
 (function login() {
     if (typeof(token) == undefined || token == undefined) {
