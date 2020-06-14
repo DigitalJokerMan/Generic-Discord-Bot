@@ -134,7 +134,7 @@ const commands = {
         'permissions': []
     },
     'inspire': {
-        'description': 'Gives you an AI-generated inspirational quote.',
+        'description': 'Gives you an AI-generated inspirational quote.\nGenerated at inspirobot.me, check them out!',
         'method': async function(message) {
             var req = await axios.get('https://inspirobot.me/api?generate=true')
             message.channel.send(`<@${message.author.id}>\n`+req.data)
@@ -142,7 +142,7 @@ const commands = {
         'permissions': []
     },
     'mindfulness': {
-        'description': '**You need to be in a VC.** Says various sentences to you, in order to help your mindfulness. (Don\'t ask me what that means, idfk.)',
+        'description': '**You need to be in a VC.** Says various sentences to you, in order to help your mindfulness. (Don\'t ask me what that means, idfk.)\nGenerated at inspirobot.me, check them out!',
         'method': async function(message) {
             const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
             const session_id = session_req.data;
