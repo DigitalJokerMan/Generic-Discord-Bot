@@ -6,7 +6,6 @@ const tools = require('./tools.js');
 const imgur = require('imgur');
 const axios = require('axios');
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
-const { setIntervalAsync } = require('set-interval-async/dynamic');
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
@@ -196,6 +195,13 @@ const commands = {
             catch (err) {
                 console.error(err);
             }
+        },
+        'permissions': []
+    },
+    'sonic': {
+        'description': 'fast zoom vrrrrr',
+        'method': function (message) {
+            message.channel.send({files: ["./sonic.gif"]})
         },
         'permissions': []
     }
