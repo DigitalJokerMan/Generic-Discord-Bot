@@ -26,12 +26,7 @@ async function dispatchFlow(connection, session_id, lastTick) {
 
     dispatcher.on('speaking', playing => {
         if (!playing) {
-            if ((new Date()).getTime() > lastTick+flowData.duration) {
-                dispatchFlow(connection, session_id, (new Date()).getTime());
-            } else {
-                while (((new Date()).getTime() < lastTick+flowData.duration)) {}
-                dispatchFlow(connection, session_id, (new Date().getTime()));
-            }
+            setTimeout(dispatchFlow(connection, session_id, (new Date()).getTime()), lastTick+flowData.duration - (new Date()).getTime())
         }
     });
 }
