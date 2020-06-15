@@ -212,7 +212,7 @@ function range(min, max) {
 }
 
 function chance(percent) {
-    return range(0, 100) >= (100 - percent)
+    return range(0, 100) <= percent
 }
 
 client.on('ready', () => {
