@@ -24,10 +24,13 @@ async function dispatchFlow(connection, session_id, lastTick) {
     const flowData = await getFlowData(session_id);
     const dispatcher = connection.play(flowData.mp3);
 
-    dispatcher.on('speaking', async (playing) => {
+    dispatcher.on('speaking', playing => {
         if (!playing) {
             if ((new Date()).getTime() > lastTick+flowData.duration) {
                 dispatchFlow(connection, session_id, (new Date()).getTime());
+            } else {
+                while (((new Date()).getTime() < lastTick+flowData.duration)) {}
+                dispatchFlow(connection, session_id, (new Date().getTime()))
             }
         }
     });
