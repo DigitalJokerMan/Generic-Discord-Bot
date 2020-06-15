@@ -21,10 +21,6 @@ async function getFlowData(session_id) {
 };
 
 async function dispatchFlow(connection, session_id, lastTick) {
-    if (!lastTick) {
-        lastTick = (new Date()).getTime()
-    }
-
     const flowData = await getFlowData(session_id);
     const dispatcher = connection.play(flowData.mp3);
 
@@ -176,7 +172,7 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        dispatchFlow(connection, session_id);
+                        dispatchFlow(connection, session_id, (new Date()).getTime());
                     });
                 }
                 catch (err) {
