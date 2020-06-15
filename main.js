@@ -20,11 +20,20 @@ async function getFlowData(session_id) {
     return {mp3: flowData.mp3, duration: flowData.data[flowData.data.length-1].time+1}
 };
 
-async function dispatchFlow(connection, session_id) {
+async function dispatchFlow(connection, session_id, lastTick) {
+    if (!lastTick) {
+        lastTick = (new Date()).getTime()
+    }
+
     const flowData = await getFlowData(session_id);
     const dispatcher = connection.play(flowData.mp3);
+
     dispatcher.on('speaking', async (playing) => {
-        if (!playing) dispatchFlow(connection, session_id);
+        if (!playing) {
+            if ((new Date()).getTime() > lastTick+flowData.duration) {
+                dispatchFlow(connection, session_id, (new Date()).getTime());
+            }
+        }
     });
 }
 
