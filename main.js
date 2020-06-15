@@ -17,7 +17,7 @@ async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
     const flowData = newFlow.data;
 
-    return {mp3: flowData.mp3, duration: flowData.data[flowData.data.length-1].time}
+    return {mp3: flowData.mp3, duration: flowData.data[flowData.data.length-1].time+1}
 };
 
 async function dispatchFlow(connection, session_id) {
