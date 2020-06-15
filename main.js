@@ -159,7 +159,7 @@ const commands = {
         'permissions': []
     },
     'mindfulness': {
-        'description': '**You need to be in a VC.** Says various sentences to you, in order to help your mindfulness. (Don\'t ask me what that means, idfk.)\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
+        'description': '**You need to be in a VC.** Says various sentences to you, in order to keep you mindful. (Don\'t ask me what that means, idfk.)\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
         'method': async function(message) {
             if (message.member.voice && message.member.voice.channel) {
                 try {
