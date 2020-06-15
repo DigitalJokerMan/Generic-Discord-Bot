@@ -30,7 +30,7 @@ async function dispatchFlow(connection, session_id, lastTick) {
                 dispatchFlow(connection, session_id, (new Date()).getTime());
             } else {
                 while (((new Date()).getTime() < lastTick+flowData.duration)) {}
-                dispatchFlow(connection, session_id, (new Date().getTime()))
+                dispatchFlow(connection, session_id, (new Date().getTime()));
             }
         }
     });
@@ -175,7 +175,9 @@ const commands = {
                     const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
                     const session_id = session_req.data;
                     vc.join().then(async (connection) => {
-                        dispatchFlow(connection, session_id, (new Date()).getTime());
+                        dispatchFlow(connection, session_id, (new Date()).getTime()).catch(err => {
+                            console.error(err);
+                        });
                     });
                 }
                 catch (err) {
@@ -183,6 +185,16 @@ const commands = {
                 }
             } else {
                 message.channel.send('You are not connected to a VC.');
+            }
+        },
+        'permissions': []
+    },
+    'stopmindfulness': {
+        'description': 'Stops the bot from being mindful. (Disconnects the bot from the VC.)',
+        'method': function (message) {
+            const voiceState = message.guild.voice;
+            if (voiceState && voiceState.connection.channel) {
+                voiceState.connection.channel.leave();
             }
         },
         'permissions': []
