@@ -211,6 +211,10 @@ function range(min, max) {
     return Math.random() * (max-min+1) + min;
 }
 
+function chance(percent) {
+    return range(0, 100) >= (100 - percent)
+}
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
 });
@@ -255,7 +259,7 @@ client.on('message', message => {
             console.error(err);
         }
     }
-    if (range(0, 100) >= 99.9) {
+    if (chance(.1)) {
         imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1})
             .then(json => {
                 const data = json.data;
