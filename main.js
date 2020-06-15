@@ -26,7 +26,7 @@ async function dispatchFlow(connection, session_id, lastTick) {
 
     dispatcher.on('speaking', playing => {
         if (!playing) {
-            setTimeout(dispatchFlow(connection, session_id, (new Date()).getTime()), lastTick+flowData.duration - (new Date()).getTime())
+            setTimeout(async function() { await dispatchFlow(connection, session_id, (new Date()).getTime()) }, lastTick+flowData.duration - (new Date()).getTime())
         }
     });
 }
