@@ -189,7 +189,7 @@ const commands = {
         },
         'permissions': []
     },
-    'stopmindfulness': {
+    'stopvc': {
         'description': 'Stops the bot from being mindful. (Disconnects the bot from the VC.)',
         'method': function (message) {
             const voiceState = message.guild.voice;
