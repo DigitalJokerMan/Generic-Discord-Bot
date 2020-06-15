@@ -193,8 +193,13 @@ const commands = {
         'description': 'Stops the bot from being mindful. (Disconnects the bot from the VC.)',
         'method': function (message) {
             const voiceState = message.guild.voice;
-            if (voiceState && voiceState.connection.channel) {
-                voiceState.connection.channel.leave();
+            try {
+                if (voiceState && voiceState.connection && voiceState.connection.channel) {
+                    voiceState.connection.channel.leave();
+                }
+            }
+            catch (err) {
+                console.error(err);
             }
         },
         'permissions': []
