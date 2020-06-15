@@ -24,7 +24,7 @@ async function dispatchFlow(connection, session_id) {
     const flowData = await getFlowData(session_id);
     const dispatcher = connection.play(flowData.mp3);
     dispatcher.on('speaking', async (playing) => {
-        if (!playing) dispatchFlow(session_id);
+        if (!playing) dispatchFlow(connection, session_id);
     });
 }
 
