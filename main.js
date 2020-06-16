@@ -25,7 +25,11 @@ async function dispatchFlow(connection, session_id, lastTick) {
 
     dispatcher.on('speaking', playing => {
         if (!playing) {
-            setTimeout(async function() { await dispatchFlow(connection, session_id, (new Date()).getTime()) }, lastTick+flowData.duration - (new Date()).getTime())
+            if (connection.channel.members.array().length > 1) {
+                setTimeout(async function() { await dispatchFlow(connection, session_id, (new Date()).getTime()) }, lastTick+flowData.duration - (new Date()).getTime())
+            } else {
+                connection.channel.leave();
+            }
         }
     });
 }
@@ -271,6 +275,10 @@ client.on('message', message => {
             })
     }
 });
+
+(function checkvc() {
+
+})();
 
 (function login() {
     if (typeof(token) == undefined || token == undefined) {
