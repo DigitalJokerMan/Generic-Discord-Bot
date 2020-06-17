@@ -26,7 +26,7 @@ async function dispatchFlow(connection, session_id, lastTick) {
     const flowData = await getFlowData(session_id);
     const dispatcher = connection.play(flowData.mp3);
 
-    dispatcher.on('finished', () => {
+    dispatcher.on('finish', () => {
         setTimeout(async function() { await dispatchFlow(connection, session_id, (new Date()).getTime()) }, lastTick+flowData.duration - (new Date()).getTime())
     });
 }
@@ -143,7 +143,7 @@ const commands = {
             console.log(message.content)
         },
         permissions: ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_PERM']
-    },
+    }, 
     'everyone': {
         'description': 'lol',
         'method': function(message) {
