@@ -40,19 +40,21 @@ async function dispatchFlow(connection, session_id, lastTick) {
 async function startQueue(channel) {
     queue_playing = true;
     channel.join().then(async (connection) => {
+        const songe = await ytdl(queue[0])
         (async function play(song) {
             const dispatcher = connection.play(song);
             dispatcher.on('finish', () => {
                 queue.splice(0,1);
                 if (queue[0]) {
-                    play(await ytdl(queue[0]));
+                    const songe = await ytdl(queue[0]);
+                    play(songe);
                 } else {
                     queue_playing = false;
                     connection.channel.leave();
                     return;
                 }
             })
-        })(await ytdl(queue[0]));
+        })(songe);
     })
 }
 
