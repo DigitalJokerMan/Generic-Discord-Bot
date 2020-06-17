@@ -5,12 +5,15 @@ const client = new Discord.Client();
 const tools = require('./tools.js');
 const imgur = require('imgur');
 const axios = require('axios');
+const ytdl = require('ytdl-core-discord');
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token
+const queue = []
+var queue_playing = false;
 
 async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
@@ -32,6 +35,25 @@ async function dispatchFlow(connection, session_id, lastTick) {
             }
         }
     });
+}
+
+async function startQueue(channel) {
+    queue_playing = true;
+    channel.join().then(async (connection) => {
+        (async function play(song) {
+            const dispatcher = connection.play(song);
+            dispatcher.on('finish', () => {
+                queue.splice(0,1);
+                if (queue[0]) {
+                    play(await ytdl(queue[0]));
+                } else {
+                    queue_playing = false;
+                    connection.channel.leave();
+                    return;
+                }
+            })
+        })(await ytdl(queue[0]));
+    })
 }
 
 const commands = {
@@ -206,6 +228,32 @@ const commands = {
         'description': 'fast zoom vrrrrr',
         'method': function (message) {
             message.channel.send({files: ["./sonic.gif"]})
+        },
+        'permissions': []
+    },
+    'playmusic': {
+        'description': 'Plays a youtube video in your VC.',
+        'method': async function(message) {
+            var command_chunks = message.content.split(' ');
+            var proper_link = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
+            try {
+                if (command_chunks[1] && typeof(command_chunks[1]) == 'string' && command_chunks[1].test(proper_link)) {
+                    if (message.member.voice) {
+                        queue.push(command_chunks[1])
+                        if (!queue_playing) {
+                            startQueue(message.member.voice.channel)
+                        }
+                        message.channel.send(`Added ${command_chunks[1]} to queue.`);
+                    } else {
+                        message.channel.send('You are not in a voice channel.')
+                    }
+                } else {
+                    message.channel.send('You did not include a youtube link.');
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
         },
         'permissions': []
     }
