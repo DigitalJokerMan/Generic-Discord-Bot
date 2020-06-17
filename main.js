@@ -237,6 +237,7 @@ const commands = {
                         queue.push(command_chunks[1])
                         message.channel.send(`Added ${command_chunks[1]} to queue.`);
                         if (!queue_playing) {
+                            queue_playing = true;
                             message.member.voice.channel.join().then(async (connection) => {
                                 play(connection)
                             })
