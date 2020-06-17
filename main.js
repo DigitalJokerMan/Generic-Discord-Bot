@@ -12,7 +12,7 @@ const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token
-const queue = []
+var queue = []
 var queue_playing = false;
 
 async function getFlowData(session_id) {
