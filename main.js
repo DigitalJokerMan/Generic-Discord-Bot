@@ -26,14 +26,8 @@ async function dispatchFlow(connection, session_id, lastTick) {
     const flowData = await getFlowData(session_id);
     const dispatcher = connection.play(flowData.mp3);
 
-    dispatcher.on('speaking', playing => {
-        if (!playing) {
-            if (connection.channel.members.array().length > 1) {
-                setTimeout(async function() { await dispatchFlow(connection, session_id, (new Date()).getTime()) }, lastTick+flowData.duration - (new Date()).getTime())
-            } else {
-                connection.channel.leave();
-            }
-        }
+    dispatcher.on('finished', () => {
+        setTimeout(async function() { await dispatchFlow(connection, session_id, (new Date()).getTime()) }, lastTick+flowData.duration - (new Date()).getTime())
     });
 }
 
