@@ -32,7 +32,11 @@ async function dispatchFlow(connection, session_id, lastTick) {
 }
 
 async function play(connection) {
-    const song = await ytdl(queue[0]);
+    var song = ytdl(queue[0]).catch(err => {
+        console.error(err);
+        queue.splice(0,1);
+        play(connection);
+    })
     const dispatcher = connection.play(song, {type: 'opus'});
     dispatcher.on('finish', async () => {
         queue.splice(0,1);
