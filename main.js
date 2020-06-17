@@ -46,13 +46,6 @@ async function play(connection) {
     });
 }
 
-async function startQueue(channel) {
-    queue_playing = true;
-    channel.join().then(async (connection) => {
-        play(connection)
-    })
-}
-
 const commands = {
     'reddit': {
         description: '*Usage*: ``reddit (subreddit) (optional: custom JSON)``\nGets reddit posts and\ndisplays them in an embed.',
@@ -242,8 +235,12 @@ const commands = {
                 if (command_chunks[1] && typeof(command_chunks[1]) == 'string' && proper_link.test(command_chunks[1])) {
                     if (message.member.voice) {
                         queue.push(command_chunks[1])
-                        if (!queue_playing) startQueue(message.member.voice.channel);
                         message.channel.send(`Added ${command_chunks[1]} to queue.`);
+                        if (!queue_playing) {
+                            message.member.voice.channel.join().then(async (connection) => {
+                                play(connection)
+                            })
+                        }
                     } else {
                         message.channel.send('You are not in a voice channel.')
                     }
