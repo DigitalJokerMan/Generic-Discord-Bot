@@ -188,14 +188,18 @@ const commands = {
         'method': async function(message) {
             if (message.member.voice && message.member.voice.channel) {
                 try {
-                    const vc = message.member.voice.channel;
-                    const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
-                    const session_id = session_req.data;
-                    vc.join().then(async (connection) => {
-                        dispatchFlow(connection, session_id, (new Date()).getTime()).catch(err => {
-                            console.error(err);
+                    if (!queue_playing) {
+                        const vc = message.member.voice.channel;
+                        const session_req = await axios.get('https://inspirobot.me/api?getSessionID=1');
+                        const session_id = session_req.data;
+                        vc.join().then(async (connection) => {
+                            dispatchFlow(connection, session_id, (new Date()).getTime()).catch(err => {
+                                console.error(err);
+                            });
                         });
-                    });
+                    } else {
+                        message.channel.send('This would interrupt the currently playing queue, pls no.')
+                    }
                 }
                 catch (err) {
                     console.error(err);
