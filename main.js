@@ -252,6 +252,13 @@ const commands = {
             }
         },
         'permissions': []
+    },
+    'thanosdance': {
+        'description': 'thanos lowkey hot, i\'d fuck him!',
+        'method': function(message) {
+            message.channel.send({files: ["./thanos.gif"]})
+        },
+        'permissions': []
     }
 }
 
