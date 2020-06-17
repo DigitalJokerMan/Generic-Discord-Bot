@@ -33,9 +33,7 @@ async function dispatchFlow(connection, session_id, lastTick) {
 
 async function play(connection) {
     var song; 
-    try {
-        song = await ytdl(queue[0])
-    }
+    try { song = await ytdl(queue[0]); }
     catch (err) {
         console.error(err);
         queue.splice(0,1);
@@ -148,8 +146,8 @@ const commands = {
         permissions: ['ADMINISTRATOR', 'MANAGE_ROLES', 'NON_EXISTANT_PERM']
     }, 
     'everyone': {
-        'description': 'lol',
-        'method': function(message) {
+        description: 'lol',
+        method: function(message) {
             const members = message.guild.members.cache;
             const array = members.array();
             var msg = new String();
@@ -175,19 +173,19 @@ const commands = {
             console.log(msg);
             message.channel.send(msg).then(msg => msg.delete());
         },
-        'permissions': []
+        permissions: []
     },
     'inspire': {
-        'description': 'Gives you an AI-generated inspirational quote.\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
-        'method': async function(message) {
+        description: 'Gives you an AI-generated inspirational quote.\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
+        method: async function(message) {
             var req = await axios.get('https://inspirobot.me/api?generate=true')
             message.channel.send(`<@${message.author.id}>\n`+req.data)
         },
-        'permissions': []
+        permissions: []
     },
     'mindfulness': {
-        'description': '**You need to be in a VC.** Says various sentences to you, in order to keep you mindful. (Don\'t ask me what that means, idfk.)\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
-        'method': async function(message) {
+        description: '**You need to be in a VC.** Says various sentences to you, in order to keep you mindful. (Don\'t ask me what that means, idfk.)\n[Generated at inspirobot.me, check them out!](https://inspirobot.me/)',
+        method: async function(message) {
             if (message.member.voice && message.member.voice.channel) {
                 try {
                     if (!queue_playing) {
@@ -210,11 +208,11 @@ const commands = {
                 message.channel.send('You are not connected to a VC.');
             }
         },
-        'permissions': []
+        permissions: []
     },
     'stopvc': {
-        'description': 'Stops the bot from being mindful. (Disconnects the bot from the VC.)',
-        'method': function (message) {
+        description: 'Stops the bot from being mindful. (Disconnects the bot from the VC.)',
+        method: function (message) {
             const voiceState = message.guild.voice;
             try {
                 if (voiceState && voiceState.connection && voiceState.connection.channel) {
@@ -226,18 +224,18 @@ const commands = {
                 console.error(err);
             }
         },
-        'permissions': []
+        permissions: []
     },
     'sonic': {
-        'description': 'fast zoom vrrrrr',
-        'method': function (message) {
+        description: 'fast zoom vrrrrr',
+        method: function (message) {
             message.channel.send({files: ["./sonic.gif"]})
         },
-        'permissions': []
+        permissions: []
     },
     'playmusic': {
-        'description': 'Plays a youtube video in your VC.',
-        'method': async function(message) {
+        description: 'Plays a youtube video in your VC.',
+        method: async function(message) {
             var command_chunks = message.content.split(' ');
             var proper_link = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
             try {
@@ -262,14 +260,14 @@ const commands = {
                 console.error(err);
             }
         },
-        'permissions': []
+        permissions: []
     },
     'thanosdance': {
-        'description': 'thanos lowkey hot, i\'d fuck him!',
-        'method': function(message) {
+        description: 'thanos lowkey hot, i\'d fuck him!',
+        method: function(message) {
             message.channel.send({files: ["./thanos.gif"]})
         },
-        'permissions': []
+        permissions: []
     }
 }
 
