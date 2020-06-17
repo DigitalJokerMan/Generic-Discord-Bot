@@ -242,9 +242,7 @@ const commands = {
                 if (command_chunks[1] && typeof(command_chunks[1]) == 'string' && proper_link.test(command_chunks[1])) {
                     if (message.member.voice) {
                         queue.push(command_chunks[1])
-                        if (!queue_playing) {
-                            startQueue(message.member.voice.channel)
-                        }
+                        if (!queue_playing) startQueue(message.member.voice.channel);
                         message.channel.send(`Added ${command_chunks[1]} to queue.`);
                     } else {
                         message.channel.send('You are not in a voice channel.')
