@@ -239,7 +239,7 @@ const commands = {
             var command_chunks = message.content.split(' ');
             var proper_link = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
             try {
-                if (command_chunks[1] && typeof(command_chunks[1]) == 'string' && command_chunks[1].test(proper_link)) {
+                if (command_chunks[1] && typeof(command_chunks[1]) == 'string' && proper_link.test(command_chunks[1])) {
                     if (message.member.voice) {
                         queue.push(command_chunks[1])
                         if (!queue_playing) {
