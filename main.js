@@ -43,7 +43,7 @@ async function play(connection) {
             connection.channel.leave();
             return;
         }
-    })
+    });
 }
 
 async function startQueue(channel) {
@@ -213,6 +213,7 @@ const commands = {
             try {
                 if (voiceState && voiceState.connection && voiceState.connection.channel) {
                     voiceState.connection.channel.leave();
+                    if (queue_playing) {queue_playing = false};
                 }
             }
             catch (err) {
