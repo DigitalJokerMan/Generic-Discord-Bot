@@ -43,7 +43,7 @@ async function startQueue(channel) {
         const songe = await ytdl(queue[0])
         (async function play(song) {
             const dispatcher = connection.play(song);
-            dispatcher.on('finish', () => {
+            dispatcher.on('finish', async () => {
                 queue.splice(0,1);
                 if (queue[0]) {
                     const songe = await ytdl(queue[0]);
