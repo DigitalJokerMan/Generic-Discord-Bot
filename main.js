@@ -248,7 +248,7 @@ const commands = {
                         message.channel.send('You are not in a voice channel.')
                     }
                 } else {
-                    message.channel.send('You did not include a youtube link.');
+                    message.channel.send('You did not include a youtube link. (The youtube link should be the first and only argument.)');
                 }
             }
             catch (err) {
