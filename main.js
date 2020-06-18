@@ -6,6 +6,7 @@ const tools = require('./tools.js');
 const imgur = require('imgur');
 const axios = require('axios');
 const ytdl = require('ytdl-core-discord');
+const { setIntervalAsync } = require('set-interval-async/dynamic');
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 
 const proc = process.env;
@@ -281,7 +282,7 @@ function chance(percent) {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
-    setInterval(async function() { 
+    setIntervalAsync(async function() { 
         client.users.fetch('309423185500176387').then(async (user) => {
             const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1});
             const data = search.data;
