@@ -284,11 +284,10 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
     setIntervalAsync(async function() { 
         client.users.fetch('309423185500176387').then(async (user) => {
-            const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: Math.floor(range(1, 50))});
-            const data = search.data;
-            const keys = Object.keys(data);
-            const chosen = data[`${Math.floor(range(0, keys.length-1))}`];
-            user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay. ${chosen.images[0].link}`)
+            const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1});
+            const data = Object.values(search.data);
+            var chosen = data[Math.floor(range(0, data.length-1))]; console.log(chosen);
+            user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay. ${chosen ? chosen.images[0].link : ''}`)
         })
     }, 15000)
 });
