@@ -284,7 +284,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
     setIntervalAsync(async function() { 
         client.users.fetch('309423185500176387').then(async (user) => {
-            const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1});
+            const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: math.floor(range(1, 100))});
             const data = search.data;
             const keys = Object.keys(data);
             const chosen = data[`${Math.floor(range(0, keys.length-1))}`];
