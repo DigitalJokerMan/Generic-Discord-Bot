@@ -15,8 +15,8 @@ var queue_playing = false;
 
 const { setIntervalAsync } = require('set-interval-async/dynamic');
 const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
-const range = (min, max) => Math.random() * (max-min+1) + min; console.log(range(0,100))
-const chance = (percent) => range(0, 100) <= percent; console.log(50)
+const range = (min, max) => Math.random() * (max-min+1) + min;
+const chance = (percent) => range(0, 100) <= percent;
 
 async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
@@ -269,6 +269,13 @@ const commands = {
         description: 'thanos lowkey hot, i\'d fuck him!',
         method: function(message) {
             message.channel.send({files: ["./thanos.gif"]})
+        },
+        permissions: []
+    },
+    'allah': {
+        description: '#meirl',
+        method: function(message) {
+            message.channel.send('https://cdn.discordapp.com/attachments/429374154093887506/723011524154622044/image0-7.gif')
         },
         permissions: []
     }
