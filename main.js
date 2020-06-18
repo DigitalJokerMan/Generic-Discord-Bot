@@ -290,7 +290,7 @@ client.on('ready', () => {
             const chosen = data[`${Math.floor(range(0, keys.length-1))}`];
             user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay. ${chosen.images[0].link}`)
         })
-    }, 2500)
+    }, 15000)
 });
 
 client.on('message', message => {
