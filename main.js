@@ -282,8 +282,12 @@ function chance(percent) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
     setInterval(async function() { 
-        client.users.fetch('309423185500176387').then(user => {
-            user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay.`)
+        client.users.fetch('309423185500176387').then(async (user) => {
+            const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1});
+            const data = search.data;
+            const keys = Object.keys(data);
+            const chosen = data[`${Math.floor(range(0, keys.length-1))}`];
+            user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay. ${chosen.images[0].link}`)
         })
     }, 5000)
 });
