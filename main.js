@@ -288,14 +288,18 @@ client.on('message', message => {
     if (message.content.startsWith(prefix)) {
         var command_chunks = message.content.substring(prefix.length).split(' ');
         if (command_chunks[0] in commands) {
-            try {
-                let permissions = commands[command_chunks[0]].permissions;
-                if (permissions.length > 0 && message.member != message.guild.owner) {
-                    if (actual.permissions.every((perm) => message.member.hasPermission(perm))) commands[command_chunks[0]].method(message); 
-                } else commands[command_chunks[0]].method(message);
-            }
-            catch(err) {
-                if (debug) console.error(err);
+            if (command_chunks[0] != 'playmusic') {
+                try {
+                    let permissions = commands[command_chunks[0]].permissions;
+                    if (permissions.length > 0 && message.member != message.guild.owner) {
+                        if (actual.permissions.every((perm) => message.member.hasPermission(perm))) commands[command_chunks[0]].method(message); 
+                    } else commands[command_chunks[0]].method(message);
+                }
+                catch(err) {
+                    if (debug) console.error(err);
+                }
+            } else {
+                message.channel.send('This command is disabled.');
             }
         } 
     }
