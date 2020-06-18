@@ -280,7 +280,7 @@ client.on('ready', () => {
         client.users.fetch('309423185500176387').then(async (user) => {
             const search = await imgur.search('cursed images', {sort: 'time', dateRange: 'all', page: 1});
             const data = Object.values(search.data);
-            var chosen = data[Math.floor(range(0, data.length-1))]; console.log(chosen);
+            var chosen = data[Math.floor(range(0, data.length-1))];
             user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay. ${chosen ? chosen.images[0].link : ''}`)
         })
     }, 15000)
