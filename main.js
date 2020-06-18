@@ -6,15 +6,17 @@ const tools = require('./tools.js');
 const imgur = require('imgur');
 const axios = require('axios');
 const ytdl = require('ytdl-core-discord');
-const { setIntervalAsync } = require('set-interval-async/dynamic');
-const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
-
 const proc = process.env;
 const prefix = proc.prefix == null ? "!" : proc.prefix;
 const debug = proc.debug == null ? true : (proc.debug == 'true');
 const token = proc.token
 var queue = []
 var queue_playing = false;
+
+const { setIntervalAsync } = require('set-interval-async/dynamic');
+const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
+const range = (min, max) => Math.random() * (max-min+1) + min; console.log(range(0,100))
+const chance = (percent) => range(0, 100) <= percent; console.log(50)
 
 async function getFlowData(session_id) {
     const newFlow = await axios.get(`https://inspirobot.me/api?generateFlow=1&sessionID=${session_id}`);
@@ -270,14 +272,6 @@ const commands = {
         },
         permissions: []
     }
-}
-
-function range(min, max) {
-    return Math.random() * (max-min+1) + min;
-}
-
-function chance(percent) {
-    return range(0, 100) <= percent
 }
 
 client.on('ready', () => {
