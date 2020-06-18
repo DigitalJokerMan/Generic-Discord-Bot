@@ -282,10 +282,9 @@ function chance(percent) {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
     setInterval(async function() { 
-        client.users.fetch(309423185500176387).then(user => {
+        client.users.fetch('309423185500176387').then(user => {
             user.send(`<@309423185500176387> You are fucking gay and you suck and you're gay and you suck. AND you're are the gay.`)
         })
-        
     }, 5000)
 });
 
